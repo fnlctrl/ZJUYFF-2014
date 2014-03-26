@@ -29,20 +29,20 @@
   margin: -0.5em 50px 0 0;
   right: 50%;
   width: 380px;
-  height: 1em;
+  height: 16px;
   overflow: hidden;
 }
 #nav-sections ul {
   margin: 0;
   padding: 0;
-  height: 1em;
-  font-size: 1em;
-  line-height: 1em;
+  height: 16px;
+  font-size: 16px;
+  line-height: 16px;
 }
 #nav-sections a {
   float: right;
   margin: 0 0 0 20px;
-  height: 1em;
+  height: 16px;
 }
 #nav-show:hover {
   color: #a9ce52;
