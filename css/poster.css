@@ -1,0 +1,50 @@
+#nav-poster {
+  color: #1dade5;
+  font-weight: bold;
+}
+
+/******main-info part******/
+#container {
+  position: absolute;
+  top: 60px;
+  width: 100%;
+}
+#main-info {
+  left: 50%;
+  position: absolute;
+  top: 0;
+  padding-left: 70px;
+  width: 400px;  
+}
+#main-info-container {
+  height: 258px;
+  position: absolute;
+  top: 20%;
+}
+#main-info-subtitle {
+  margin-bottom: 0;
+}
+#main-info-title {
+  font-size: 2.5em;
+  margin-top: 0;
+  margin-bottom: 50px;
+}
+#main-info-content {
+  font-size: 0.8em;
+  line-height: 0.3;
+}
+.main-info-button {
+  background-color: #1dab41;
+  border-radius: 5px;
+  cursor: pointer; 
+  float: left;
+  font-size: 0.8em;
+  height: 30px;
+  margin-top: 20px;
+  text-align: center;
+  padding-top: 5px;
+  width: 120px;
+}
+#main-info-vote {
+  margin-left: 20px;
+}

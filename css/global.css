@@ -1,0 +1,25 @@
+body {
+  background-color: #ddd;
+  font-family: "Microsoft YaHei";
+  margin: 0;
+  padding: 0;
+}
+div {
+  display: block;
+}
+a {
+  color: #555;
+  text-decoration: none;
+}
+ul {
+  list-style: none;
+}
+.svg {
+  -moz-user-select: none; 
+  -khtml-user-select: none; 
+  -webkit-user-select: none; 
+  user-select: none;
+}
+.left {
+  float: left;
+}

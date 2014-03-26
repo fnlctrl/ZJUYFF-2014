@@ -1,0 +1,152 @@
+#nav-bar {
+  height: 60px;
+  width: 100%;
+  background-color: #eee;
+  box-shadow: -1px 1px 3px #555;
+  margin: 0 auto;
+  position: fixed;
+  z-index: 10;
+}
+#nav-logo {
+  right: 50%;
+  margin-right: -24px; 
+  position: absolute;
+  top: 5px;
+  cursor: pointer;
+}
+#nav-name {
+  top: 0;
+  right: 50%;
+  height: 60px;
+  width: 285px;
+  position: absolute;
+  margin: 0 -330px 0 0;
+}
+#nav-sections {
+  position: absolute;
+  padding: 0;
+  top: 50%;
+  margin: -0.5em 50px 0 0;
+  right: 50%;
+  width: 380px;
+  height: 1em;
+  overflow: hidden;
+}
+#nav-sections ul {
+  margin: 0;
+  padding: 0;
+  height: 1em;
+  font-size: 1em;
+  line-height: 1em;
+}
+#nav-sections a {
+  float: right;
+  margin: 0 0 0 20px;
+  height: 1em;
+}
+#nav-show:hover {
+  color: #a9ce52;
+  font-weight: bold;
+}
+#nav-show:active {
+  color: #00853c;
+  font-weight: bold;
+}
+#nav-forum:hover {
+  color: #f5ab2d;
+  font-weight: bold;
+}
+#nav-forum:active {
+  color: #e95520;
+  font-weight: bold;
+}
+#nav-poster:hover {
+  color: #7fc7ef;
+  font-weight: bold;
+}
+#nav-poster:active {
+  color: #008cce;
+  font-weight: bold;
+}
+#nav-dub:hover {
+  color: #c38f8d;
+  font-weight: bold;
+}
+#nav-dub:active {
+  color: #74308d;
+  font-weight: bold;
+}
+#nav-logo:hover path, #nav-logo:hover polygon {
+  fill: #1dade5;
+}
+#nav-logo:active path, #nav-logo:active polygon {
+  fill: #008cce;
+}
+#nav-menu {
+  width: 0;
+  height: 160px;
+  top: 60px;
+  left: 0;
+  background: #fff;
+  position: fixed;
+  overflow: hidden;
+  box-shadow: -1px 1px 3px #555;
+  z-index: -1;
+}
+#nav-menu-icon {
+  position: absolute;
+  left: 0;
+  top: 0;
+  cursor: pointer;
+}
+#nav-menu a {
+  position: relative;
+  top: 27%;
+}
+.menu-item {
+  width: 150px;
+  height: 50px;
+  left: 0;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border-top: 1px solid #ddd;
+}
+.menu-item:hover {
+  color: #ef821e;
+  background-color: #eee;
+}
+.menu-item:hover a{
+  color: #ef821e;
+  font-weight: bold;
+  border-bottom: 1px solid #ef821e;
+}
+#nav-menu-icon:hover path {
+  fill: #ef821e;
+}
+#nav-menu-icon:hover path {
+  fill: #ef821e;
+}
+#nav-menu-icon:active path {
+  fill: #e95520;
+}
+#nav-menu-icon:active rect {
+  fill: #ccc;
+}
+#menu-timeline:hover rect{
+  fill: #ef821e;
+}
+#menu-timeline:hover path{
+  fill: #888;
+}
+#menu-map:hover path:nth-child(3){
+  fill: #777;
+}
+#menu-map:hover path:nth-child(4){
+  fill: #ef821e;
+}
+#menu-map:hover polygon{
+  fill: #999;
+}
+#menu-filmguide:hover polygon{
+  fill: #ef821e;
+}
