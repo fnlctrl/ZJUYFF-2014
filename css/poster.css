@@ -21,7 +21,6 @@ body {
   width: 400px; 
 }
 #main-info {
-  height: 258px;
   margin-left: 60px;
   position: absolute;
   top: 20%;
@@ -37,11 +36,11 @@ body {
 #main-info-content p{
   font-size: 15px;
 }
-.main-info-button {
+.main-button {
   background-color: #1dab41;
   border-radius: 5px;
-  cursor: pointer; 
-  float: left;
+  cursor: pointer;
+  display: inline-block;
   font-size: 15px;
   height: 30px;
   margin-top: 20px;
@@ -90,4 +89,8 @@ body {
 #submit-poster {
   float: left;
   height: 100%;
+}
+#submit-poster-button {
+  bottom: 30px;
+  left: 30px;
 }
