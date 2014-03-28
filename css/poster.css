@@ -5,27 +5,27 @@ body {
   color: #1dade5;
   font-weight: bold;
 }
-
-/******main-info part******/
 #container {
   background-color: #252525;
   position: absolute;
   top: 60px;
   width: 100%;
 }
-#main-info {
+
+/******main-info part******/
+#main-info-container {
+  height: 100%;
   left: 50%;
   position: absolute;
   top: 0;
-  padding-left: 70px;
-  width: 400px;  
+  width: 400px; 
 }
-#main-info-container {
+#main-info {
   height: 258px;
+  margin-left: 60px;
   position: absolute;
   top: 20%;
-}
-#main-info-subtitle {
+}#main-info-subtitle {
   font-size: 18px;
   margin-bottom: 0;
 }
@@ -34,9 +34,8 @@ body {
   margin-top: 0;
   margin-bottom: 50px;
 }
-#main-info-content {
+#main-info-content p{
   font-size: 15px;
-  line-height: 0.3;
 }
 .main-info-button {
   background-color: #1dab41;
@@ -52,4 +51,43 @@ body {
 }
 #main-info-vote {
   margin-left: 20px;
+}
+
+/*****submit part*****/
+#submit-container {
+  background-color: #fff;
+  height: 100%;
+  position: absolute;
+  width: 760px;
+}
+#submit-info {
+  color: #444;
+  float: left;
+  font-weight: bold;
+  padding: 30px;
+  width: 300px;
+}
+#submit-info-mail, textarea {
+  border: 1px solid #888;
+  border-radius: 5px;
+  color: #888;
+  font-family: "Microsoft YaHei";
+  margin-top: 10px;
+  margin-bottom: 25px;
+  width: 100%;
+}
+#submit-info-mail {
+  height: 25px;
+}
+#submit-info-team, #submit-info-intro {
+  height: 100px;
+}
+#submit-remark {
+  color: #000;
+  font-size: 12px;
+  margin-top: 62px;
+}
+#submit-poster {
+  float: left;
+  height: 100%;
 }

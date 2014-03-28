@@ -31,8 +31,29 @@
 		<div class="menu-item" id="menu-filmguide"><img id="menu-filmguide-icon"class="svg left" src="./img/menu-filmguide.svg"/><a class="left" href="">观影指南</a></div>
 	</div>
 	<div id="container">
-		<div id="main-info">
-			<div id="main-info-container">
+		<form id="submit-container">
+			<div id="submit-info">
+				<p>浙大邮箱</p>
+				<input id="submit-info-mail" type="text" name="mail" value="bob1122@zju.edu.cn"><br/>
+				<p>团队成员信息</p>
+				<textarea id="submit-info-team" type="text" name="team"placeholder="姓名,学号,学院,联系方式"></textarea><br/>
+				<p>作品介绍</p>
+				<textarea id="submit-info-intro" type="text" name="intro" maxlength="140" placeholder="140字以内"></textarea><br/>
+				<input type="submit" >
+				<div id="submit-remark">
+					<p>注：</p>
+					<p>每个团队请使用一个固定的浙大邮箱。</p>
+					<p>获奖信息将会发送到所填写的浙大邮箱中，</p>
+					<p>只要填写相同的邮箱就可以重复提交，</p>
+					<p>新上传的版本将会替换早先的版本。</p>
+				</div>
+			</div>
+			<div id="submit-poster">
+				<div id="submit-origin-poster"></div>
+			</div>
+		</form>
+		<div id="main-info-container">
+			<div id="main-info">
 				<p id="main-info-subtitle">浙江大学第二届青年电影节</p>
 				<p id="main-info-title">海报扮演大赛</p>
 				<div id="main-info-content">
@@ -47,7 +68,24 @@
 				<div id="main-info-vote" class="main-info-button">我要投票</div>
 			</div>
 		</div>
-		<div id=""></div>
+		<div id="poster-container">
+			<div id="col-101" class="poster-col">
+				<img id="col-101-top" class="posters"src=""/>
+				<img id="col-101-bottom" class="posters"src=""/>
+			</div>
+			<div id="col-100" class="poster-col">
+				<img id="col-100-top" class="posters"src=""/>
+				<img id="col-100-bottom" class="posters"src=""/>
+			</div>
+			<img id="col-now" src=""/>
+			<div id="col-99" class="poster-col">
+				<img id="col-99-top" class="posters"src=""/>
+				<img id="col-99-bottom" class="posters"src=""/>
+			</div>
+		</div>
+		<div id="left-button"></div>
+		<div id="right-button"></div>
+		<div id="scale-button"></div>
 	</div>
 </body>
 </html>
