@@ -1,0 +1,96 @@
+body {
+  overflow: hidden;
+}
+.slide {
+  float: left;
+  width: 10vw;
+  height: 300px;
+  background-color: #eee;
+  z-index: -1;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  top: 60px;
+  position: relative; 
+}
+.slide-selected {
+  width: 60vw;
+  background-color: #fff;
+  z-index: -1;
+}
+.main-title {
+  font-size: 36px;
+  width: 36px;
+  font-weight: bold;
+  top: 90px;
+  left: 50%;
+  margin: 0 0 0 -18px;
+  position: absolute;
+  line-height: 40px;
+}
+.main-title-selected {
+  font-size: 36px;
+  width: 216px;
+  font-weight: bold;
+  top: 25px;
+  left: 100px;
+  position: absolute;
+}
+.main-icon {
+  position: absolute;
+  left: 50%;
+  margin: 0 0 0 -20px;
+  top: 30px;
+}
+.main-icon-selected {
+  position: absolute;
+  left: 30px;
+  top: 30px;
+}
+#main-show {
+  color: #1dab41;
+}
+#main-forum {
+  color: #ef821e;
+}
+#main-poster {
+  color: #1dade5;
+}
+#main-dub {
+  color: #90529c;
+}
+#main-show:hover {
+  color: #00853c;
+}
+#main-forum:hover {
+  color: #e95520;
+}
+#main-poster:hover {
+  color: #008cce;
+}
+#main-dub:hover {
+  color: #74308d;
+}
+/*Change Color of SVGs on hover*/
+#main-show:hover path {
+  fill: #00853c;
+}
+#main-show:hover polygon {
+  fill: #a9ce52;
+}
+#main-forum:hover polygon {
+  fill: #e95520;
+}
+#main-poster:hover circle {
+ fill: #008cce;
+}
+#main-poster:hover polygon {
+ fill: #7fc7ef;
+}
+#main-dub:hover path:nth-child(1) {
+  fill: #74308d;
+}
+#main-dub:hover path:nth-child(2) {
+  fill: #c38fbd;
+}
