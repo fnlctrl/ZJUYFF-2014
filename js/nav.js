@@ -20,9 +20,9 @@ $(document).ready(function() {
 	});
 });
 $(window).bind('load resize',function() {
-	window.h = $(window).height();
-	window.w = $(window).width();
-	if (window.w<850) {
+	window.H = $(window).height();
+	window.W = $(window).width();
+	if (window.W<850) {
 		$('#nav-name').animate({right:0},{
 			duration: 200,
 			queue: false
