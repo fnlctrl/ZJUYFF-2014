@@ -1,40 +1,55 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<meta charset="utf-8"/>
-	<link rel="stylesheet" type="text/css" href="./css/global.css">
-	<link rel="stylesheet" type="text/css" href="./css/main.css">
-	<link rel="stylesheet" type="text/css" href="./css/nav.css">
-	<script src="./js/jquery-2.1.0.min.js"></script>
-	<script src="./js/global.js"/></script>
-	<script src="./js/main.js"/></script>
-	<script src="./js/nav.js"/></script>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="./css/global.css">
+  <link rel="stylesheet" type="text/css" href="./css/main.css">
+  <link rel="stylesheet" type="text/css" href="./css/nav.css">
+  <script src="./js/jquery-2.1.0.min.js"></script>
+  <script src="./js/global.js"/></script>
+  <script src="./js/main.js"/></script>
+  <script src="./js/nav.js"/></script>
 </head>
 <body>
-	<div id="nav-bar">
-		<div id="nav-sections">
-			<ul>
-				<a href=""><li id="nav-dub">配音大赛</li></a>
-				<a href=""><li id="nav-poster">海报扮演</li></a>
-				<a href=""><li id="nav-forum">论坛讲座</li></a>
-				<a href=""><li id="nav-show">放映单元</li></a>
-			</ul>
-		</div>
-		<img id="nav-menu-icon" class="svg" src="img/menu.svg"/>
-		<div id="nav-logo"><img class="svg" src="img/FilmFestivalLogo.svg"/></div>
-		<div id="nav-name"><img class="svg" src="img/ZJU YOUTH FILM FESTIVAL.svg"/></div>
-	</div>
-	<div id="nav-menu">
-		<div class="menu-item" id="menu-timeline"><img id="menu-timeline-icon" class="svg left" src="./img/menu-timeline.svg"/><a class="left" href="">时间轴</a></div>
-		<div class="menu-item" id="menu-map"><img id="menu-map-icon" class="svg left" src="./img/menu-map.svg"/><a class="left" href="">地图</a></div>
-		<div class="menu-item" id="menu-filmguide"><img id="menu-filmguide-icon"class="svg left" src="./img/menu-filmguide.svg"/><a class="left" href="">观影指南</a></div>
-	</div>
-	<div id="main-container">
-		<div id='slide-1' class='current-slide'></div>
-		<div id='slide-2' class='slide'></div>
-		<div id='slide-3' class='slide'></div>
-		<div id='slide-4' class='slide'></div>
-		<div id='slide-5' class='slide'></div>
-	</div>
+  <div id="nav-bar">
+    <div id="nav-sections">
+      <ul>
+        <a href=""><li id="nav-dub">配音大赛</li></a>
+        <a href=""><li id="nav-poster">海报扮演</li></a>
+        <a href=""><li id="nav-forum">论坛讲座</li></a>
+        <a href=""><li id="nav-show">放映单元</li></a>
+      </ul>
+    </div>
+    <img id="nav-menu-icon" class="svg" src="img/menu.svg"/>
+    <div id="nav-logo"><img class="svg" src="img/FilmFestivalLogo.svg"/></div>
+    <div id="nav-name"><img class="svg" src="img/ZJU YOUTH FILM FESTIVAL.svg"/></div>
+  </div>
+  <div id="nav-menu">
+    <div class="menu-item" id="menu-timeline"><img id="menu-timeline-icon" class="svg left" src="./img/menu-timeline.svg"/><a class="left" href="">时间轴</a></div>
+    <div class="menu-item" id="menu-map"><img id="menu-map-icon" class="svg left" src="./img/menu-map.svg"/><a class="left" href="">地图</a></div>
+    <div class="menu-item" id="menu-filmguide"><img id="menu-filmguide-icon"class="svg left" src="./img/menu-filmguide.svg"/><a class="left" href="">观影指南</a></div>
+  </div>
+  <div id="main-container">
+    <div id="main" class="slide slide-selected">
+       <div class="main-title main-title-selected" style="top:25px">浙江大学<br>第二届<br>青年电影节</div>
+    </div>
+    <div id="main-show" class="slide">
+      <div id="main-show-icon" class='main-icon'><img class="svg" src="./img/main-show.svg"/></div>
+      <div class="main-title">放映单元</div>
+    </div>
+    <div id="main-forum" class="slide">
+      <div id="main-forum-icon" class='main-icon'><img class="svg" src="./img/main-forum.svg"/></div>
+      <div class="main-title">论坛讲座</div>
+    </div>
+    <div id="main-poster" class="slide">
+      <div id="main-poster-icon" class='main-icon'><img class="svg" src="./img/main-poster.svg"/></div>
+      <div class="main-title">海报扮演大赛</div>
+    </div>
+    <div id="main-dub" class="slide">
+      <div id="main-dub-icon" class='main-icon'><img class="svg" src="./img/main-dub.svg"/></div>
+      <div class="main-title">配音大赛</div>
+    </div>
+  </div>
 </body>
 </html>
