@@ -1,5 +1,6 @@
 body {
   color: #fff;
+  overflow-x: hidden;
   z-index: 0;
 }
 #nav-poster {
@@ -56,6 +57,7 @@ body {
 /*****submit part*****/
 #submit-container {
   background-color: #fff;
+  display: none;
   height: 100%;
   position: absolute;
 }
@@ -81,12 +83,27 @@ body {
 #submit-info-team, #submit-info-intro {
   height: 100px;
 }
+.submit-info-button {
+  background-color: #888;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: bold;
+  height: 30px;
+  margin-top: 20px;
+  text-align: center;
+  padding-top: 5px;
+  width: 120px;
+}
 #submit-remark {
   color: #000;
   font-size: 12px;
   margin-top: 62px;
 }
 #submit-poster {
+  background-color: #dbdcdc;
   color: #444;
   float: left;
   height: 100%;
@@ -121,4 +138,9 @@ body {
   bottom: 30px;
   left: 15px;
   position: absolute;
+}
+
+/******poster part*****/
+.poster-col {
+  float: left;
 }
