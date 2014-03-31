@@ -1,5 +1,6 @@
 body {
   color: #fff;
+  z-index: 0;
 }
 #nav-poster {
   color: #1dade5;
@@ -57,7 +58,6 @@ body {
   background-color: #fff;
   height: 100%;
   position: absolute;
-  width: 760px;
 }
 #submit-info {
   color: #444;
@@ -87,10 +87,38 @@ body {
   margin-top: 62px;
 }
 #submit-poster {
+  color: #444;
   float: left;
   height: 100%;
 }
+#submit-poster-title {
+  font-weight: bold;
+  margin-left: 36px;
+  margin-top: 30px;
+}
+#submit-poster-content {
+  left: 40%;
+  top: 30%;
+  position: relative;
+}
 #submit-poster-button {
   bottom: 30px;
-  left: 30px;
+  left: 400px;
+  position: absolute;
+}
+#submit-origin-poster {
+  background-color: #888;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+}
+#submit-origin-poster-title {
+  font-weight: bold;
+  margin-top: 15px;
+  margin-left: 15px;
+}
+#submit-origin-poster-button {
+  bottom: 30px;
+  left: 15px;
+  position: absolute;
 }

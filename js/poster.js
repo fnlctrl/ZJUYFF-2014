@@ -12,6 +12,7 @@ function setElementSize() {
 
 	$('#submit-poster').css('width', sw.toString());
 	$('#submit-container').css('width', (sw + 360).toString());
+	$('#submit-origin-poster').width(sw / 8 * 3).height(sw / 16 * 9);
 
 	$('.posters').css('height', posterH.toString());
 	$('.posters').css('width', posterW.toString());
