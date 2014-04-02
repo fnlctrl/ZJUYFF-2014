@@ -34,7 +34,7 @@
 		<form id="submit-container">
 			<div id="submit-info">
 				<p>浙大邮箱</p>
-				<input id="submit-info-mail" type="text" name="mail" value="bob1122@zju.edu.cn"><br/>
+				<textarea id="submit-info-mail" type="text" name="mail" placeholder="xxx@zju.edu.cn"></textarea><br/>
 				<p>团队成员信息</p>
 				<textarea id="submit-info-team" type="text" name="team"placeholder="姓名,学号,学院,联系方式"></textarea><br/>
 				<p>作品介绍</p>
@@ -63,6 +63,18 @@
 				</div>
 			</div>
 		</form>
+		<div id="poster-container">
+			<div class="poster-col">
+				<img class="posters"src=""/>
+				<img class="posters"src=""/>
+			</div>
+			<div class="poster-col">
+				<img class="posters"src=""/>
+				<img class="posters"src=""/>
+			</div>
+			<div id="poster-current" class="poster-col">
+				<img src="">
+			</div>
 		<div id="main-info-container">
 			<div id="main-info">
 				<p id="main-info-subtitle">浙江大学第二届青年电影节</p>
@@ -78,24 +90,21 @@
 				<div id="main-info-submit" class="main-button">我要参加</div>
 				<div id="main-info-vote" class="main-button">我要投票</div>
 			</div>
-		</div>
-		<div id="poster-container">
-			<div id="col-101" class="poster-col">
-				<img id="col-101-top" class="posters"src=""/>
-				<img id="col-101-bottom" class="posters"src=""/>
-			</div>
-			<div id="col-100" class="poster-col">
-				<img id="col-100-top" class="posters"src=""/>
-				<img id="col-100-bottom" class="posters"src=""/>
-			</div>
-			<img id="col-now" src=""/>
-			<div id="col-99" class="poster-col">
-				<img id="col-99-top" class="posters"src=""/>
-				<img id="col-99-bottom" class="posters"src=""/>
+			<div id="submit-info">
+				<p>参赛奖品:</p>
+				<p>电影节精美纪念品+第二课堂加分</p>
+				<br>
+				<p>截止时间:</p>
+				<p>5月5日晚23:59分</p>
 			</div>
 		</div>
-		<div id="left-button"></div>
-		<div id="right-button"></div>
+			<div class="poster-col">
+				<img class="posters"src=""/>
+				<img class="posters"src=""/>
+			</div>
+		</div>
+		<div id="left-button" class="poster-button"></div>
+		<div id="right-button" class="poster-button"></div>
 		<div id="scale-button"></div>
 	</div>
 </body>

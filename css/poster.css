@@ -7,13 +7,30 @@ body {
   color: #1dade5;
   font-weight: bold;
 }
+/******Container Part*******/
 #container {
   background-color: #252525;
   position: absolute;
   top: 60px;
   width: 100%;
 }
-
+.poster-button {
+  display: none;
+  cursor: pointer;
+  height: 80px;
+  margin-top: -40px;
+  top: 50%;
+  width: 40px;
+  position: absolute;
+}
+#left-button {
+  background-image: url('../img/poster-left-button.svg');
+  left: 60px;
+}
+#right-button {
+  background-image: url('../img/poster-right-button.svg');
+  right: 60px;
+}
 /******main-info part******/
 #main-info-container {
   height: 100%;
@@ -52,6 +69,9 @@ body {
 }
 #main-info-vote {
   margin-left: 20px;
+}
+#submit-info {
+
 }
 
 /*****submit part*****/
@@ -141,6 +161,6 @@ body {
 }
 
 /******poster part*****/
-.poster-col {
+.poster {
   float: left;
 }
