@@ -70,8 +70,8 @@ body {
 #main-info-vote {
   margin-left: 20px;
 }
-#submit-info {
-
+#main-submit-info {
+  display: none;
 }
 
 /*****submit part*****/
@@ -80,6 +80,7 @@ body {
   display: none;
   height: 100%;
   position: absolute;
+  z-index: 2;
 }
 #submit-info {
   color: #444;

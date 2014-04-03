@@ -1,42 +1,68 @@
 $(document).ready(function() {
-	var mainInfoContainer = $('#main-info-container');
+	var view = new View();
+	window.onresize = view.setElement();
+	view.createCurrentPoster();
 	$('#main-info-submit').click(function() {
-		var w = $(window).width(),
-				h = $(window).height() - 60;
-		var submitWidth = h / 3 * 2 + 760;
-		$('#submit-container').slideDown(1000);
-		if (w<submitWidth)
-			mainInfoContainer.slideUp(400);
+		$('#submit-container').slideDown(800);
 	});
 
 	$('#submit-back-button').click(function() {
-		var w = $(window).width(),
-				h = $(window).height() - 60;
-		var submitWidth = h / 3 * 2 + 760;
-		$('#submit-container').slideUp(1000);
-		if (w<submitWidth)
-			mainInfoContainer.slideDown(1000);
+		$('#submit-container').slideUp(800);
 	});
-
-	function setElementSize() {
-	// set element width and height
-		var w = $(window).width(),
-				h = $(window).height();
-		var containerHeight = h-60;
-		var posterH = (containerHeight / 2),
-				posterW = (containerHeight / 6 * 2),
-				sw = (containerHeight / 3 * 2);
-		$('#container').css('height', containerHeight.toString());
-
-		mainInfoContainer.width(sw);
-	
-		$('#submit-poster').css('width', sw.toString());
-		$('#submit-container').css('width', (sw + 360).toString());
-		$('#submit-origin-poster').width(sw / 8 * 3).height(sw / 16 * 9);
-	
-		$('.posters').css('height', posterH.toString()).css('width', posterW.toString());
-		$('.poster-col').css('width', posterW.toString()).css('height', containerHeight.toString());
-	}
-	setElementSize();
-	window.onresize = setElementSize;
 });
+
+function View() {
+// set element width and height
+	this.setElement = function() {
+		this.w = $(window).width(),
+		this.h = $(window).height();
+		this.containerHeight = this.h-60;
+		this.posterH = (this.containerHeight / 2),
+		this.posterW = (this.containerHeight / 6 * 2),
+		this.sw = (this.containerHeight / 3 * 2);
+		this.mainInfo = $('#main-info-container');
+		this.mainInfoPosition = this.mainInfo.position();
+
+		$('#container').height(this.containerHeight);
+		this.mainInfo.width(this.sw);	
+		$('#submit-poster').width(this.sw);
+		$('#submit-container').width(this.sw + 360);
+		$('#submit-origin-poster').width(this.sw / 8 * 3).height(this.sw / 16 * 9);
+	}
+// insert current poster
+	this.createCurrentPoster = function() {
+		var currentPoster = document.createElement('img');
+		$(currentPoster).height(this.containerHeight).width(this.sw);
+		$(currentPoster).css({
+			position: 'absolute',
+			left: (this.mainInfoPosition.left - this.sw).toString() + "px",
+		});
+		$(currentPoster).attr({
+			id: 'current-poster',
+			class: 'posters',
+		});
+		$('#poster-container').prepend(currentPoster);
+	}
+
+	this.createPosters = function(position) {
+		var posterTop = document.createElement('img'),
+				posterBottom = document.createElement('img');
+		$(postertop).css({
+			position: 'absolute',
+			left: position.toString() + "px",
+			top: 0
+		});
+		$(posterTop).attr({
+			class: 'posters',
+		});
+
+		$(posterBottom).css({
+			position: 'absolute',
+			left: position.toString() + "px",
+			top: this.posterH.toString() + "px"
+		});
+		$(posterBottom).attr({
+			class: 'posters',
+		});
+	}
+}
