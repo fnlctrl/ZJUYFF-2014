@@ -1,7 +1,6 @@
 $(document).ready(function() {
 	var view = new View();
-	view.setElement();
-	window.onresize = view.setElement;
+	window.onresize = view.setElement();
 	view.createCurrentPoster();
 	view.fillPosters();
 	$('#main-info-submit').click(function() {
@@ -13,8 +12,6 @@ $(document).ready(function() {
 	});
 
 	$('#main-info-vote').bind('click', view.hideMainInfo);
-	$('#left-button').bind('click', view.slide);
-	$('#right-button').bind('click', view.slide);
 });
 
 function View() {
@@ -29,7 +26,6 @@ function View() {
 		this.sw = (this.containerHeight / 3 * 2);
 		this.mainInfo = $('#main-info-container');
 		this.mainInfoPosition = this.mainInfo.position().left;
-		this.mainInfo.css('left', this.mainInfoPosition.toString() + 'px');
 
 		$('#container').height(this.containerHeight);
 		this.mainInfo.width(this.sw);	
@@ -48,9 +44,6 @@ function View() {
 		$(currentPoster).attr({
 			id: 'current-poster',
 			class: 'posters',
-			/******test code******/
-			src: './img/1.jpg' 
-			/******test code******/
 		});
 		$('#poster-container').prepend(currentPoster);
 	}
@@ -106,21 +99,8 @@ function View() {
 		$('.posters').each(function(index) {
 			var left = $(this).position().left;
 			if (left>that.mainInfoPosition)
-				$(this).animate({left: '-=' + that.sw}, 1000);
+				$(this).animate({left: '-=' + that.sw}, 400);
 		});
-		$('#main-info-container').animate({left: '-=' + that.sw}, 1000);
-	}
-
-	this.slide = function() {
-		if (this.id == 'left-button')
-			$('.posters').each(function(index) {
-				var left = $(this).position().left;
-				$(this).animate({left: '+=' + that.posterW}, 1000);
-			});
-		else
-			$('.posters').each(function() {
-				var left = $(this).position().left;
-				$(this).animate({left: '-=' + that.posterW}, 1000);
-			});
+		$('#main-info-container').animate({left: '-=' + that.sw}, 400);
 	}
 }

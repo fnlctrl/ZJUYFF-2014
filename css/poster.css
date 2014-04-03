@@ -21,7 +21,6 @@ body {
   top: 50%;
   width: 40px;
   position: absolute;
-  z-index: 2;
 }
 #left-button {
   background-image: url('../img/poster-left-button.svg');
