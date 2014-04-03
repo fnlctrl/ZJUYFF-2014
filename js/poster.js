@@ -10,10 +10,13 @@ $(document).ready(function() {
 	$('#submit-back-button').click(function() {
 		$('#submit-container').slideUp(800);
 	});
+
+	$('#main-info-vote').bind('click', view.hideMainInfo);
 });
 
 function View() {
 // set element width and height
+	var that = this;
 	this.setElement = function() {
 		this.w = $(window).width(),
 		this.h = $(window).height();
@@ -36,7 +39,7 @@ function View() {
 		$(currentPoster).height(this.containerHeight).width(this.sw);
 		$(currentPoster).css({
 			position: 'absolute',
-			left: (this.mainInfoPosition - this.sw).toString() + "px",
+			left: (this.mainInfoPosition - this.sw).toString() + 'px',
 		});
 		$(currentPoster).attr({
 			id: 'current-poster',
@@ -46,6 +49,7 @@ function View() {
 	}
 
 	this.fillPosters = function() {
+		// create posters on the left
 		var leftPosition = this.mainInfoPosition - this.sw,
 				leftCount = parseInt(leftPosition / this.posterW) + 1;
 		for (var i = 0; i<leftCount; i++) {
@@ -53,7 +57,7 @@ function View() {
 			var posters = this.createPosters(leftPosition);
 			$('#poster-container').prepend(posters.top).prepend(posters.bottom);
 		}
-
+		// create posters on the right
 		var leftPosition = this.mainInfoPosition + this.sw,
 		    rightCount = parseInt((this.w - leftPosition) / this.posterW) + 1;
 		for (var i = 0; i<rightCount; i++) {
@@ -70,7 +74,7 @@ function View() {
 		$(posterBottom).width(this.posterW).height(this.posterH);
 		$(posterTop).css({
 			position: 'absolute',
-			left: position.toString() + "px",
+			left: position.toString() + 'px',
 			top: 0
 		});
 		$(posterTop).attr({
@@ -79,8 +83,8 @@ function View() {
 
 		$(posterBottom).css({
 			position: 'absolute',
-			left: position.toString() + "px",
-			top: this.posterH.toString() + "px"
+			left: position.toString() + 'px',
+			top: this.posterH.toString() + 'px'
 		});
 		$(posterBottom).attr({
 			class: 'posters',
@@ -89,5 +93,14 @@ function View() {
 			top: posterTop, 
 			bottom: posterBottom
 		}
+	}
+
+	this.hideMainInfo = function() {
+		$('.posters').each(function(index) {
+			var left = $(this).position().left;
+			if (left>that.mainInfoPosition)
+				$(this).animate({left: '-=' + that.sw}, 400);
+		});
+		$('#main-info-container').animate({left: '-=' + that.sw}, 400);
 	}
 }

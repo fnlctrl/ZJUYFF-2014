@@ -15,7 +15,6 @@ body {
   width: 100%;
 }
 .poster-button {
-  display: none;
   cursor: pointer;
   height: 80px;
   margin-top: -40px;
@@ -31,7 +30,9 @@ body {
   background-image: url('../img/poster-right-button.svg');
   right: 60px;
 }
+
 /******main-info part******/
+
 #main-info-container {
   height: 100%;
   left: 50%;
@@ -80,7 +81,7 @@ body {
   display: none;
   height: 100%;
   position: absolute;
-  z-index: 2;
+  z-index: 10;
 }
 #submit-info {
   color: #444;
@@ -163,5 +164,5 @@ body {
 
 /******poster part*****/
 .poster {
-  float: left;
+  z-index: 1;
 }
