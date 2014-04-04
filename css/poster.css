@@ -16,6 +16,7 @@ body {
 }
 .poster-button {
   cursor: pointer;
+  display: none;
   height: 80px;
   margin-top: -40px;
   top: 50%;

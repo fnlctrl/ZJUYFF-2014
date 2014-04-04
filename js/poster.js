@@ -1,9 +1,11 @@
 $(document).ready(function() {
 	var view = new View();
 	view.setElement();
-	window.onresize = view.setElement;
 	view.createCurrentPoster();
 	view.fillPosters();
+	$(window).bind('load resize', function() {
+		view.setElement();
+	});
 	$('#main-info-submit').click(function() {
 		$('#submit-container').slideDown(800);
 	});
@@ -12,9 +14,10 @@ $(document).ready(function() {
 		$('#submit-container').slideUp(800);
 	});
 
-	$('#main-info-vote').bind('click', view.hideMainInfo);
-	$('#left-button').bind('click', view.slide);
-	$('#right-button').bind('click', view.slide);
+	$('#main-info-vote').bind('click', function() {
+		$('.poster-button').fadeIn(400);
+	});
+	$('#left-button, #right-button').bind('click', view.slide);
 });
 
 function View() {
@@ -27,12 +30,11 @@ function View() {
 		this.posterH = (this.containerHeight / 2),
 		this.posterW = (this.containerHeight / 6 * 2),
 		this.sw = (this.containerHeight / 3 * 2);
-		this.mainInfo = $('#main-info-container');
-		this.mainInfoPosition = this.mainInfo.position().left;
-		this.mainInfo.css('left', this.mainInfoPosition.toString() + 'px');
+		this.mainInfoPosition = $('#main-info-container').position().left;
+		$('#main-info-container').css('left', this.mainInfoPosition.toString() + 'px');
 
 		$('#container').height(this.containerHeight);
-		this.mainInfo.width(this.sw);	
+		$('#main-info-container').width(this.sw);	
 		$('#submit-poster').width(this.sw);
 		$('#submit-container').width(this.sw + 360);
 		$('#submit-origin-poster').width(this.sw / 8 * 3).height(this.sw / 16 * 9);
@@ -57,24 +59,22 @@ function View() {
 
 	this.fillPosters = function() {
 		// create posters on the left
-		var leftPosition = this.mainInfoPosition - this.sw,
+		var leftPosition = $('.posters').first().position().left - this.sw,
 				leftCount = parseInt(leftPosition / this.posterW) + 1;
 		for (var i = 0; i<leftCount; i++) {
 			leftPosition -= this.posterW;
-			var posters = this.createPosters(leftPosition);
-			$('#poster-container').prepend(posters.top).prepend(posters.bottom);
+			this.createPosters(leftPosition, 'left');
 		}
 		// create posters on the right
-		var leftPosition = this.mainInfoPosition + this.sw,
-		    rightCount = parseInt((this.w - leftPosition) / this.posterW) + 1;
+		var rightPosition = this.mainInfoPosition+ this.sw,
+		    rightCount = parseInt((this.w - rightPosition) / this.posterW) + 1;
 		for (var i = 0; i<rightCount; i++) {
-			var posters = this.createPosters(leftPosition);
-			$('#poster-container').append(posters.top).append(posters.bottom);
-			leftPosition += this.posterW;
+				this.createPosters(rightPosition, 'right');
+			rightPosition += this.posterW;
 		}
 	}
 
-	this.createPosters = function(position) {
+	this.createPosters = function(position, dir) {
 		var posterTop = document.createElement('img'),
 				posterBottom = document.createElement('img');
 		$(posterTop).width(this.posterW).height(this.posterH);
@@ -96,31 +96,65 @@ function View() {
 		$(posterBottom).attr({
 			class: 'posters',
 		});
-		return {
-			top: posterTop, 
-			bottom: posterBottom
-		}
+		if (dir == 'right')
+			$('#poster-container').append(posterTop).append(posterBottom);
+		else 
+			$('#poster-container').prepend(posterTop).prepend(posterBottom);
 	}
 
-	this.hideMainInfo = function() {
+	this.showMainInfo = function() {
 		$('.posters').each(function(index) {
 			var left = $(this).position().left;
 			if (left>that.mainInfoPosition)
-				$(this).animate({left: '-=' + that.sw}, 1000);
+				$(this).animate({left: '+=' + that.sw}, 800);
 		});
-		$('#main-info-container').animate({left: '-=' + that.sw}, 1000);
+		$('#main-info-container').animate({
+				left: '+=' + that.sw}, 
+				800,
+				function() {
+					$('#main-info-container').css('display', 'block');
+		});
+	}
+
+	this.hideMainInfo = function() {
+		$('#main-info-container').css({
+			left: '-=' + that.sw,
+			display: 'none'
+		});
 	}
 
 	this.slide = function() {
-		if (this.id == 'left-button')
+		var speed = 800;
+		if (this.id == 'left-button') {
+			var left = $('.posters').first().position().left;
+			if (left + 2 * that.sw>=0) {
+				left -= that.posterW;
+				that.createPosters(left, 'left');
+				left -= that.posterW;
+				that.createPosters(left, 'left');
+			}
 			$('.posters').each(function(index) {
 				var left = $(this).position().left;
-				$(this).animate({left: '+=' + that.posterW}, 1000);
+				$(this).animate({left: '+=' + that.sw}, speed);
 			});
-		else
+		}
+		else {
+			var right = $('.posters').last().position().left + that.posterW;
+				if (right - that.sw<that.w) {
+					that.createPosters(right, 'right');
+					right += that.posterW;
+					that.createPosters(right, 'right');
+				}
 			$('.posters').each(function() {
 				var left = $(this).position().left;
-				$(this).animate({left: '-=' + that.posterW}, 1000);
+				$(this).animate({left: '-=' + that.sw}, speed);
 			});
+		}
+		setTimeout(function() {
+			if ($('#main-info-container').css('display') !== 'none')
+			that.hideMainInfo();
+		}, speed)
 	}
+
+
 }
