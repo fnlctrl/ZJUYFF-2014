@@ -1,5 +1,13 @@
 body {
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: absolute;
+}
+/* Main */
+#main-container {
+  position: relative;
+  width: 100%;
+  top: 60px;
 }
 .slide {
   float: left;
@@ -11,8 +19,8 @@ body {
   -moz-transition: all 0.7s ease;
   -o-transition: all 0.7s ease;
   transition: all 0.7s ease;
-  top: 60px;
   position: relative; 
+  overflow: hidden;
 }
 .slide-selected {
   width: 60vw;
@@ -117,4 +125,58 @@ body {
 }
 #main-dub:hover path:nth-child(2) {
   fill: #c38fbd;
+}
+/* Footer */
+#footer-container {
+  position: absolute;
+  height: 300px;
+  width: 100%;
+  background: #222;
+  color: #fff;
+  font-size: 12px;
+  text-align: center;
+  clear: both;
+  bottom: 0;
+}
+#footer-container a {
+  color: #fff;
+  margin: 0 5px 0 5px;
+}
+#footer-container a:hover {
+  text-decoration: underline;
+}
+#footer-container img {
+  float: left;
+}
+#footer-logo {
+  position: relative;
+  top: 40px;
+}
+#footer-column-container {
+  position: relative;
+  left: 50%;
+  margin: 0 0 0 -300px;
+  top: 50px;
+  width: 600px;
+  height: 150px;
+}
+.footer-column {
+  width: 200px;
+  float: left;
+  display: inline-block;
+}
+.footer-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #888;
+  margin: 15px 0 5px 0;
+  clear: both;
+}
+#footer-copyright {
+  position: absolute;
+  font-size: 10px;
+  color: #888;
+  bottom: 20px;
+  left: 50%;
+  margin: 0 0 0 -66px;
 }
