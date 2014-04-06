@@ -2,6 +2,7 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
   position: absolute;
+  width: 100%;
 }
 /* Main */
 #main-container {
@@ -44,9 +45,7 @@ body {
   transition: all 0.2s ease;
 }
 .main-title-selected {
-  font-size: 36px;
-  width: 216px;
-  font-weight: bold;
+  width: 300px;
   top: 25px;
   left: 100px;
   position: absolute;
@@ -147,6 +146,9 @@ body {
 }
 #footer-container img {
   float: left;
+}
+#footer-container .svg:hover path{
+  fill: #1dade5;
 }
 #footer-logo {
   position: relative;

@@ -3,7 +3,7 @@ $(window).bind('load resize',function() {
 	window.W = $(window).width();
 	$('.slide').height(window.H-60);
 	if (window.W<850) {
-		$('body').height(60+5*(window.W/16*9));
+		$('body').height(60+5*(window.W/16*9)+520);
 		$('#footer-container').height(520);
 		$('#footer-column-container').width(200).css('margin-left','-100px');
 		$('#main-container').width(window.W).height(5*(window.W/16*9));
