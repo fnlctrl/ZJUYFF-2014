@@ -18,6 +18,7 @@ $(document).ready(function() {
 		$('.poster-button').fadeIn(400);
 	});
 	$('#left-button, #right-button').bind('click', view.slide);
+	$('.posters').bind('click', view.posterClick);
 });
 
 function View() {
@@ -116,10 +117,12 @@ function View() {
 		});
 	}
 
-	this.hideMainInfo = function() {
-		$('#main-info-container').css({
-			left: '-=' + that.sw,
-			display: 'none'
+	this.hideMainInfo = function(speed) {
+		$('#main-info-container').animate(
+			{left: '-=' + that.sw},
+			speed, 
+			function() {
+				$('#main-info-container').css('display', 'none');
 		});
 	}
 
@@ -187,7 +190,10 @@ function View() {
 					$(this).animate({left: '-=' + that.sw}, speed)
 			});
 		}
-		that.hideMainInfo();
+		that.hideMainInfo(speed);
 	}
 
+	that.posterClick = function() {
+		
+	}
 }

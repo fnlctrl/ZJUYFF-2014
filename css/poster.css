@@ -35,7 +35,7 @@ body {
 
 /******main-info part******/
 
-#main-info-container {
+#main-info-container, #vote {
   height: 100%;
   left: 50%;
   position: absolute;
@@ -75,6 +75,50 @@ body {
 }
 #main-submit-info {
   display: none;
+}
+
+/******vote part******/
+
+#vote-container {
+  top: 15%;
+  margin-left: 60px;
+  position: absolute;
+}
+#vote-box, #vote-id-container {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 40px;
+}
+.vote-box {
+  margin-top: 12px;
+}
+#vote-id-container {
+  display: inline-block;
+}
+#vote-id {
+  background-color: #dbdcdc;
+  border: 1px solid #888;
+  border-radius: 5px;
+  color: #000;
+  font-family: "Microsoft YaHei";
+  font-size: 18px;
+  height: 28px;
+  margin-left: 10px;
+  width: 150px;
+}
+#vote-submit-button {
+  background-color: #1dab41;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: bold;
+  height: 28px;
+  margin-left: 15px;
+  margin-top: 20px;
+  text-align: center;
+  padding-top: 8px;
+  width: 80px;
 }
 
 /*****submit part*****/
@@ -166,5 +210,5 @@ body {
 
 /******poster part*****/
 .poster {
-  z-index: 1;
+  z-index: 5;
 }
