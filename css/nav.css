@@ -29,20 +29,21 @@
   margin: -7px 50px 0 0;
   right: 50%;
   width: 304px;
-  height: 14px;
   overflow: hidden;
 }
 #nav-sections ul {
   margin: 0;
   padding: 0;
-  height: 14px;
-  font-size: 14px;
-  line-height: 14px;
 }
 #nav-sections a {
   float: right;
   margin: 0 10px 0 10px;
-  height: 16px;
+  height: 20px;
+  font-size: 14px;
+  line-height: 14px;
+}
+#nav-sections span {
+  position: absolute;
 }
 #nav-show:hover {
   color: #a9ce52;
@@ -99,25 +100,46 @@
   top: 0;
   cursor: pointer;
 }
-#nav-menu a {
-  position: relative;
-  top: 27%;
-}
 .menu-item {
   width: 150px;
   height: 50px;
   left: 0;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.5s ease-in-out;
   border-top: 1px solid #ddd;
+  position: relative;
+}
+.menu-item a {
+  font-size: 16px;
+  line-height: 16px;
+  height: 20px;
+  top: 50%;
+  overflow: hidden;
+  position: absolute;
+  margin: -8px 0 0 0;
+  width: 80px;
+  transition: all 0.5s ease-in-out;
 }
 .menu-item:hover {
-  color: #ef821e;
   background-color: #eee;
 }
 .menu-item:hover a{
   color: #ef821e;
 }
+.comingsoon-text {
+  position: relative;
+  font-size: 10px;
+  width: 56px;
+  line-height: 10px;
+  color: #888;
+  top: 20px;
+  left: 0;
+  font-weight: normal;
+}
+.menu-item span {
+  position: absolute;
+}
+/* Change color of svgs on hover */
 #nav-menu-icon:hover path {
   fill: #ef821e;
 }

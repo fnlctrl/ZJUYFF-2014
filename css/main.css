@@ -11,7 +11,7 @@ body {
 }
 .slide {
   float: left;
-  width: 10vw;
+  width: 8%;
   height: 300px;
   background-color: #eee;
   z-index: 1;
@@ -21,9 +21,10 @@ body {
   transition: all 0.7s ease;
   position: relative; 
   overflow: hidden;
+  min-height: 450px;
 }
 .slide-selected {
-  width: 60vw;
+  width: 68%;
   background-color: #fff;
   z-index: 1;
 }
@@ -101,7 +102,49 @@ body {
 #main-dub:hover {
   color: #74308d;
 }
-/*Change Color of SVGs on hover*/
+/* Main intro page */
+#main-intro {
+  font-size: 450px;
+}
+#main-intro-logo {
+  position: absolute;
+  height: 90%;
+  top: 2%;
+  right: -10%;
+  max-height: 600px;
+  z-index: 3;
+}
+#main-intro-zjulogo {
+  position: absolute;
+  left: 10%;
+  top: 20%;
+  height: 12%;
+  max-height: 70px;
+}
+#main-intro-title {
+  position: absolute;
+  font-size: 10%;
+  left: 10%;
+  top: 33%;
+  color: #444;
+  transition: all 0.7s ease;
+}
+#main-intro-date {
+  position: absolute;
+  left: 10%;
+  bottom: 35%;
+  font-size: 3%;
+  font-weight: bold;
+}
+#main-intro-word {
+  position: absolute;
+  left: 10%;
+  bottom: 10%;
+  color: #444;
+  font-size: 3%;
+  transition: all 0.7s ease;
+}
+/* Change color of SVGs on hover*/
 #main-show:hover path {
   fill: #00853c;
 }
