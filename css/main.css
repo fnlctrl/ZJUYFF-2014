@@ -1,7 +1,6 @@
 body {
   overflow-x: hidden;
   overflow-y: auto;
-  position: absolute;
   width: 100%;
 }
 /* Main */
@@ -127,7 +126,7 @@ body {
 }
 /* Footer */
 #footer-container {
-  position: absolute;
+  position: relative;
   height: 300px;
   width: 100%;
   background: #222;
@@ -136,6 +135,7 @@ body {
   text-align: center;
   clear: both;
   bottom: 0;
+  top: 60px;
 }
 #footer-container a {
   color: #fff;
