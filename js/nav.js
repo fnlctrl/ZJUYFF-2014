@@ -29,13 +29,13 @@ $(window).bind('load resize',function() {
 		});
 		$('#nav-logo').animate({
 			right:0,
-			marginRight:"10px"
+			marginRight:0
 		},{
 			duration: 200,
 			queue: false,
 		});
 		$('#nav-sections').animate({
-			marginRight:"-168px"
+			marginRight:"-154px"
 		},{
 			duration: 200,
 			queue: false,
@@ -48,7 +48,7 @@ $(window).bind('load resize',function() {
 		});
 		$('#nav-logo').animate({
 			right:"50%",
-			marginRight:"-24px"
+			marginRight:"-30px"
 		},{
 			duration: 200,
 			queue: false
