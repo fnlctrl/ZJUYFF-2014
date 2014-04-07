@@ -10,6 +10,7 @@
 #nav-logo {
   right: 50%;
   margin-right: -30px; 
+  height: 60px;
   position: absolute;
   cursor: pointer;
 }
@@ -116,8 +117,6 @@
 }
 .menu-item:hover a{
   color: #ef821e;
-  font-weight: bold;
-  border-bottom: 1px solid #ef821e;
 }
 #nav-menu-icon:hover path {
   fill: #ef821e;
@@ -132,20 +131,29 @@
   fill: #ccc;
 }
 #menu-timeline:hover rect{
-  fill: #ef821e;
+  fill: #e95520;
 }
 #menu-timeline:hover path{
-  fill: #888;
+  fill: #f5ab2d;
 }
-#menu-map:hover path:nth-child(3){
-  fill: #777;
-}
-#menu-map:hover path:nth-child(4){
+#menu-timeline:hover polygon{
   fill: #ef821e;
 }
+#menu-map:hover path:nth-child(1) {
+  fill: #e95520;
+}
+#menu-map:hover path:nth-child(2) {
+  fill: #f5ab2d;
+}
+#menu-map:hover path:nth-child(3) {
+  fill: #e95520;
+}
 #menu-map:hover polygon{
-  fill: #999;
+  fill: #ef821e;
 }
 #menu-filmguide:hover polygon{
   fill: #ef821e;
+}
+#menu-filmguide:hover path{
+  fill: #e95520;
 }

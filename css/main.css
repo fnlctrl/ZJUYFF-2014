@@ -33,28 +33,27 @@ body {
   float: left;
 }
 .main-title {
-  font-size: 36px;
-  width: 36px;
+  font-size: 28px;
+  width: 28px;
   font-weight: bold;
   top: 90px;
   left: 50%;
-  margin: 0 0 0 -18px;
+  margin: 0 0 0 -14px;
   position: absolute;
-  line-height: 40px;
-  transition: all 0.2s ease;
+  line-height: 30px;
+  transition: all 0.2s ease-out;
 }
 .main-title-selected {
   width: 300px;
-  top: 25px;
+  top: 32px;
   left: 100px;
   position: absolute;
   margin: 0;
 }
 .main-title-small {
-  font-size: 36px;
   width: 216px;
+  top: 32px;
   font-weight: bold;
-  top: 25px;
   left: 100px;
   position: absolute;
   margin: 0;
