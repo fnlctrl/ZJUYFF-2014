@@ -12,6 +12,7 @@ body {
   background-color: #252525;
   position: absolute;
   top: 60px;
+  overflow: hidden;
   width: 100%;
 }
 .poster-button {
@@ -22,7 +23,7 @@ body {
   top: 50%;
   width: 40px;
   position: absolute;
-  z-index: 2;
+  z-index: 5;
 }
 #left-button {
   background-image: url('../img/poster-left-button.svg');
@@ -35,11 +36,12 @@ body {
 
 /******main-info part******/
 
-#main-info-container, #vote {
+#main-info-container {
   height: 100%;
   left: 50%;
   position: absolute;
   top: 0;
+  overflow: hidden;
   width: 400px; 
 }
 #main-info {
@@ -80,9 +82,10 @@ body {
 /******vote part******/
 
 #vote-container {
-  top: 15%;
+  left: -400px;
   margin-left: 60px;
   position: absolute;
+  top: 15%;
 }
 #vote-box, #vote-id-container {
   font-size: 20px;
@@ -210,5 +213,8 @@ body {
 
 /******poster part*****/
 .poster {
-  z-index: 5;
+  z-index: 2;
+}
+#current-poster {
+  z-index: 3;
 }
