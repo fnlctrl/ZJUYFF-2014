@@ -102,34 +102,22 @@ function View() {
 			$('#poster-container').append(posterTop).append(posterBottom);
 		else 
 			$('#poster-container').prepend(posterBottom).prepend(posterTop);
+		$(posterTop).bind('click', that.posterClick);
+		$(posterBottom).bind('click', that.posterClick);
 	}
 
 	this.showMainInfo = function() {
 		$('.posters').each(function(index) {
 			var left = $(this).position().left;
-			if (left>that.mainInfoPosition)
-				$(this).animate({left: '+=' + that.sw}, 800);
+			if (left>that.mainInfoPosition-that.posterW)
+				$(this).animate({left: '+=' + that.sw}, speed);
 		});
-		$('#main-info-container').animate({
-				left: '+=' + that.sw}, 
-				800,
-				function() {
-					$('#main-info-container').css('display', 'block');
-		});
-	}
-
-	this.hideMainInfo = function(speed) {
-		$('#main-info-container').animate(
-			{left: '-=' + that.sw},
-			speed, 
-			function() {
-				$('#main-info-container').css('display', 'none');
-		});
+		$('#main-info-container').css('display', 'block');
 	}
 
 	this.vote = function() {
 		$('.poster-button').fadeIn(400);
-		$('#main-info').fadeOut('400');
+		$('#main-info').fadeOut(400);
 		$('#vote-container').animate({left: 0}, 400);
 	}
 
@@ -198,17 +186,28 @@ function View() {
 					$(this).animate({left: '-=' + that.sw}, speed)
 			});
 		}
-		that.hideMainInfo(speed);
+		setTimeout(function() {
+			$('#main-info-container').css('display', 'none');
+		}, speed);
 	}
 
 	this.posterClick = function() {
 		if ($(this).attr('id') === 'current-poster')
 			return;
-		var posters = $('.posters');
+		var posters = $('.posters'),
+		    currentPoster = $('#current-poster')[0];
 		var top = $(this).position().top,
 		    left = $(this).position().left,
 		    h = $(this).height(),
 		    w = $(this).width();
+
+		for (var i = 0; i<posters.length; i++) {
+			if (posters[i] === this)
+				var index = i;
+			if (posters[i] === currentPoster)
+				currentPoster = i;
+		}
+
 		if (top == 0) {
 			if ($('#current-poster').position().left < left) {
 				$(this).animate({
@@ -222,6 +221,14 @@ function View() {
 					height: h},
 					speed
 				);
+				for (var i = currentPoster+1; i< index; i++) {
+					if ($(posters[i]).position().top == 0)
+						$(posters[i]).animate({left: '-=' + that.posterW}, speed);
+					else {
+						$(posters[i]).animate({left: '-=' + that.sw}, speed);
+						$(posters[i-1]).before(posters[i]);
+					}
+				}
 				$(this).next().animate({left: '-=' + that.sw}, speed);
 				$(this).before($(this).next()[0]);
 			}
@@ -237,8 +244,15 @@ function View() {
 					left: '+=' + that.posterW},
 					speed
 				);
-				$(this).next().animate({left: '+=' + that.sw}, speed);
-				$('#current-poster').after($(this).next()[0]);
+				for (var i = index+1; i<currentPoster; i++) {
+					if ($(posters[i]).position().top == 0) {
+						$(posters[i]).animate({left: '+=' + that.posterW}, speed);
+						$(posters[i-1]).before(posters[i]);
+					}
+					else 
+						$(posters[i]).animate({left: '+=' + that.sw}, speed);
+				}
+				$(posters[currentPoster-1]).before(posters[currentPoster]);
 			}
 		}
 		else {
@@ -252,36 +266,48 @@ function View() {
 				);
 				$('#current-poster').animate({
 					width: w,
-					height: h},
+					height: h,
+					top: '+=' + that.posterH},
 					speed
 				);
-				$(this).prev().animate({
-					left: '-=' + that.sw,
-					top: '+=' + that.posterH}, 
-					speed
-				);
+				for (var i = currentPoster+1; i< index; i++) {
+					if ($(posters[i]).position().top == 0) {
+						$(posters[i]).animate({left: '-=' + that.sw}, speed);
+						$(posters[i-1]).before(posters[i]);
+					}
+					else 
+						$(posters[i]).animate({left: '-=' + that.posterW}, speed);
+				}
 			}
 			else {
 				$(this).animate({
-					width: w * 2,
-					height: h * 2,
+					width: that.sw,
+					height: that.containerHeight,
 					top: '-=' + that.posterH}, 
 					speed
 				);
 				$('#current-poster').animate({
-					width: w,
-					height: h,
+					width: that.posterW,
+					height: that.posterH,
+					top: '+=' + that.posterH,
 					left: '+=' + that.posterW},
 					speed
 				);
-				$(this).prev().animate({
-					left: '+=' + that.sw,
-					top: '+=' + that.posterH}, 
-					speed
-				);
-				$('#current-poster').after($(this).prev()[0]);
+				for (var i = index+1; i<currentPoster; i++) {
+					if ($(posters[i]).position().top == 0) {
+						$(posters[i]).animate({left: '+=' + that.sw}, speed);
+					}
+					else {
+						$(posters[i]).animate({left: '+=' + that.posterW}, speed);
+						$(posters[i-1]).before(posters[i]);
+					}
+				}
+				$(this).prev().animate({left: '+=' + that.sw}, speed);
+				$(posters[index-1]).before(posters[index]);
 			}
 		}
+		if ($('#main-info-container').css('display') == 'none')
+			setTimeout(that.showMainInfo, speed);
 		$('#current-poster').removeAttr('id');
 		$(this).attr('id', 'current-poster');
 	}
