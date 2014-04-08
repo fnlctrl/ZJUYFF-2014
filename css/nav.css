@@ -9,9 +9,9 @@
 }
 #nav-logo {
   right: 50%;
-  margin-right: -24px; 
+  margin-right: -30px; 
+  height: 60px;
   position: absolute;
-  top: 5px;
   cursor: pointer;
 }
 #nav-name {
@@ -20,29 +20,30 @@
   height: 60px;
   width: 285px;
   position: absolute;
-  margin: 0 -330px 0 0;
+  margin: 0 -340px 0 0;
 }
 #nav-sections {
   position: absolute;
   padding: 0;
   top: 50%;
-  margin: -0.5em 50px 0 0;
+  margin: -7px 50px 0 0;
   right: 50%;
-  width: 380px;
-  height: 16px;
+  width: 304px;
   overflow: hidden;
 }
 #nav-sections ul {
   margin: 0;
   padding: 0;
-  height: 16px;
-  font-size: 16px;
-  line-height: 16px;
 }
 #nav-sections a {
   float: right;
-  margin: 0 0 0 20px;
-  height: 16px;
+  margin: 0 10px 0 10px;
+  height: 20px;
+  font-size: 14px;
+  line-height: 14px;
+}
+#nav-sections span {
+  position: absolute;
 }
 #nav-show:hover {
   color: #a9ce52;
@@ -76,10 +77,10 @@
   color: #74308d;
   font-weight: bold;
 }
-#nav-logo:hover path, #nav-logo:hover polygon {
+#nav-logo:hover path {
   fill: #1dade5;
 }
-#nav-logo:active path, #nav-logo:active polygon {
+#nav-logo:active path {
   fill: #008cce;
 }
 #nav-menu {
@@ -99,27 +100,46 @@
   top: 0;
   cursor: pointer;
 }
-#nav-menu a {
-  position: relative;
-  top: 27%;
-}
 .menu-item {
   width: 150px;
   height: 50px;
   left: 0;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.5s ease-in-out;
   border-top: 1px solid #ddd;
+  position: relative;
+}
+.menu-item a {
+  font-size: 16px;
+  line-height: 16px;
+  height: 20px;
+  top: 50%;
+  overflow: hidden;
+  position: absolute;
+  margin: -8px 0 0 0;
+  width: 80px;
+  transition: all 0.5s ease-in-out;
 }
 .menu-item:hover {
-  color: #ef821e;
   background-color: #eee;
 }
 .menu-item:hover a{
   color: #ef821e;
-  font-weight: bold;
-  border-bottom: 1px solid #ef821e;
 }
+.comingsoon-text {
+  position: relative;
+  font-size: 10px;
+  width: 56px;
+  line-height: 10px;
+  color: #888;
+  top: 20px;
+  left: 0;
+  font-weight: normal;
+}
+.menu-item span {
+  position: absolute;
+}
+/* Change color of svgs on hover */
 #nav-menu-icon:hover path {
   fill: #ef821e;
 }
@@ -133,20 +153,29 @@
   fill: #ccc;
 }
 #menu-timeline:hover rect{
-  fill: #ef821e;
+  fill: #e95520;
 }
 #menu-timeline:hover path{
-  fill: #888;
+  fill: #f5ab2d;
 }
-#menu-map:hover path:nth-child(3){
-  fill: #777;
-}
-#menu-map:hover path:nth-child(4){
+#menu-timeline:hover polygon{
   fill: #ef821e;
 }
+#menu-map:hover path:nth-child(1) {
+  fill: #e95520;
+}
+#menu-map:hover path:nth-child(2) {
+  fill: #f5ab2d;
+}
+#menu-map:hover path:nth-child(3) {
+  fill: #e95520;
+}
 #menu-map:hover polygon{
-  fill: #999;
+  fill: #ef821e;
 }
 #menu-filmguide:hover polygon{
   fill: #ef821e;
+}
+#menu-filmguide:hover path{
+  fill: #e95520;
 }
