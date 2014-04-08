@@ -109,40 +109,46 @@ body {
 #main-intro-logo {
   position: absolute;
   height: 90%;
+  width: 100%;
   top: 2%;
-  right: -10%;
-  max-height: 600px;
-  z-index: 3;
+  right: -27%;
+  z-index: 4;
+  max-height: 700px;
 }
-#main-intro-zjulogo {
+/*#main-intro-zjulogo {
   position: absolute;
   left: 10%;
   top: 20%;
   height: 12%;
   max-height: 70px;
-}
+}*/
 #main-intro-title {
   position: absolute;
-  font-size: 10%;
-  left: 10%;
-  top: 33%;
+  font-size: 40px;
+  left: 12%;
+  top: 20%;
   color: #444;
   transition: all 0.7s ease;
-}
-#main-intro-date {
-  position: absolute;
-  left: 10%;
-  bottom: 35%;
-  font-size: 3%;
-  font-weight: bold;
+  white-space: nowrap;
+  z-index: 0;
 }
 #main-intro-word {
   position: absolute;
-  left: 10%;
+  left: 12%;
   bottom: 10%;
   color: #444;
-  font-size: 3%;
+  font-size: 12px;
   transition: all 0.7s ease;
+  white-space: nowrap;
+  z-index: 0;
+}
+#main-intro-shade {
+  position: relative;
+  height: 100%;
+  width: 8vw;
+  left: 0;
+  z-index: 1;
+  background-color: #fff;
 }
 /* Change color of SVGs on hover*/
 #main-show:hover path {
