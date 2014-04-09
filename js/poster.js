@@ -287,6 +287,7 @@ function View() {
 					}
 					if (left > that.mainInfoPosition && left <= that.mainInfoPosition + that.sw)
 						$(posters).animate({left: '+=' + that.posterW}, speed);
+					$(itself).next().animate({left: '-=' + (2 * that.sw)}, speed);
 				}
 				else {
 					for (var i = currentPoster+1; i< index; i++) {
@@ -297,9 +298,9 @@ function View() {
 							$(posters[i-1]).before(posters[i]);
 						}
 					}
+					$(itself).next().animate({left: '-=' + that.sw}, speed);
 				}
 
-				$(itself).next().animate({left: '-=' + (2 * that.sw)}, speed);
 				$(itself).before($(itself).next()[0]);
 			}
 			else {
@@ -434,8 +435,9 @@ function View() {
 							}
 						}
 					}
+					$(itself).prev().animate({left: '+=' + 2 * that.sw}, speed);
 				}
-				else
+				else {
 					for (var i = index+1; i<currentPoster; i++) {
 						if ($(posters[i]).position().top == 0) {
 							$(posters[i]).animate({left: '+=' + that.sw}, speed);
@@ -445,7 +447,8 @@ function View() {
 							$(posters[i-1]).before(posters[i]);
 						}
 					}
-				$(itself).prev().animate({left: '+=' + 2 * that.sw}, speed);
+				}
+				$(itself).prev().animate({left: '+=' + that.sw}, speed);
 				$(posters[index-1]).before(posters[index]);
 			}
 		}
