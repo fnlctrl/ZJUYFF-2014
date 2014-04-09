@@ -2,7 +2,6 @@ $(window).bind('load resize',function() {
 	window.H = $(window).height();
 	window.W = $(window).width();
 	$('.slide').height(window.H-60);
-	$('.repaint').css('z-index',1);
 	if (window.W<850) {
 		$('body').height(60+5*(window.W/16*9)+520);
 		$('#footer-container').height(520);
@@ -13,6 +12,7 @@ $(window).bind('load resize',function() {
 		$('.main-title').addClass('main-title-small');
 		$('#main-intro-word').animate({'font-size':'12px'},{duration:100,queue:false});
 		$('#main-intro-title').animate({'font-size':'40px'},{duration:100,queue:false});
+		$('.slide').click(function (){});
 	}
 	else if (window.W>850) {
 		$('body').height(window.H+300);
@@ -37,15 +37,13 @@ $(window).bind('load resize',function() {
 			$('#main-intro-word').animate({'font-size':'12px'},{duration:100,queue:false});
 			$('#main-intro-title').animate({'font-size':'40px'},{duration:100,queue:false});
 		}
+		$('.slide').click(function () {
+			$('.slide-selected').removeClass('slide-selected');
+			$('.main-title-selected').removeClass('main-title-selected');
+			$('.main-icon-selected').removeClass('main-icon-selected');
+			$(this).addClass('slide-selected');
+			$(this).find('.main-title').addClass('main-title-selected');
+			$(this).find('.main-icon').addClass('main-icon-selected');
+		});
 	};
-});
-$(document).ready(function() {
-	$('.slide').hover(function () {
-		$('.slide-selected').removeClass('slide-selected');
-		$('.main-title-selected').removeClass('main-title-selected');
-		$('.main-icon-selected').removeClass('main-icon-selected');
-		$(this).addClass('slide-selected');
-		$(this).find('.main-title').addClass('main-title-selected');
-		$(this).find('.main-icon').addClass('main-icon-selected');
-	});
 });
