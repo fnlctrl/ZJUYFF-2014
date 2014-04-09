@@ -1,5 +1,9 @@
+var pid = 1;
+var baseUrl = 'http://localhost/yff/';
+
 $(document).ready(function() {
-	var view = new View();
+	var data = new Data(),
+	    view = new View(data);
 	view.setElement();
 	view.createCurrentPoster();
 	view.fillPosters();
@@ -18,7 +22,7 @@ $(document).ready(function() {
 	$('#left-button, #right-button').bind('click', view.slide);
 });
 
-function View() {
+function View(data) {
 // set element width and height
 	var that = this;
 	var speed = 400;
@@ -39,24 +43,6 @@ function View() {
 		$('#submit-container').width(this.sw + 360);
 		$('#submit-origin-poster').width(this.sw / 8 * 3).height(this.sw / 16 * 9);
 	}
-// insert current poster
-	this.createCurrentPoster = function() {
-		var currentPoster = document.createElement('img');
-		$(currentPoster).height(this.containerHeight).width(this.sw);
-		$(currentPoster).css({
-			position: 'absolute',
-			left: (this.mainInfoPosition - this.sw).toString() + 'px',
-		});
-		$(currentPoster).attr({
-			id: 'current-poster',
-			class: 'posters',
-			/******test code******/
-			src: './img/1.jpg' 
-			/******test code******/
-		});
-		$('#poster-container').prepend(currentPoster);
-		$(currentPoster).bind('click', that.posterClick);
-	}
 
 	this.fillPosters = function() {
 		// create posters on the left
@@ -75,36 +61,54 @@ function View() {
 		}
 	}
 
-	this.createPosters = function(position, dir) {
-		var posterTop = document.createElement('img'),
-				posterBottom = document.createElement('img');
-		$(posterTop).width(this.posterW).height(this.posterH);
-		$(posterBottom).width(this.posterW).height(this.posterH);
-		$(posterTop).css({
+// insert current poster
+	this.createCurrentPoster = function() {
+		var currentPoster = document.createElement('div');
+		$(currentPoster).height(this.containerHeight).width(this.sw);
+		$(currentPoster).css({
 			position: 'absolute',
-			left: position.toString() + 'px',
-			top: 0
+			left: (this.mainInfoPosition - this.sw).toString() + 'px',
 		});
-		$(posterTop).attr({
-			class: 'posters',
-			src: './img/1.jpg' 
+		$(currentPoster).attr({
+			id: 'current-poster',
+			class: 'posters'
 		});
+		$('#poster-container').prepend(currentPoster);
+		$(currentPoster).bind('click', that.posterClick);
+	}
 
-		$(posterBottom).css({
-			position: 'absolute',
-			left: position.toString() + 'px',
-			top: this.posterH.toString() + 'px'
-		});
-		$(posterBottom).attr({
-			class: 'posters',
-			src: './img/1.jpg' 
-		});
-		if (dir == 'right')
-			$('#poster-container').append(posterTop).append(posterBottom);
-		else 
-			$('#poster-container').prepend(posterBottom).prepend(posterTop);
-		$(posterTop).bind('click', that.posterClick);
-		$(posterBottom).bind('click', that.posterClick);
+	this.createPosters = function(position, dir) {
+		data.getPoster();
+		data.getPoster();
+			var posterTop = document.createElement('div'),
+					posterBottom = document.createElement('div');
+			$(posterTop).width(this.posterW).height(this.posterH);
+			$(posterBottom).width(this.posterW).height(this.posterH);
+			$(posterTop).css({
+				position: 'absolute',
+				left: position.toString() + 'px',
+				top: 0,
+				background: 'url(img/1.jpg)'
+			});
+			$(posterTop).attr({
+				class: 'posters'
+			});
+	
+			$(posterBottom).css({
+				position: 'absolute',
+				left: position.toString() + 'px',
+				top: this.posterH.toString() + 'px',
+				background: 'url(img/1.jpg)'
+			});
+			$(posterBottom).attr({
+				class: 'posters'
+			});
+			if (dir == 'right')
+				$('#poster-container').append(posterTop).append(posterBottom);
+			else 
+				$('#poster-container').prepend(posterBottom).prepend(posterTop);
+			$(posterTop).bind('click', that.posterClick);
+			$(posterBottom).bind('click', that.posterClick);
 	}
 
 	this.showMainInfo = function() {
@@ -458,4 +462,33 @@ function View() {
 		$(itself).attr('id', 'current-poster');
 	}
 	
+}
+
+function Data() {
+	var that = this;
+	this.data = [];
+	this.ajax = function(settings) {
+		if (settings == null)
+			settings = {};
+		return $.ajax(settings);
+	}
+
+	this.postPoster = function() {
+
+	}
+
+	this.getPoster = function() {
+		var settings = {
+			type: 'GET',
+			url: baseUrl + 'getinfo.php?id=' + pid,
+			dataType: 'json',
+			success: this.getSuccess
+		};
+		this.ajax(settings);
+	}
+
+	this.getSuccess = function (data) {
+		this.data[pid] = data;
+		pid++;
+	}
 }
