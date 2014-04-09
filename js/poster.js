@@ -266,15 +266,40 @@ function View() {
 					height: h},
 					speed
 				);
-				for (var i = currentPoster+1; i< index; i++) {
-					if ($(posters[i]).position().top == 0)
-						$(posters[i]).animate({left: '-=' + that.posterW}, speed);
-					else {
-						$(posters[i]).animate({left: '-=' + that.sw}, speed);
-						$(posters[i-1]).before(posters[i]);
+				// 判断main-info 是否在两者之间
+				if ($('#main-info-container').css('display') != 'none' && $('#current-poster').position().left < that.mainInfoPosition && that.mainInfoPosition < left) {
+					for (var i = currentPoster+1; i< index; i++) {
+						if ($(posters[i]).position().left < that.mainInfoPosition)
+							if ($(posters[i]).position().top == 0)
+								$(posters[i]).animate({left: '-=' + that.posterW}, speed);
+							else {
+								$(posters[i]).animate({left: '-=' + that.sw}, speed);
+								$(posters[i-1]).before(posters[i]);
+							}
+						else {
+							if ($(posters[i]).position().top == 0)
+								$(posters[i]).animate({left: '-=' + (that.posterW + that.sw)}, speed);
+							else {
+								$(posters[i]).animate({left: '-=' + (2 * that.sw)}, speed);
+								$(posters[i-1]).before(posters[i]);
+							}
+						}
+					}
+					if (left > that.mainInfoPosition && left <= that.mainInfoPosition + that.sw)
+						$(posters).animate({left: '+=' + that.posterW}, speed);
+				}
+				else {
+					for (var i = currentPoster+1; i< index; i++) {
+						if ($(posters[i]).position().top == 0)
+							$(posters[i]).animate({left: '-=' + that.posterW}, speed);
+						else {
+							$(posters[i]).animate({left: '-=' + that.sw}, speed);
+							$(posters[i-1]).before(posters[i]);
+						}
 					}
 				}
-				$(itself).next().animate({left: '-=' + that.sw}, speed);
+
+				$(itself).next().animate({left: '-=' + (2 * that.sw)}, speed);
 				$(itself).before($(itself).next()[0]);
 			}
 			else {
@@ -289,14 +314,38 @@ function View() {
 					left: '+=' + that.posterW},
 					speed
 				);
-				for (var i = index+1; i<currentPoster; i++) {
-					if ($(posters[i]).position().top == 0) {
-						$(posters[i]).animate({left: '+=' + that.posterW}, speed);
-						$(posters[i-1]).before(posters[i]);
+				// 判断main-info 是否在两者之间
+				if ($('#main-info-container').css('display') != 'none' && $('#current-poster').position().left > that.mainInfoPosition && that.mainInfoPosition > left) {
+					for (var i = index+1; i<currentPoster; i++) {
+						if ($(posters[i]).position().left > that.mainInfoPosition) {
+							if ($(posters[i]).position().top == 0) {
+								$(posters[i]).animate({left: '+=' + that.posterW}, speed);
+								$(posters[i-1]).before(posters[i]);
+							}
+							else 
+								$(posters[i]).animate({left: '+=' + that.sw}, speed);
+						}
+						else {
+							if ($(posters[i]).position().top == 0) {
+								$(posters[i]).animate({left: '+=' + (that.posterW + that.sw)}, speed);
+								$(posters[i-1]).before(posters[i]);
+							}
+							else 
+								$(posters[i]).animate({left: '+=' + 2 * that.sw}, speed);
+						}
 					}
-					else 
-						$(posters[i]).animate({left: '+=' + that.sw}, speed);
 				}
+				else {
+					for (var i = index+1; i<currentPoster; i++) {
+						if ($(posters[i]).position().top == 0) {
+							$(posters[i]).animate({left: '+=' + that.posterW}, speed);
+							$(posters[i-1]).before(posters[i]);
+						}
+						else 
+							$(posters[i]).animate({left: '+=' + that.sw}, speed);
+					}
+				}
+
 				$(posters[currentPoster-1]).before(posters[currentPoster]);
 			}
 		}
@@ -315,13 +364,38 @@ function View() {
 					top: '+=' + that.posterH},
 					speed
 				);
-				for (var i = currentPoster+1; i< index; i++) {
-					if ($(posters[i]).position().top == 0) {
-						$(posters[i]).animate({left: '-=' + that.sw}, speed);
-						$(posters[i-1]).before(posters[i]);
+				// 判断main-info 是否在两者之间
+				if ($('#main-info-container').css('display') != 'none' && $('#current-poster').position().left < that.mainInfoPosition && that.mainInfoPosition < left) {
+					for (var i = currentPoster+1; i< index; i++) {
+						if ($(posters[i]).position().left < that.mainInfoPosition) {
+							if ($(posters[i]).position().top == 0) {
+								$(posters[i]).animate({left: '-=' + that.sw}, speed);
+								$(posters[i-1]).before(posters[i]);
+							}
+							else 
+								$(posters[i]).animate({left: '-=' + that.posterW}, speed);
+						}
+						else {
+							if ($(posters[i]).position().top == 0) {
+								$(posters[i]).animate({left: '-=' + 2 * that.sw}, speed);
+								$(posters[i-1]).before(posters[i]);
+							}
+							else 
+								$(posters[i]).animate({left: '-=' + (that.posterW + that.sw)}, speed);
+						}
 					}
-					else 
-						$(posters[i]).animate({left: '-=' + that.posterW}, speed);
+					if (left > that.mainInfoPosition && left <= that.mainInfoPosition + that.sw)
+						$(posters).animate({left: '+=' + that.posterW}, speed);
+				}
+				else {
+					for (var i = currentPoster+1; i< index; i++) {
+						if ($(posters[i]).position().top == 0) {
+							$(posters[i]).animate({left: '-=' + that.sw}, speed);
+							$(posters[i-1]).before(posters[i]);
+						}
+						else 
+							$(posters[i]).animate({left: '-=' + that.posterW}, speed);
+					}
 				}
 			}
 			else {
@@ -338,16 +412,40 @@ function View() {
 					left: '+=' + that.posterW},
 					speed
 				);
-				for (var i = index+1; i<currentPoster; i++) {
-					if ($(posters[i]).position().top == 0) {
-						$(posters[i]).animate({left: '+=' + that.sw}, speed);
-					}
-					else {
-						$(posters[i]).animate({left: '+=' + that.posterW}, speed);
-						$(posters[i-1]).before(posters[i]);
+				// 判断main-info 是否在两者之间
+				if ($('#main-info-container').css('display') != 'none' && $('#current-poster').position().left > that.mainInfoPosition && that.mainInfoPosition > left) {
+					for (var i = index+1; i<currentPoster; i++) {
+						if ($(posters[i]).position().left > that.mainInfoPosition) {
+							if ($(posters[i]).position().top == 0) {
+								$(posters[i]).animate({left: '+=' + that.sw}, speed);
+							}
+							else {
+								$(posters[i]).animate({left: '+=' + that.posterW}, speed);
+								$(posters[i-1]).before(posters[i]);
+							}
+						}
+						else {
+								if ($(posters[i]).position().top == 0) {
+								$(posters[i]).animate({left: '+=' + 2 * that.sw}, speed);
+							}
+							else {
+								$(posters[i]).animate({left: '+=' + (that.posterW + that.sw)}, speed);
+								$(posters[i-1]).before(posters[i]);
+							}
+						}
 					}
 				}
-				$(itself).prev().animate({left: '+=' + that.sw}, speed);
+				else
+					for (var i = index+1; i<currentPoster; i++) {
+						if ($(posters[i]).position().top == 0) {
+							$(posters[i]).animate({left: '+=' + that.sw}, speed);
+						}
+						else {
+							$(posters[i]).animate({left: '+=' + that.posterW}, speed);
+							$(posters[i-1]).before(posters[i]);
+						}
+					}
+				$(itself).prev().animate({left: '+=' + 2 * that.sw}, speed);
 				$(posters[index-1]).before(posters[index]);
 			}
 		}
