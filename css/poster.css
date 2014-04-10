@@ -118,7 +118,7 @@ body {
   font-size: 18px;
   height: 28px;
   margin-left: 10px;
-  width: 150px;
+  width: 130px;
 }
 #vote-submit-button {
   background-color: #1dab41;
@@ -132,7 +132,7 @@ body {
   margin-top: 20px;
   text-align: center;
   padding-top: 8px;
-  width: 80px;
+  width: 70px;
 }
 
 /*****submit part*****/

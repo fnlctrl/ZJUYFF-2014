@@ -220,6 +220,7 @@ function View(data) {
 		$('.poster-button').fadeIn(400);
 		$('#main-info').fadeOut(400);
 		$('#vote-container').animate({left: 0}, 400);
+		that.voteStar();
 	}
 
 	this.slide = function() {
@@ -557,6 +558,27 @@ function View(data) {
 			setTimeout(that.showMainInfo, speed);
 		$('#current-poster').removeAttr('id');
 		$(itself).attr('id', 'current-poster');
+	}
+
+	this.voteStar = function() {
+		var star = new Array;
+		for (var i = 1; i<=5; i++) {
+			star[i] = $('#vote-s' + i + ' .star');
+			for (var j = 0; j<5; j++) {
+				$(star[i][j]).bind('mouseover', {i: i, j: j}, hover);
+				$(star[i][j]).bind('mouseout', {i: i, j: j}, clear);
+			}
+		}
+
+		function hover(e)  {
+			clear(e);
+			for (var j = 0; j<=e.data.j; j++)
+				$(star[e.data.i][j]).find('path').attr('stroke', 'yellow');
+		}
+		function clear(e) {
+			for (var j = 0; j<5; j++)
+				$(star[e.data.i][j]).find('path').attr('stroke', 'white');
+		}
 	}
 	
 }
