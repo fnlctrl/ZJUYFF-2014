@@ -93,7 +93,18 @@ body {
   margin-top: 40px;
 }
 .vote-box {
+  height: 25px;
   margin-top: 12px;
+}
+.vote-box p {
+  float: left;
+  width: 100px;
+}
+.star-box {
+  float: left;
+}
+.star-box img {
+  display: inline-block;
 }
 #vote-id-container {
   display: inline-block;
