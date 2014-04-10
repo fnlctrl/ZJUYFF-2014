@@ -81,14 +81,20 @@ function View(data) {
 		data.getPoster();
 		data.getPoster();
 			var posterTop = document.createElement('div'),
-					posterBottom = document.createElement('div');
+					posterBottom = document.createElement('div'),
+					posterTopImg = document.createElement('img'),
+					posterBottomImg = document.createElement('img'),
+					posterTopHover = document.createElement('div'),
+					posterBottomHover = document.createElement('div'),
+					posterTopTitle = document.createElement('div'),
+					posterBottomTitle = document.createElement('div');
+		// main div
 			$(posterTop).width(this.posterW).height(this.posterH);
 			$(posterBottom).width(this.posterW).height(this.posterH);
 			$(posterTop).css({
 				position: 'absolute',
 				left: position.toString() + 'px',
-				top: 0,
-				background: 'url(img/1.jpg)'
+				top: 0
 			});
 			$(posterTop).attr({
 				class: 'posters'
@@ -97,8 +103,7 @@ function View(data) {
 			$(posterBottom).css({
 				position: 'absolute',
 				left: position.toString() + 'px',
-				top: this.posterH.toString() + 'px',
-				background: 'url(img/1.jpg)'
+				top: this.posterH.toString() + 'px'
 			});
 			$(posterBottom).attr({
 				class: 'posters'
@@ -107,8 +112,63 @@ function View(data) {
 				$('#poster-container').append(posterTop).append(posterBottom);
 			else 
 				$('#poster-container').prepend(posterBottom).prepend(posterTop);
+		// img div
+			$(posterTopImg).attr('src', 'img/1.jpg').width('100%').height('100%');
+			$(posterBottomImg).attr('src', 'img/1.jpg').width('100%').height('100%');
+			$(posterTop).append(posterTopImg);
+			$(posterBottom).append(posterBottomImg);
+		// hover div
+			$(posterTopHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover').css({
+				background: '#000',
+				opacity: '0',
+				bottom: 0,
+				position: 'absolute'
+			});
+			$(posterBottomHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover').css({
+				background: '#000',
+				opacity: '0',
+				bottom: 0,
+				position: 'absolute'
+			});
+			$(posterTop).prepend(posterTopHover);
+			$(posterBottom).prepend(posterBottomHover);
+		// hover title div
+			$(posterTopTitle).text('<' + 'Film Name' + '>').css({
+				'font-size': '20px',
+				'font-weight': 'bold',
+				position: 'absolute',
+				top: '40%',
+				opacity: 1,
+				'text-align': 'center',
+				width: '100%'
+			});
+			$(posterBottomTitle).text('<' + 'Film Name' + '>').css({
+				'font-size': '20px',
+				'font-weight': 'bold',
+				position: 'absolute',
+				top: '40%',
+				opacity: 1,
+				'text-align': 'center',
+				width: '100%'
+			});
+			$(posterTopHover).prepend(posterTopTitle);
+			$(posterBottomHover).prepend(posterBottomTitle);
+
+			$(posterTop).bind('mouseenter', posterTopHover, that.posterOver);
+			$(posterBottom).bind('mouseenter', posterBottomHover, that.posterOver);
+			$(posterTop).bind('mouseleave', posterTopHover, that.posterOut);
+			$(posterBottom).bind('mouseleave', posterBottomHover, that.posterOut);
 			$(posterTop).bind('click', that.posterClick);
 			$(posterBottom).bind('click', that.posterClick);
+	}
+
+	this.posterOver = function(e) {
+		if ($(this).height() <= that.posterH + 1)
+		$(e.data).animate({opacity: 0.4}, speed / 2);
+	}
+
+	this.posterOut = function(e) {
+		$(e.data).animate({opacity: 0}, speed / 2);
 	}
 
 	this.showMainInfo = function() {
@@ -237,6 +297,7 @@ function View(data) {
 					speed
 				);
 		}
+		$(this).filter('.poster-hover').delay(speed).animate({opacity: 0}, speed / 2);
 		setTimeout(function() {
 			that.clickSlide(itself);
 		}, speed);
