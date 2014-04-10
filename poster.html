@@ -31,15 +31,36 @@
 		<div class="menu-item" id="menu-filmguide"><img id="menu-filmguide-icon"class="svg left" src="./img/menu-filmguide.svg"/><a class="left" href="">观影指南</a></div>
 	</div>
 	<div id="container">
-		<form id="submit-container">
+		<form id="submit-container" action="upload.php" method="poster">
 			<div id="submit-info">
-				<p>浙大邮箱</p>
-				<textarea id="submit-info-mail" type="text" name="mail" placeholder="xxx@zju.edu.cn"></textarea><br/>
-				<p>团队成员信息</p>
-				<textarea id="submit-info-team" type="text" name="team"placeholder="姓名,学号,学院,联系方式"></textarea><br/>
-				<p>作品介绍</p>
-				<textarea id="submit-info-intro" type="text" name="intro" maxlength="140" placeholder="140字以内"></textarea><br/>
-				<input id="submit-button" class="submit-info-button" type="submit" >
+				<div class="submit-info-container">
+					<label>电影名称</label>
+					<input id="submit-info-name" type="text" name="name">
+				</div>
+				<div class="submit-info-container">
+					<p>组员1</p>
+					<input type="text" name="name1" value="姓名">
+					<input type="text" name="stuid1" value="学号">
+					<input type="text" name="college1" value="学院">
+					<input type="text" name="contact1" value="联系方式">
+				</div>
+				<div class="submit-info-container">
+					<p>组员2</p>
+					<input type="text" name="name2" value="姓名">
+					<input type="text" name="stuid2" value="学号">
+					<input type="text" name="college2" value="学院">
+					<input type="text" name="contact2" value="联系方式">
+				</div>
+				<div class="submit-info-container">
+					<p>组员3</p>
+					<input type="text" name="name3" value="姓名">
+					<input type="text" name="stuid3" value="学号">
+					<input type="text" name="college3" value="学院">
+					<input type="text" name="contact3" value="联系方式">
+				</div>
+				<div class="submit-info-container"></div>
+
+				<input id="submit-button" class="submit-info-button" type="submit" value="提交">
 				<input id="submit-back-button" class="submit-info-button" type="button" value="返回">
 				<div id="submit-remark">
 					<p>注：</p>
@@ -56,10 +77,10 @@
 					<p>JPG格式图片</p>
 					<p>3MB以内</p>
 				</div>
-				<input id="submit-poster-button" type="file">
+				<input id="submit-poster-button" type="file" name="img2">
 				<div id="submit-origin-poster">
 					<p id="submit-origin-poster-title">原版海报</p>
-					<input id="submit-origin-poster-button" type="file">
+					<input id="submit-origin-poster-button" type="file" name="img1">
 				</div>
 			</div>
 		</form>
@@ -77,13 +98,15 @@
 				</div>
 				<div id="main-info-submit" class="main-button">我要参加</div>
 				<div id="main-info-vote" class="main-button">我要投票</div>
-				<div id="main-submit-info">
-					<p>参赛奖品:</p>
-					<p>电影节精美纪念品+第二课堂加分</p>
-					<br>
-					<p>截止时间:</p>
-					<p>5月5日晚23:59分</p>
-				</div>
+			</div>
+			<div id="main-submit-info">
+				<p id="main-info-subtitle">浙江大学第二届青年电影节</p>
+				<p id="main-info-title">海报扮演大赛</p>
+				<p>参赛奖品:</p>
+				<p>电影节精美纪念品+第二课堂加分</p>
+				<br>
+				<p>截止时间:</p>
+				<p>5月5日晚23:59分</p>
 			</div>
 			<div id="vote-container">
 				<div id="vote-content">

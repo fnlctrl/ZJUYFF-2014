@@ -44,7 +44,7 @@ body {
   overflow: hidden;
   width: 400px; 
 }
-#main-info {
+#main-info, #main-submit-info{
   margin-left: 60px;
   position: absolute;
   top: 20%;
@@ -139,20 +139,21 @@ body {
   padding: 30px;
   width: 300px;
 }
-#submit-info-mail, textarea {
+.submit-info-container {
+  float: left;
+  width: 100%;
+}
+#submit-info-name {
+  width: 209px;
+}
+.submit-info-container input {
   border: 1px solid #888;
   border-radius: 5px;
   color: #888;
   font-family: "Microsoft YaHei";
-  margin-top: 10px;
-  margin-bottom: 25px;
-  width: 100%;
-}
-#submit-info-mail {
-  height: 25px;
-}
-#submit-info-team, #submit-info-intro {
-  height: 100px;
+  margin-top: 5px;
+  overflow: hidden;
+  width: 45%;
 }
 .submit-info-button {
   background-color: #888;
@@ -171,7 +172,7 @@ body {
 #submit-remark {
   color: #000;
   font-size: 12px;
-  margin-top: 62px;
+  margin-top: 20px;
 }
 #submit-poster {
   background-color: #dbdcdc;

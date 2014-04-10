@@ -1,5 +1,5 @@
 var pid = 1;
-var baseUrl = 'http://localhost/yff/';
+var baseUrl = 'http://10.76.8.221/delostik/';
 
 $(document).ready(function() {
 	var data = new Data(),
@@ -10,14 +10,12 @@ $(document).ready(function() {
 	$(window).bind('load resize', function() {
 		view.setElement();
 	});
-	$('#main-info-submit').click(function() {
-		$('#submit-container').slideDown(800);
+	$('input:text').focus(function() {
+		$(this).val('');
 	});
-
-	$('#submit-back-button').click(function() {
-		$('#submit-container').slideUp(800);
-	});
-
+	// $('#submit-container').submit(data.postPoster);
+	$('#main-info-submit').click(view.clickSubmit);
+	$('#submit-back-button').click(view.clickBack);
 	$('#main-info-vote').bind('click', view.vote);
 	$('#left-button, #right-button').bind('click', view.slide);
 });
@@ -44,6 +42,20 @@ function View(data) {
 		$('#submit-origin-poster').width(this.sw / 8 * 3).height(this.sw / 16 * 9);
 	}
 
+	this.clickSubmit = function() {
+		$('#main-info').fadeOut('200', function() {
+			$('#main-submit-info').fadeIn(200);
+		});
+		$('#submit-container').slideDown(800);
+	}
+
+	this.clickBack = function() {
+		$('#main-info').fadeIn('200', function() {
+			$('#main-submit-info').fadeOut(200);
+		});
+		$('#submit-container').slideUp(800);
+	}
+
 	this.fillPosters = function() {
 		// create posters on the left
 		var leftPosition = this.mainInfoPosition - this.sw,
@@ -63,7 +75,10 @@ function View(data) {
 
 // insert current poster
 	this.createCurrentPoster = function() {
-		var currentPoster = document.createElement('div');
+		var currentPoster = document.createElement('div'),
+				currentImg = document.createElement('img'),
+				currentHover = document.createElement('div'),
+				currentTitle = document.createElement('div');
 		$(currentPoster).height(this.containerHeight).width(this.sw);
 		$(currentPoster).css({
 			position: 'absolute',
@@ -74,6 +89,29 @@ function View(data) {
 			class: 'posters'
 		});
 		$('#poster-container').prepend(currentPoster);
+
+		$(currentImg).attr('src', 'img/1.jpg').width('100%').height('100%');
+		$(currentPoster).append(currentImg);
+
+		$(currentHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover').css({
+				background: '#000',
+				opacity: '0',
+				bottom: 0,
+				position: 'absolute'
+		});
+		$(currentPoster).prepend(currentHover);
+
+		$(currentTitle).text('<' + 'Film Name' + '>').css({
+				'font-size': '20px',
+				'font-weight': 'bold',
+				position: 'absolute',
+				top: '40%',
+				'text-align': 'center',
+				width: '100%'
+		});
+		$(currentHover).prepend(currentTitle);
+		$(currentPoster).bind('mouseenter', currentHover, that.posterOver);
+		$(currentPoster).bind('mouseleave', currentHover, that.posterOut);
 		$(currentPoster).bind('click', that.posterClick);
 	}
 
@@ -138,7 +176,6 @@ function View(data) {
 				'font-weight': 'bold',
 				position: 'absolute',
 				top: '40%',
-				opacity: 1,
 				'text-align': 'center',
 				width: '100%'
 			});
@@ -147,7 +184,6 @@ function View(data) {
 				'font-weight': 'bold',
 				position: 'absolute',
 				top: '40%',
-				opacity: 1,
 				'text-align': 'center',
 				width: '100%'
 			});
@@ -527,29 +563,32 @@ function View(data) {
 
 function Data() {
 	var that = this;
-	this.data = [];
-	this.ajax = function(settings) {
-		if (settings == null)
-			settings = {};
-		return $.ajax(settings);
-	}
+	this.data = new Array();
 
-	this.postPoster = function() {
-
+	this.postPoster = function(e) {
+		e.preventDefault();
+		var settings = {
+			type: 'POST',
+			url: baseUrl + 'upload.php',
+			dataType: 'jsonp',
+			data: $('#submit-container').serialize(),
+			contentType: "Content-Type"
+		};
+		$.ajax(settings);
 	}
 
 	this.getPoster = function() {
 		var settings = {
 			type: 'GET',
 			url: baseUrl + 'getinfo.php?id=' + pid,
-			dataType: 'json',
+			dataType: 'jsonp',
 			success: this.getSuccess
 		};
-		this.ajax(settings);
+		$.ajax(settings);
 	}
 
 	this.getSuccess = function (data) {
-		this.data[pid] = data;
+		that.data[pid] = data;
 		pid++;
 	}
 }
