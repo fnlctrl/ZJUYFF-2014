@@ -33,6 +33,10 @@ body {
   height: 80vw;
   float: left;
 }
+.slide-small:after {
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
 .main-title {
   font-size: 28px;
   width: 28px;
@@ -113,7 +117,7 @@ body {
   width: 100%;
   top: 3%;
   right: -27%;
-  z-index: 4;
+  z-index: 0;
   max-height: 700px;
   cursor: pointer;
 }
@@ -137,13 +141,19 @@ body {
   white-space: nowrap;
   z-index: 0;
 }
-#main-intro-shade {
+.shade {
   position: relative;
   height: 100%;
   width: 8vw;
   left: 0;
   z-index: 1;
+  background-color: #eee;
+  transition: all 0.7s ease;
+}
+.shade-selected {
+  position: relative;
   background-color: #fff;
+  z-index: 1;
 }
 /* Change color of SVGs on hover*/
 #main-show:hover path {
@@ -230,9 +240,9 @@ body {
   content: "";
   position: absolute;
   z-index: -1;
-  -webkit-box-shadow: 0 0 22px rgba(0,0,0,0.3);
-  -moz-box-shadow: 0 0 22px rgba(0,0,0,0.3);
-  box-shadow: 0 0 22px rgba(0,0,0,0.3);
+  -webkit-box-shadow: 0 0 22px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0 0 22px rgba(0,0,0,0.5);
+  box-shadow: 0 0 22px rgba(0,0,0,0.5);
   top: 10%;
   bottom: 0;
   height: 80%;
