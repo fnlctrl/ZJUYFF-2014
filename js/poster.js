@@ -25,6 +25,7 @@ function View(data) {
 	var that = this;
 	var speed = 400;
 	var clock = 0;
+	var star = new Array;
 	this.setElement = function() {
 		this.w = $(window).width(),
 		this.h = $(window).height();
@@ -318,7 +319,8 @@ function View(data) {
 	this.posterClick = function() {
 		if ($(this).attr('id') === 'current-poster')
 			return;
-		var itself = this;
+		var itself = this,
+		    id = 1;
 		var left = $(this).position().left;
 		if ($('#current-poster').position().left < left) {
 			if (left >= that.mainInfoPosition-2 && left <= that.mainInfoPosition) 
@@ -334,6 +336,8 @@ function View(data) {
 					speed
 				);
 		}
+		that.refreshVote(id);
+
 		$(this).filter('.poster-hover').delay(speed).animate({opacity: 0}, speed / 2);
 		setTimeout(function() {
 			that.clickSlide(itself);
@@ -561,7 +565,6 @@ function View(data) {
 	}
 
 	this.voteStar = function() {
-		var star = new Array;
 		for (var i = 1; i<=5; i++) {
 			star[i] = $('#vote-s' + i + ' .star');
 			for (var j = 0; j<5; j++) {
@@ -583,6 +586,16 @@ function View(data) {
 		function click(e) {
 			data.vote[e.data.i - 1] = e.data.j + 1;
 		}
+	}
+
+	this.refreshVote = function(id) {
+		data.vote['id'] = id;
+		data.vote['stuid'] = '';
+		for (var i = 0; i<5; i++)
+			data.vote[i] = 0;
+		for (var i = 1; i<=5; i++) 
+			for (var j = 0; j<5; j++) 
+				$(star[i][j]).find('path').attr('stroke', 'white');
 	}
 	
 }
