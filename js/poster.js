@@ -567,6 +567,7 @@ function View(data) {
 			for (var j = 0; j<5; j++) {
 				$(star[i][j]).bind('mouseover', {i: i, j: j}, hover);
 				$(star[i][j]).bind('mouseout', {i: i, j: j}, clear);
+				$(star[i][j]).bind('click', {i: i, j: j}, click);
 			}
 		}
 
@@ -576,8 +577,11 @@ function View(data) {
 				$(star[e.data.i][j]).find('path').attr('stroke', 'yellow');
 		}
 		function clear(e) {
-			for (var j = 0; j<5; j++)
+			for (var j = data.vote[e.data.i - 1]; j<5; j++)
 				$(star[e.data.i][j]).find('path').attr('stroke', 'white');
+		}
+		function click(e) {
+			data.vote[e.data.i - 1] = e.data.j + 1;
 		}
 	}
 	
@@ -585,7 +589,8 @@ function View(data) {
 
 function Data() {
 	var that = this;
-	this.data = new Array();
+	this.posterData = new Array();
+	this.vote = [0, 0, 0, 0, 0];
 
 	this.postPoster = function(e) {
 		e.preventDefault();
@@ -610,7 +615,7 @@ function Data() {
 	}
 
 	this.getSuccess = function (data) {
-		that.data[pid] = data;
+		that.posterData[pid] = data;
 		pid++;
 	}
 }
