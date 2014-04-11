@@ -13,10 +13,11 @@ $(document).ready(function() {
 	$('input:text').focus(function() {
 		$(this).val('');
 	});
-	// $('#submit-container').submit(data.postPoster);
+	$('#submit-container').submit(data.postPoster);
 	$('#main-info-submit').click(view.clickSubmit);
 	$('#submit-back-button').click(view.clickBack);
 	$('#main-info-vote').bind('click', view.vote);
+	$('#vote-submit-button').click(data.postVote);
 	$('#left-button, #right-button').bind('click', view.slide);
 });
 
@@ -604,11 +605,13 @@ function Data() {
 	var that = this;
 	this.posterData = new Array();
 	this.vote = [0, 0, 0, 0, 0];
+	this.vote['id'] = 2;
+	this.vote['stuid'] = 313;
 
 	this.postPoster = function(e) {
 		e.preventDefault();
 		var settings = {
-			type: 'POST',
+			method: 'POST',
 			url: baseUrl + 'upload.php',
 			dataType: 'jsonp',
 			data: $('#submit-container').serialize(),
@@ -627,6 +630,23 @@ function Data() {
 		$.ajax(settings);
 	}
 
+	this.postVote = function() {
+		var settings = {
+			type: 'GET',
+			url: baseUrl + 'score.php',
+			dataType: 'jsonp',
+			data: {
+				id: that.vote['id'],
+				s1: that.vote[0],
+				s2: that.vote[1],
+				s3: that.vote[2],
+				s4: that.vote[3],
+				s5: that.vote[4],
+				stuid: that.vote['stuid']
+			}
+		};
+		$.ajax(settings);
+	}
 	this.getSuccess = function (data) {
 		that.posterData[pid] = data;
 		pid++;
