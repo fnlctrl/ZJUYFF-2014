@@ -148,14 +148,10 @@ body {
   float: left;
   font-weight: bold;
   padding: 30px;
-  width: 300px;
 }
 .submit-info-container {
   float: left;
   width: 100%;
-}
-#submit-info-name {
-  width: 209px;
 }
 .submit-info-container input {
   border: 1px solid #888;
@@ -188,8 +184,7 @@ body {
 #submit-poster {
   background-color: #dbdcdc;
   color: #444;
-  float: left;
-  height: 100%;
+  position: absolute;
 }
 #submit-poster-title {
   font-weight: bold;
@@ -197,13 +192,15 @@ body {
   margin-top: 30px;
 }
 #submit-poster-content {
-  left: 40%;
-  top: 30%;
-  position: relative;
+  left: 50%;
+  top: 50%;
+  margin-top: -50px;
+  margin-left: -50px;
+  position: absolute;
 }
 #submit-poster-button {
   bottom: 30px;
-  left: 400px;
+  left: 15px;
   position: absolute;
 }
 #submit-origin-poster {

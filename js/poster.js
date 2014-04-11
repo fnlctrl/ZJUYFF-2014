@@ -10,9 +10,6 @@ $(document).ready(function() {
 	$(window).bind('load resize', function() {
 		view.setElement();
 	});
-	$('input:text').focus(function() {
-		$(this).val('');
-	});
 	$('#submit-container').submit(data.postPoster);
 	$('#main-info-submit').click(view.clickSubmit);
 	$('#submit-back-button').click(view.clickBack);
@@ -30,7 +27,7 @@ function View(data) {
 	this.setElement = function() {
 		this.w = $(window).width(),
 		this.h = $(window).height();
-		this.containerHeight = this.h-60;
+		this.containerHeight = this.h - 60;
 		this.posterH = (this.containerHeight / 2),
 		this.posterW = (this.containerHeight / 6 * 2),
 		this.sw = (this.containerHeight / 3 * 2);
@@ -39,9 +36,10 @@ function View(data) {
 
 		$('#container').height(this.containerHeight);
 		$('#main-info-container').width(this.sw);	
-		$('#submit-poster').width(this.sw);
-		$('#submit-container').width(this.sw + 360);
-		$('#submit-origin-poster').width(this.sw / 8 * 3).height(this.sw / 16 * 9);
+		$('#submit-container').width(this.mainInfoPosition);
+		$('#submit-info').width(this.mainInfoPosition - this.posterW);
+		$('#submit-poster').width(this.posterW).height(this.posterH).css('left', (this.mainInfoPosition - this.posterW).toString() + 'px');
+		$('#submit-origin-poster').width(this.posterW).height(this.posterH);
 	}
 
 	this.clickSubmit = function() {
@@ -77,10 +75,12 @@ function View(data) {
 
 // insert current poster
 	this.createCurrentPoster = function() {
+		var posterData = data.getPoster();
 		var currentPoster = document.createElement('div'),
 				currentImg = document.createElement('img'),
 				currentHover = document.createElement('div'),
 				currentTitle = document.createElement('div');
+		$(currentPoster).data(posterData);
 		$(currentPoster).height(this.containerHeight).width(this.sw);
 		$(currentPoster).css({
 			position: 'absolute',
@@ -118,8 +118,9 @@ function View(data) {
 	}
 
 	this.createPosters = function(position, dir) {
-		data.getPoster();
-		data.getPoster();
+		var posterTopData = data.getPoster();
+		var posterBottomData = data.getPoster();
+		if (posterTopData.status == 'success' && posterBottomData.status == 'success') {
 			var posterTop = document.createElement('div'),
 					posterBottom = document.createElement('div'),
 					posterTopImg = document.createElement('img'),
@@ -129,6 +130,8 @@ function View(data) {
 					posterTopTitle = document.createElement('div'),
 					posterBottomTitle = document.createElement('div');
 		// main div
+			$(posterTop).data(posterTopData);
+			$(posterBottom).data(posterBottomData);
 			$(posterTop).width(this.posterW).height(this.posterH);
 			$(posterBottom).width(this.posterW).height(this.posterH);
 			$(posterTop).css({
@@ -198,6 +201,11 @@ function View(data) {
 			$(posterBottom).bind('mouseleave', posterBottomHover, that.posterOut);
 			$(posterTop).bind('click', that.posterClick);
 			$(posterBottom).bind('click', that.posterClick);
+
+			return 1;
+		}
+		else 
+			return 0;
 	}
 
 	this.posterOver = function(e) {
@@ -223,6 +231,7 @@ function View(data) {
 		$('#main-info').fadeOut(400);
 		$('#vote-container').animate({left: 0}, 400);
 		that.voteStar();
+		that.refreshVote($('#current-poster').data('id'));
 	}
 
 	this.slide = function() {
@@ -603,7 +612,7 @@ function View(data) {
 
 function Data() {
 	var that = this;
-	this.posterData = new Array();
+	this.posterData = {};
 	this.vote = [0, 0, 0, 0, 0];
 	this.vote['id'] = 2;
 	this.vote['stuid'] = 313;
@@ -625,9 +634,17 @@ function Data() {
 			type: 'GET',
 			url: baseUrl + 'getinfo.php?id=' + pid,
 			dataType: 'jsonp',
-			success: this.getSuccess
+			success: function(data) {
+				that.posterData = data;
+				that.posterData.status = 'success';
+				return that.posterData;
+			},
+			error: function() {
+				that.posterData = {};
+				that.posterData.status = 'error';
+			}
 		};
-		$.ajax(settings);
+		return $.ajax(settings);
 	}
 
 	this.postVote = function() {
@@ -646,9 +663,5 @@ function Data() {
 			}
 		};
 		$.ajax(settings);
-	}
-	this.getSuccess = function (data) {
-		that.posterData[pid] = data;
-		pid++;
 	}
 }
