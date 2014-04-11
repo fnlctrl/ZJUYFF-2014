@@ -7,49 +7,23 @@ body {
   color: #8c509b;
   font-weight: bold;
 }
-/******Container Part*******/
-#container {
-  background-color: #252525;
-  position: absolute;
-  top: 60px;
-  overflow: hidden;
-  width: 100%;
-}
-.poster-button {
-  cursor: pointer;
-  display: none;
-  height: 80px;
-  margin-top: -40px;
-  top: 50%;
-  width: 40px;
-  position: absolute;
-  z-index: 5;
-}
-#left-button {
-  background-image: url('../img/poster-left-button.svg');
-  left: 60px;
-}
-#right-button {
-  background-image: url('../img/poster-right-button.svg');
-  right: 60px;
-}
-
-/******main-info part******/
-
+/* Main Info */
 #main-info-container {
-  height: 100%;
-  left: 50%;
   position: absolute;
-  top: 0;
+  height: calc(100% - 60px);
+  left: 50%;
+  top: 60px;
   overflow: hidden;
   width: 400px;
   background-color: #222; 
+  z-index: 0;
 }
 #main-info {
   margin-left: 60px;
   position: absolute;
   top: 20%;
-}#main-info-subtitle {
+}
+#main-info-subtitle {
   font-size: 18px;
   margin-bottom: 0;
 }
@@ -80,104 +54,3 @@ body {
   display: none;
 }
 
-/******vote part******/
-
-#vote-container {
-  left: -400px;
-  margin-left: 60px;
-  position: absolute;
-  top: 15%;
-}
-#vote-box, #vote-id-container {
-  font-size: 20px;
-  font-weight: bold;
-  margin-top: 40px;
-}
-.vote-box {
-  margin-top: 12px;
-}
-#vote-id-container {
-  display: inline-block;
-}
-#vote-id {
-  background-color: #dbdcdc;
-  border: 1px solid #888;
-  border-radius: 5px;
-  color: #000;
-  font-family: "Microsoft YaHei";
-  font-size: 18px;
-  height: 28px;
-  margin-left: 10px;
-  width: 150px;
-}
-#vote-submit-button {
-  background-color: #1dab41;
-  border-radius: 5px;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 15px;
-  font-weight: bold;
-  height: 28px;
-  margin-left: 15px;
-  margin-top: 20px;
-  text-align: center;
-  padding-top: 8px;
-  width: 80px;
-}
-
-/*****submit part*****/
-#submit-container {
-  background-color: #fff;
-  display: none;
-  height: 100%;
-  position: absolute;
-  z-index: 10;
-}
-#submit-info {
-  color: #444;
-  float: left;
-  font-weight: bold;
-  padding: 30px;
-  width: 300px;
-}
-#submit-info-mail, textarea {
-  border: 1px solid #888;
-  border-radius: 5px;
-  color: #888;
-  font-family: "Microsoft YaHei";
-  margin-top: 10px;
-  margin-bottom: 25px;
-  width: 100%;
-}
-#submit-info-mail {
-  height: 25px;
-}
-#submit-info-team, #submit-info-intro {
-  height: 100px;
-}
-.submit-info-button {
-  background-color: #888;
-  border-radius: 5px;
-  color: #fff;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 15px;
-  font-weight: bold;
-  height: 30px;
-  margin-top: 20px;
-  text-align: center;
-  padding-top: 5px;
-  width: 120px;
-}
-#submit-remark {
-  color: #000;
-  font-size: 12px;
-  margin-top: 62px;
-}
-/******poster part*****/
-.poster {
-  z-index: 2;
-}
-#current-poster {
-  z-index: 3;
-}
