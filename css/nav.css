@@ -115,7 +115,7 @@
   height: 20px;
   top: 50%;
   overflow: hidden;
-  position: absolute;
+  position: relative;
   margin: -8px 0 0 0;
   width: 80px;
   transition: all 0.5s ease-in-out;
