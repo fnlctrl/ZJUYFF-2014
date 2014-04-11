@@ -1,56 +1,126 @@
 body {
   color: #fff;
-  overflow-x: hidden;
+  overflow: auto;
   z-index: 0;
+  height: 100vh;
+  position: relative;
+  min-height: 600px;
 }
 #nav-dub {
   color: #8c509b;
   font-weight: bold;
 }
-/* Main Info */
-#main-info-container {
+/* UI override */
+input {
+  color: #90529c !important;
+}
+input:focus {
+  background: #ffbdfa !important;
+}
+.button {
+  background-color: #90529c;
+}
+.button:hover {
+  background-color: #c38fbd;
+}
+.button:active {
+  background-color: #74308d;
+}
+/* */
+#main-bg {
   position: absolute;
-  height: calc(100% - 60px);
-  left: 50%;
+  width: 100%;
+  top:0;
+  z-index: -1;
+  bottom: -10%;
+  height: 100%;
+}
+#main-container {
+  position: relative;
+  width: 100vw;
+  height: calc(100vh - 60px);
+  min-height: 540px;
   top: 60px;
+}
+/* Main Intro */
+#main-intro-container {
+  position: absolute;
+  height: 100%;
+  left: 60%;
   overflow: hidden;
   width: 400px;
-  background-color: #222; 
+  background-color: rgba(255,255,255,0.2); 
   z-index: 0;
 }
-#main-info {
+#main-intro {
   margin-left: 60px;
   position: absolute;
   top: 20%;
 }
-#main-info-subtitle {
+#main-intro-subtitle {
   font-size: 18px;
   margin-bottom: 0;
 }
-#main-info-title {
+#main-intro-title {
   font-size: 48px;
   margin-top: 0;
   margin-bottom: 50px;
 }
-#main-info-content p{
-  font-size: 15px;
+/* Main Info */
+#main-info-container {
+  position: absolute;
+  top: 10%;
+  right: 40%;
+  width: 90vh;
+  max-width: 700px;
+  min-width: 500px;
+  margin: 0 50px 0 0;
 }
-.main-button {
-  background-color: #1dab41;
-  border-radius: 5px;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 15px;
-  height: 30px;
-  margin-top: 20px;
+.main-info-item {
+  position: relative;
+  float: left;
+  width: 25vh;
+  max-width: 200px;
+  margin: 15px;
+}
+.main-info-caption {
+  position: relative;
+  font-size: 18px;
+  font-weight: bold; 
   text-align: center;
-  padding-top: 8px;
-  width: 120px;
 }
-#main-info-vote {
-  margin-left: 20px;
+.ring {
+  width: 25vh;
+  max-width: 200px;
+  position: relative;
+  display: inline-block;
 }
-#main-submit-info {
-  display: none;
+/* Main Form */
+#main-form-container {
+  position: absolute;
+  height: 0;
+  width: 480px;
+  right: 40%;
+  background: rgba(255,255,255,0.7);
+  z-index: 2;
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 0 50px 0 50px;
 }
-
+#main-form {
+  position: relative;
+  right: 0;
+  padding: 0;
+  top: 3%;
+}
+.main-form-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #74308d;
+  margin: 20px 0 10px 0;
+}
+.main-form-text {
+  margin: 0 10px 0 0;
+  color: #90529c;
+}

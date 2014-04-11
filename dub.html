@@ -4,6 +4,7 @@
 	<meta charset='utf-8'/>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
 	<link rel='stylesheet' type='text/css' href='./css/global.css'>
+	<link rel='stylesheet' type='text/css' href='./css/ui.css'>
 	<link rel='stylesheet' type='text/css' href='./css/dub.css'>
 	<link rel='stylesheet' type='text/css' href='./css/nav.css'>
 	<script src='./js/jquery-2.1.0.min.js'></script>
@@ -50,21 +51,87 @@
     </div>
   </div>
 	<div id='main-container'>
-		<div id='main-info-container'>
-			<div id='main-info'>
-				<p id='main-info-subtitle'>浙江大学第二届青年电影节</p>
-				<p id='main-info-title'>配音大赛</p>
-				<div id='main-info-content'>
+		<div id='main-intro-container'>
+			<div id='main-intro'>
+				<p id='main-intro-subtitle'>求是潮第七届「魅 · 声色」</p>
+				<p id='main-intro-title'>配音大赛</p>
+				<div id='main-intro-content'>
 					<p>旧影新词 以声启真。</p>
 					<p>用你的声线重释一段对白，</p>
 					<p>以你的思考演绎另一种精彩！</p>
 					<p>恰到好处的声音是的游刃有余的磁极。</p>
 					<p>现在你的面前，每一部都是聋哑的默片。</p>
-					<p>你是玩家，所有人都是虔诚的听众。</p>
+					<p>你是玩家，所有人都是虔诚的听众。</p>	
 				</div>
-				<div id='main-info-submit' class='main-button'>我要参加</div>
+				<div id='main-intro-join' class='button'>我要参加</div>
+				<div id='main-intro-vote' class='button' disabled>我要投票</div>
 			</div>
 		</div>
+		<div id='main-info-container'>
+			<div class='main-info-item'>
+				<img class='ring' id='main-ring-1' src='./img/dub-ring-1.svg'/>
+				<p class='main-info-caption'>线上报名启动</p>
+			</div>
+			<div class='main-info-item'>
+				<img class='ring' id='main-ring-2' src='./img/dub-ring-2.svg'/>
+				<p class='main-info-caption'>文广现宣</p>
+			</div>
+			<div class='main-info-item'>
+				<img class='ring' id='main-ring-3' src='./img/dub-ring-3.svg'/>
+				<p class='main-info-caption'>作品上传截止</p>
+			</div>
+			<div class='main-info-item'>
+				<img class='ring' id='main-ring-4' src='./img/dub-ring-4.svg'/>
+				<p class='main-info-caption'>投票截止<br>决赛通知</p>
+			</div>
+			<div class='main-info-item'>
+				<img class='ring' id='main-ring-5' src='./img/dub-ring-5.svg'/>
+				<p class='main-info-caption'>文广现宣<br>发放决赛门票</p>
+			</div>
+			<div class='main-info-item'>
+				<img class='ring' id='main-ring-6' src='./img/dub-ring-6.svg'/>
+				<p class='main-info-caption'>决赛</p>
+			</div>
+		</div>
+		<img id='main-bg' src='./img/dub-bg.jpg'/>
+		<form id='main-form-container'>
+			<div id='main-form'>
+				<p class='main-form-title'>团队信息</p>
+				<input class='w120' type='text' name='team-name' placeholder='团队名称' required/>
+				<input class='w330' type='text' name='team-slogan' placeholder='团队口号' required/>
+				<p class='main-form-title'>成员信息(至多7人)</p>
+				<input class='w120' type='text' name='name-captain' placeholder='队长姓名' required/>
+				<input class='w120' type='text' name='mobile-captain' placeholder='手机' required/>
+				<input class='w200' type='text' name='email-captain' placeholder='邮箱' required/><br>
+				<input class='w120' type='text' name='name-teammate1' placeholder='队员姓名'/>
+				<input class='w120' type='text' name='mobile-teammate1' placeholder='手机'/>
+				<input class='w200' type='text' name='email-teammate1' placeholder='邮箱'/><br>
+				<input class='w120' type='text' name='name-teammate2' placeholder='队员姓名'/>
+				<input class='w120' type='text' name='mobile-teammate2' placeholder='手机'/>
+				<input class='w200' type='text' name='email-teammate2' placeholder='邮箱'/><br>
+				<input class='w120' type='text' name='name-teammate3' placeholder='队员姓名'/>
+				<input class='w120' type='text' name='mobile-teammate3' placeholder='手机'/>
+				<input class='w200' type='text' name='email-teammate3' placeholder='邮箱'/><br>
+				<input class='w120' type='text' name='name-teammate4' placeholder='队员姓名'/>
+				<input class='w120' type='text' name='mobile-teammate4' placeholder='手机'/>
+				<input class='w200' type='text' name='email-teammate4' placeholder='邮箱'/><br>
+				<input class='w120' type='text' name='name-teammate5' placeholder='队员姓名'/>
+				<input class='w120' type='text' name='mobile-teammate5' placeholder='手机'/>
+				<input class='w200' type='text' name='email-teammate5' placeholder='邮箱'/><br>
+				<input class='w120' type='text' name='name-teammate6' placeholder='队员姓名'/>
+				<input class='w120' type='text' name='mobile-teammate6' placeholder='手机'/>
+				<input class='w200' type='text' name='email-teammate6' placeholder='邮箱'/><br>
+				<p class='main-form-title'>参赛方式</p>
+				<input type='radio' value='online' name='method' required/><span class='main-form-text'>上传视频</span>
+				<input type='radio' value='live' name='method' required/><span class='main-form-text'>现场演出</span>
+				<br><br>
+				<button class='button' type='submit'>提交报名表</button>
+				<br><br>
+				<p class='main-form-text'>注:</p>
+				<p class='main-form-text'>若选择"上传视频"，请在报名截止前将配音视频发送至</p>
+				<p class='main-form-text'>tide@myqsc.com，邮件标题格式:[配音大赛][团队名称][队长姓名]</p>
+			</div>
+		</form>
 	</div>
 </body>
 </html>
