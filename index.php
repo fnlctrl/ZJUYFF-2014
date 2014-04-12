@@ -61,7 +61,7 @@ try {
             if ($ajax != FALSE) {
                 errorPage('好像有点小错误吧。。。。噗。。。天哪噜。。。');
             } else {
-                $action = 'index';
+                $action = 'main';
             }
         }
         $args = $_REQUEST;
