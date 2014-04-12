@@ -160,8 +160,8 @@ function View(data) {
 		// main div
 			$(posterTop).data(data[0]);
 			$(posterBottom).data(data[1]);
-			$(posterTop).width(this.posterW).height(this.posterH);
-			$(posterBottom).width(this.posterW).height(this.posterH);
+			$(posterTop).width(that.posterW).height(that.posterH);
+			$(posterBottom).width(that.posterW).height(that.posterH);
 			$(posterTop).css({
 				position: 'absolute',
 				left: position.toString() + 'px',
@@ -174,7 +174,7 @@ function View(data) {
 			$(posterBottom).css({
 				position: 'absolute',
 				left: position.toString() + 'px',
-				top: this.posterH.toString() + 'px'
+				top: that.posterH.toString() + 'px'
 			});
 			$(posterBottom).attr({
 				class: 'posters'
@@ -684,7 +684,7 @@ function Data() {
 				success(position, dir, data);
 			},
 			error: function(xHRuquest, error) {
-				alert(xHRuquest.readyStatus);
+				alert(xHRuquest.readyState);
 			}
 		};
 		if (that.posterID.length  == pid ) {

@@ -68,8 +68,9 @@
 
 function echo_jsonp($str){
     $callback=isset($_GET["callback"])?$_GET["callback"]:FALSE;
-    echo $callback;
-    echo '('.$str.')';
+    //echo $callback;
+    //echo '('.$str.')';
+    echo $str;
 }
 
 function getdata($varname){
