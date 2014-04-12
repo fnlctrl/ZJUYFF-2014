@@ -62,11 +62,14 @@ input:focus {
   background: #222;
   z-index: 2;
 }
-#main-info, #main-submit-info{
+#main-info {
+  height: 400px;
   margin-left: 60px;
   position: absolute;
   top: 20%;
-}#main-info-subtitle {
+  width: 300px;
+}
+#main-info-subtitle {
   font-size: 18px;
   margin-bottom: 0;
 }
@@ -75,23 +78,25 @@ input:focus {
   margin-top: 0;
   margin-bottom: 50px;
 }
-#main-info-content p{
+#main-info-content {
   font-size: 15px;
-}
-.main-button {
-  background-color: #1dab41;
-  border-radius: 5px;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 15px;
-  height: 30px;
-  margin-top: 20px;
-  text-align: center;
-  padding-top: 8px;
-  width: 120px;
+  position: absolute;
+  width: 300px;
 }
 #main-submit-info {
-  display: none;
+  left: 300px;
+  position: absolute;
+  width: 300px;
+  opacity: 0;
+}
+#main-info-submit {
+  bottom: 80px;
+  position: absolute;
+}
+#main-info-vote {
+  bottom: 80px;
+  left: 140px;
+  position: absolute;
 }
 
 /******vote part******/
@@ -187,8 +192,6 @@ input:focus {
   margin-top: 20px;
 }
 #submit-poster {
-  height: calc((100vh - 60px)/2);
-  width: calc(((100vh - 60px)/2)/3*2);
   background-color: #dbdcdc;
   color: #444;
   position: absolute;
@@ -213,8 +216,6 @@ input:focus {
   position: absolute;
 }
 #submit-origin-poster {
-  height: calc((100vh - 60px)/2);
-  width: calc(((100vh - 60px)/2)/3*2);
   background-color: #888;
   bottom: 0;
   right: 0;
@@ -244,7 +245,7 @@ input:focus {
   position: relative;
 }
 /******poster part*****/
-.poster {
+.posters {
   z-index: 2;
 }
 #current-poster {

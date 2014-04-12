@@ -1,5 +1,5 @@
 var pid = 1;
-var baseUrl = 'http://localhost/yff/';
+var baseUrl = 'http://10.76.8.221/delostik/';
 
 $(document).ready(function() {
 	var data = new Data(),
@@ -16,6 +16,7 @@ $(document).ready(function() {
 	$('#main-info-vote').bind('click', view.vote);
 	$('#vote-submit-button').click(view.postVote);
 	$('#left-button, #right-button').bind('click', view.slide);
+	$('.file').bind('change', view.showSubmitImg);
 });
 
 function View(data) {
@@ -24,6 +25,7 @@ function View(data) {
 	var speed = 400;
 	var clock = 0;
 	var star = new Array;
+	var submitPartFlag = false;
 	this.setElement = function() {
 		this.w = $(window).width(),
 		this.h = $(window).height();
@@ -32,23 +34,34 @@ function View(data) {
 		this.posterW = (this.containerHeight / 6 * 2),
 		this.sw = (this.containerHeight / 3 * 2);
 		this.mainInfoPosition = $('#main-info-container').position().left;
-		// $('#main-info-container').css('left', this.mainInfoPosition.toString() + 'px');
+
+		this.mainInfoPosition = $('#main-info-container').position().left;
+		$('#main-info-container').css('left', this.mainInfoPosition.toString() + 'px');
 
 		$('#container').height(this.containerHeight);
-		// $('#main-info-container').width(this.sw);	
+		$('#main-info-container').width(this.sw);	
 		$('#submit-container').width(this.mainInfoPosition);
-		// $('#submit-poster').width(this.posterW).height(this.posterH).css('left', (this.mainInfoPosition - this.posterW).toString() + 'px');
-		// $('#submit-origin-poster').width(this.posterW).height(this.posterH);
+		$('#submit-poster').width(this.posterW).height(this.posterH).css('left', (this.mainInfoPosition - this.posterW).toString() + 'px');
+		$('#submit-origin-poster').width(this.posterW).height(this.posterH);
 	}
 
 	this.clickSubmit = function() {
-		// $('#main-info').fadeOut('200', function() {
-		// 	$('#main-submit-info').fadeIn(200);
-		// });
-		// $('#submit-container').slideDown(800);
-		// $('.file').bind('change', that.showSubmitImg);
-		$('#submit-container').animate({height:'100%'},{duration:500,queue:false});
-
+		if (submitPartFlag == false) {
+			var current = $('#main-info-content');
+			var next = $('#main-submit-info');
+			$('#submit-container').animate({height: '100%'}, 500);
+			$(this).text('返回');
+			submitPartFlag = true;
+		}
+		else {
+			var next = $('#main-info-content');
+			var current = $('#main-submit-info');
+			$('#submit-container').animate({height: '0'}, 500);
+			$(this).text('我要参加');
+			submitPartFlag = false;
+		}
+		current.animate({left: 300, opacity: 0}, speed * 1.2);
+		next.animate({left: 0, opacity: 1}, speed * 1.2);
 	}
 
 	this.clickBack = function() {
@@ -622,7 +635,7 @@ function View(data) {
 		var id = $('#vote-id').val();
 		if (id.length != 10)
 			alert("请填写正确的学号");
-		else data.postPoster();
+		else data.postVote();
 	}
 }
 
