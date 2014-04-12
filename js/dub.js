@@ -21,10 +21,11 @@
 		}
 	});
 	
-	$('#main-form-container').submit(function() {
+	$('#main-form-container').submit(function(e) {
+		e.preventDefault();
 		var settings = {
 			type: "POST",
-			url: baseUrl + 'index.php?random_token=' + window.global_cfg.random_token,
+			url: baseUrl + 'index.php?ajax=json&random_token=' + window.global_cfg.random_token,
 			dataType: "json",
 			data: $('#main-form-container').serialize(),
 			success: function(data) {
