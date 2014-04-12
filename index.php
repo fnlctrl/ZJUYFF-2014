@@ -55,7 +55,7 @@ try {
         unset($args['random_token']);
         unset($args['callback']);
     }
-    $dispatch = new Dispatch($args);
+    $dispatch = new Dispatch($args, $db);
     if (isset($dispatch->$action)) {
         $ret = $dispatch->$action();
     } else {
