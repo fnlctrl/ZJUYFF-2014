@@ -32,7 +32,7 @@ function View(data) {
 		this.posterW = (this.containerHeight / 6 * 2),
 		this.sw = (this.containerHeight / 3 * 2);
 		this.mainInfoPosition = $('#main-info-container').position().left;
-		$('#main-info-container').css('left', this.mainInfoPosition.toString() + 'px');
+		// $('#main-info-container').css('left', this.mainInfoPosition.toString() + 'px');
 
 		$('#container').height(this.containerHeight);
 		// $('#main-info-container').width(this.sw);	
@@ -42,11 +42,13 @@ function View(data) {
 	}
 
 	this.clickSubmit = function() {
-		$('#main-info').fadeOut('200', function() {
-			$('#main-submit-info').fadeIn(200);
-		});
-		$('#submit-container').slideDown(800);
-		$('.file').bind('change', that.showSubmitImg);
+		// $('#main-info').fadeOut('200', function() {
+		// 	$('#main-submit-info').fadeIn(200);
+		// });
+		// $('#submit-container').slideDown(800);
+		// $('.file').bind('change', that.showSubmitImg);
+		$('#submit-container').animate({height:'100%'},{duration:500,queue:false});
+
 	}
 
 	this.clickBack = function() {
