@@ -79,6 +79,9 @@ try {
     if ($ajax === FALSE) {
         $ret['random_token'] = getToken();
     }
+    if ($action == '') {
+        $action = 'main';
+    }
     view_handler($ajax, $action, $ret, $callback);
     // happy ending.
     
