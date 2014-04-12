@@ -13,12 +13,15 @@
 if (!defined('SEN_DIR')) die('No direct script access. Senorsen.');
 
 class Dispatch {
-    private $;
-    function __construct() {
+    private $args;
+    function __construct($args) {
+        $this->args = $args;
+    }
+    function index() {
         
     }
-    function index($args) {
+    function submit_signup() {
         
     }
-    function submit_signup($args) {
-        
+}
+
