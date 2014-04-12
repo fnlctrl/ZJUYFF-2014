@@ -48,6 +48,7 @@ try {
         if (isset($_REQUEST['action']) && is_string($_REQUEST['action'])) {
             if ($ajax === FALSE) {
                 if (!in_array($_REQUEST['action'], $actions['common'])) {
+                    header("HTTP/1.1 404 Not Found");
                     errorPage('噗，这个页面并没有被定义。<br>如果您认为这是个错误，欢迎向我来报告哟～～');
                 } else {
                     $action = $_REQUEST['action'];
