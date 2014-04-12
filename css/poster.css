@@ -140,6 +140,7 @@ body {
   background-color: #fff;
   display: none;
   height: 100%;
+  overflow: hidden;
   position: absolute;
   z-index: 10;
 }
@@ -153,15 +154,6 @@ body {
   float: left;
   width: 100%;
 }
-.submit-info-container input {
-  border: 1px solid #888;
-  border-radius: 5px;
-  color: #888;
-  font-family: "Microsoft YaHei";
-  margin-top: 5px;
-  overflow: hidden;
-  width: 45%;
-}
 .submit-info-button {
   background-color: #888;
   border-radius: 5px;
@@ -172,6 +164,7 @@ body {
   font-weight: bold;
   height: 30px;
   margin-top: 20px;
+  margin-right: 20px;
   text-align: center;
   padding-top: 5px;
   width: 120px;
@@ -188,8 +181,9 @@ body {
 }
 #submit-poster-title {
   font-weight: bold;
-  margin-left: 36px;
-  margin-top: 30px;
+  left: 15px;
+  top: 15px;
+  position: absolute;
 }
 #submit-poster-content {
   left: 50%;
@@ -211,13 +205,18 @@ body {
 }
 #submit-origin-poster-title {
   font-weight: bold;
-  margin-top: 15px;
-  margin-left: 15px;
+  top: 15px;
+  left: 15px;
+  position: absolute;
 }
 #submit-origin-poster-button {
   bottom: 30px;
   left: 15px;
   position: absolute;
+}
+#submit-container img {
+  height: 100%;
+  width: 100%;
 }
 
 /******poster part*****/

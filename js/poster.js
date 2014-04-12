@@ -47,6 +47,7 @@ function View(data) {
 			$('#main-submit-info').fadeIn(200);
 		});
 		$('#submit-container').slideDown(800);
+		$('.file').bind('change', that.showSubmitImg);
 	}
 
 	this.clickBack = function() {
@@ -54,6 +55,22 @@ function View(data) {
 			$('#main-submit-info').fadeOut(200);
 		});
 		$('#submit-container').slideUp(800);
+	}
+
+	this.showSubmitImg = function() {
+		var oFReader = new FileReader();
+		var itself = this;
+		oFReader.onload = function (oFREvent) {
+		  $(itself).next().attr('src', oFREvent.target.result);
+		};
+		
+		if (this.files.length === 0) { return; }
+		var oFile = this.files[0];
+		if (!oFile.type.match('image.jpeg')) { 
+			alert("请选择JPG格式"); 
+			return; 
+		}
+		oFReader.readAsDataURL(oFile);
 	}
 
 	this.fillPosters = function() {
@@ -620,13 +637,12 @@ function Data() {
 	this.postPoster = function(e) {
 		e.preventDefault();
 		var settings = {
+			target: "#submit-container",
 			method: 'POST',
 			url: baseUrl + 'upload.php',
-			dataType: 'jsonp',
-			data: $('#submit-container').serialize(),
-			contentType: "Content-Type"
+			dataType: 'jsonp'
 		};
-		$.ajax(settings);
+		$('#submit-container').ajaxSubmit(settings);
 	}
 
 	this.getPoster = function() {
