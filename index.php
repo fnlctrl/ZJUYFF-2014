@@ -57,7 +57,7 @@ try {
     }
     $dispatch = new Dispatch($args, $db);
     if (isset($dispatch->$action)) {
-        $ret = $dispatch->$action();
+        $ret = $dispatch->$action($args);
     } else {
         $ret = null;
     }

@@ -18,10 +18,10 @@ class Dispatch {
     function __construct($args, $db) {
         $this->args = $args;
     }
-    function index() {
+    function index($args) {
         return null;
     }
-    function submit_signup() {
+    function submit_signup($args) {
         $methods = array('online', 'live');
         $requires = array(
             'team-name' => 'team_name',
