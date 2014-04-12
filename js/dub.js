@@ -18,7 +18,25 @@ $(document).ready(function() {
 			$('#main-intro-join').text('返回');
 			showForm = true;
 		}
-	})
+	});
+	
+	$('#main-form-container').submit(function() {
+		var settings = {
+			type: "POST",
+			url: baseUrl + 'index.php?random_token=' + window.global_cfg.random_token,
+			dataType: "json",
+			data: $('#main-form-container').serialize(),
+			success: function(data) {
+				if (data.code == 0) {
+					alert("恭喜你！提交成功！");
+				} 
+				else {
+					alert("错误：" + code.msg);
+				}
+			}
+		};
+		$.ajax(settings);
+	});
 })
 
 
