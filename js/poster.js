@@ -7,13 +7,13 @@ $(document).ready(function() {
 	view.setElement();
 	view.createCurrentPoster();
 	view.fillPosters();
-	$(window).bind('load resize', function() {
-		view.setElement();
-	});
+
+	$(window).bind('load resize', function() {view.setElement();});
 	$('#submit-container').submit(data.postPoster);
 	$('#main-info-submit').click(view.clickSubmit);
 	$('#submit-back-button').click(view.clickBack);
 	$('#main-info-vote').bind('click', view.vote);
+	$('#vote-submit-back').bind('click', view.voteBack);
 	$('#vote-submit-button').click(view.postVote);
 	$('#left-button, #right-button').bind('click', view.slide);
 	$('.file').bind('change', view.showSubmitImg);
@@ -255,6 +255,13 @@ function View(data) {
 		$('#vote-container').animate({left: 0}, 400);
 		that.voteStar();
 		that.refreshVote($('#current-poster').data('id'));
+	}
+
+	this.voteBack = function() {
+		$('.poster-button').fadeOut(400);
+		$('#main-info').fadeIn(400);
+		$('#vote-container').animate({left: -400}, 400);
+
 	}
 
 	this.slide = function() {
@@ -610,11 +617,11 @@ function View(data) {
 		function hover(e)  {
 			clear(e);
 			for (var j = 0; j<=e.data.j; j++)
-				$(star[e.data.i][j]).find('path').attr('stroke', 'yellow');
+				$(star[e.data.i][j]).find('path').attr('fill', '#1dade5').attr('stroke', '#1dade5');
 		}
 		function clear(e) {
 			for (var j = data.vote[e.data.i - 1]; j<5; j++)
-				$(star[e.data.i][j]).find('path').attr('stroke', 'white');
+				$(star[e.data.i][j]).find('path').attr('fill', 'rgba(0,0,0,0)').attr('stroke', 'white');
 		}
 		function click(e) {
 			data.vote[e.data.i - 1] = e.data.j + 1;
@@ -628,7 +635,7 @@ function View(data) {
 			data.vote[i] = 0;
 		for (var i = 1; i<=5; i++) 
 			for (var j = 0; j<5; j++) 
-				$(star[i][j]).find('path').attr('stroke', 'white');
+				$(star[i][j]).find('path').attr('fill', 'rgba(0,0,0,0)').attr('stroke', 'white');
 	}
 	
 	this.postVote = function() {

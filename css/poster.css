@@ -126,33 +126,17 @@ input:focus {
 .star-box img {
   display: inline-block;
 }
-#vote-id-container {
-  display: inline-block;
-}
 #vote-id {
-  background-color: #dbdcdc;
-  border: 1px solid #888;
-  border-radius: 5px;
-  color: #000;
   font-family: "Microsoft YaHei";
   font-size: 18px;
   height: 28px;
   margin-left: 10px;
-  width: 130px;
+  width: 180px;
 }
-#vote-submit-button {
-  background-color: #1dab41;
-  border-radius: 5px;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 15px;
-  font-weight: bold;
-  height: 28px;
-  margin-left: 15px;
-  margin-top: 20px;
-  text-align: center;
-  padding-top: 8px;
-  width: 70px;
+.vote-submit-button {
+  margin-top: 30px;
+  margin-right: 15px;
+  width: 115px;
 }
 
 /*****submit part*****/
