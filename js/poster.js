@@ -1,5 +1,5 @@
 var pid = 1;
-var baseUrl = 'http://10.76.8.221/delostik/';
+var baseUrl = 'http://localhost/yff/';
 
 $(document).ready(function() {
 	var data = new Data(),
@@ -14,7 +14,7 @@ $(document).ready(function() {
 	$('#main-info-submit').click(view.clickSubmit);
 	$('#submit-back-button').click(view.clickBack);
 	$('#main-info-vote').bind('click', view.vote);
-	$('#vote-submit-button').click(data.postVote);
+	$('#vote-submit-button').click(view.postVote);
 	$('#left-button, #right-button').bind('click', view.slide);
 });
 
@@ -68,6 +68,8 @@ function View(data) {
 		var oFile = this.files[0];
 		if (!oFile.type.match('image.jpeg')) { 
 			alert("请选择JPG格式"); 
+			oFile = {};
+			this.value = null;
 			return; 
 		}
 		oFReader.readAsDataURL(oFile);
@@ -135,9 +137,6 @@ function View(data) {
 	}
 
 	this.createPosters = function(position, dir) {
-		var posterTopData = data.getPoster();
-		var posterBottomData = data.getPoster();
-		if (posterTopData.status == 'success' && posterBottomData.status == 'success') {
 			var posterTop = document.createElement('div'),
 					posterBottom = document.createElement('div'),
 					posterTopImg = document.createElement('img'),
@@ -147,8 +146,6 @@ function View(data) {
 					posterTopTitle = document.createElement('div'),
 					posterBottomTitle = document.createElement('div');
 		// main div
-			$(posterTop).data(posterTopData);
-			$(posterBottom).data(posterBottomData);
 			$(posterTop).width(this.posterW).height(this.posterH);
 			$(posterBottom).width(this.posterW).height(this.posterH);
 			$(posterTop).css({
@@ -218,11 +215,6 @@ function View(data) {
 			$(posterBottom).bind('mouseleave', posterBottomHover, that.posterOut);
 			$(posterTop).bind('click', that.posterClick);
 			$(posterBottom).bind('click', that.posterClick);
-
-			return 1;
-		}
-		else 
-			return 0;
 	}
 
 	this.posterOver = function(e) {
@@ -617,7 +609,7 @@ function View(data) {
 
 	this.refreshVote = function(id) {
 		data.vote['id'] = id;
-		data.vote['stuid'] = '';
+		$('#vote-id').val('');
 		for (var i = 0; i<5; i++)
 			data.vote[i] = 0;
 		for (var i = 1; i<=5; i++) 
@@ -625,14 +617,19 @@ function View(data) {
 				$(star[i][j]).find('path').attr('stroke', 'white');
 	}
 	
+	this.postVote = function() {
+		var id = $('#vote-id').val();
+		if (id.length != 10)
+			alert("请填写正确的学号");
+		else data.postPoster();
+	}
 }
 
 function Data() {
 	var that = this;
 	this.posterData = {};
 	this.vote = [0, 0, 0, 0, 0];
-	this.vote['id'] = 2;
-	this.vote['stuid'] = 313;
+	this.vote.id = 2;
 
 	this.postPoster = function(e) {
 		e.preventDefault();
@@ -640,7 +637,7 @@ function Data() {
 			target: "#submit-container",
 			method: 'POST',
 			url: baseUrl + 'upload.php',
-			dataType: 'jsonp'
+			dataType: 'json'
 		};
 		$('#submit-container').ajaxSubmit(settings);
 	}
@@ -649,7 +646,7 @@ function Data() {
 		var settings = {
 			type: 'GET',
 			url: baseUrl + 'getinfo.php?id=' + pid,
-			dataType: 'jsonp',
+			dataType: 'json',
 			success: function(data) {
 				that.posterData = data;
 				that.posterData.status = 'success';
@@ -665,9 +662,9 @@ function Data() {
 
 	this.postVote = function() {
 		var settings = {
-			type: 'GET',
+			type: 'POST',
 			url: baseUrl + 'score.php',
-			dataType: 'jsonp',
+			dataType: 'json',
 			data: {
 				id: that.vote['id'],
 				s1: that.vote[0],
@@ -675,7 +672,7 @@ function Data() {
 				s3: that.vote[2],
 				s4: that.vote[3],
 				s5: that.vote[4],
-				stuid: that.vote['stuid']
+				stuid: $('#vote-id').val()
 			}
 		};
 		$.ajax(settings);
