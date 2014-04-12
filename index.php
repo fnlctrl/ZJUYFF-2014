@@ -55,6 +55,13 @@ try {
                     errorPage('噗，这个页面并没有被定义。<br>如果您认为这是个错误，欢迎向我来报告哟～～');
                 } else {
                     $action = $_REQUEST['action'];
+                }
+            } else {
+                if (!in_array($_REQUEST['action'], $actions['ajax'])) {
+                    header("HTTP/1.1 404 Not Found");
+                    errorPage("ajax_action未找到。。。困死了");
+                } else {
+                    $action = $_REQUEST['action'];
                     if (isset($_REQUEST['callback']) && is_string($_REQUEST['callback'])) {
                         $callback = $_REQUEST['callback'];
                     }
@@ -74,11 +81,7 @@ try {
         unset($args['callback']);
     }
     $dispatch = new Dispatch($args, $db);
-    if (isset($dispatch->$action)) {
-        $ret = $dispatch->$action($args);
-    } else {
-        $ret = null;
-    }
+    eval('$ret = $dispatch->' . $action . '(' . var_export($args, TRUE) . ');');
     if ($action == '') {
         $action = 'main';
     }

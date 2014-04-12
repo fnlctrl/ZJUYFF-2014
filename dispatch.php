@@ -17,6 +17,7 @@ class Dispatch {
     private $args;
     function __construct($args, $db) {
         $this->args = $args;
+        $this->db = $db;
     }
     function index($args) {
         return null;
@@ -64,10 +65,10 @@ class Dispatch {
             }
         }
         foreach ($requires as $key => &$value) {
-            if (!in_array($value, $args)) {
+            if (!isset($args[$key])) {
                 return array('code' => 1, 'msg' => '关键表单项未找到');
             } else {
-                $newobj[$key] = $args[$value];
+                $newobj[$value] = $args[$key];
                 if (isset($req_no_empty[$key]) && $newobj[$key] == '') {
                     return array('code' => 2, 'msg' => $req_no_empty[$key]);
                 }

@@ -80,7 +80,7 @@ function checkToken() {
     if (isset($_COOKIE['film_dub_token_gen']) && isset($_REQUEST['random_token'])) {
         if (getToken() == $_REQUEST['random_token']) {
             // give us a brand new token
-            genToken(TRUE);
+            //genToken(TRUE);
             return TRUE;
         } else {
             return FALSE;
