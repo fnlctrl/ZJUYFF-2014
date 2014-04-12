@@ -15,12 +15,12 @@ date_default_timezone_set('PRC');
 $db = new mysqli($global_config['hostname'], $global_config['username'], $global_config['password'], $global_config['database']);
 $con_err = 0;
 if ($db->errno) {
-    $con_ok = $db->errno;
+    $con_err = $db->errno;
 }
-if (! @$db->set_charset("utf-8")) {
-    $con_ok = 'charset';
+if (! @$db->set_charset("utf8")) {
+    $con_err = 'charset';
 }
-if ($con_ok != 0) {
+if ($con_err != 0) {
     errorPage('发生了一个错误：「数据库无法访问，' . $con_ok . '」，<br>望能将错误反馈至 <a href="mailto:sen@senorsen.com?subject=[film_db_bug]bug%20report_' . $con_ok .'&body=bug_id_' . $con_ok . '" target="_blank">sen@senorsen.com</a>，谢谢啦～～<br></body></html>');
 }
 function view_handler($type, $file = null, $view_obj = null, $callback = 'cb') {

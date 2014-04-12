@@ -122,6 +122,7 @@ class Dispatch {
         }
         $tid = $this->db->insert_id;
         foreach ($member_list as &$value) {
+            $value = (object)$value;
             $sql = "INSERT INTO dub_teammate (tid, name, leader, phone, email) VALUES ($tid, '$value->name', $value->leader, '$value->phone', '$value->email') ";
             $this->db->query($sql);
             if ($this->db->errno) {
