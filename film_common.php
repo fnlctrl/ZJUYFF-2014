@@ -34,7 +34,11 @@ function view_handler($type, $file = null, $view_obj = null, $callback = 'cb') {
         echo '(' . json_encode($view_obj) . ');';
     } else if ($type === FALSE) {
         // refers to 'html' view
-        include 'view/' . $file . '.php';
+        $path = 'view/' . $file . '.php';
+        if (!file_exists($path)) {
+            errorPage('似乎并木有这只视图喵～');
+        }
+        include $path;
     }    
 }
 function errorPage($content, $e = null, $title = '=_= 出错了') {
@@ -55,19 +59,24 @@ function errorPage($content, $e = null, $title = '=_= 出错了') {
     // 出错了，那么就结束这一切吧。
     exit;
 }
-function genToken() {
-    if (!isset($COOKIE['film_dub_token_gen'])) {
-        setcookie('film_dub_token_gen', randomString(10), time() + 3600 * 24), '/');
+function genToken($rogue = FALSE) {
+    if ($rogue || !isset($_COOKIE['film_dub_token_gen'])) {
+        $rndstr = randomString(10);
+        setcookie('film_dub_token_gen', $rndstr, time() + 3600 * 24, '/');
+        return $rndstr;
+    } else {
+        return $_COOKIE['film_dub_token_gen'];
     }
 }
 function getToken() {
-    return md5('film_dub_token_senorsen' . $_COOKIE['film_dub_token_gen']);
+    $rndstr = genToken(FALSE);
+    return md5('film_dub_token_senorsen' . $rndstr);
 }
 function checkToken() {
-    if (isset($_COOKIE['film_dub_token_gen'] && isset($_REQUEST['random_token'])) {
+    if (isset($_COOKIE['film_dub_token_gen']) && isset($_REQUEST['random_token'])) {
         if (getToken() == $_REQUEST['random_token']) {
             // give us a brand new token
-            genToken();
+            genToken(TRUE);
             return TRUE;
         } else {
             return FALSE;
@@ -88,7 +97,7 @@ function randomString($num = 10) {
     }
     return $str;
 }
-function getTrace($e, $ret_to_var = FALSE, $nl2br == TRUE) {
+function getTrace($e, $ret_to_var = FALSE, $nl2br = TRUE) {
     if ($ret_to_var || $nl2br) {
         ob_start();
     }

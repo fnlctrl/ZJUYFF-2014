@@ -1,4 +1,10 @@
 <?php
+/**
+ *
+ * main functional area of Senorsen's code of film_dub.
+ * @author Senorsen
+ * 
+ */
 define('SEN_DIR', __DIR__);
 require "film_config.php";
 require "film_common.php";
@@ -20,11 +26,16 @@ try {
             'json',
             'jsonp',
             'pjax'
+        )
     );
     if (!isset($callback)) {
         $callback = 'callback';
     }
     if (!defined('SEN_SHELL')) {
+        if (isset($_GET['q'])) {
+            // q存在时将覆盖在action的♂上边。
+            $_REQUEST['action'] = $_GET['q'];
+        }
         if (isset($_REQUEST['ajax']) && is_string($_REQUEST['ajax'])) {
             if (!checkToken() || !in_array($_REQUEST['ajax'], $actions['ajax_type'])) {
                 errorPage('奇怪的错误，不知道是为什么，想报告给我嘛？～');
@@ -48,6 +59,8 @@ try {
         } else {
             if ($ajax != FALSE) {
                 errorPage('好像有点小错误吧。。。。噗。。。天哪噜。。。');
+            } else {
+                $action = 'index';
             }
         }
         $args = $_REQUEST;
@@ -65,7 +78,7 @@ try {
     if ($ajax === FALSE) {
         $ret['random_token'] = getToken();
     }
-    view_handler($ret, $action, $ret, $callback);
+    view_handler($ajax, $action, $ret, $callback);
     // happy ending.
     
 } catch (Exception $e) {
