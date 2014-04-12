@@ -81,7 +81,10 @@ try {
         unset($args['callback']);
     }
     $dispatch = new Dispatch($args, $db);
-    eval('$ret = $dispatch->' . $action . '(' . var_export($args, TRUE) . ');');
+    $ret = null;
+    if (method_exists($dispatch, $action)) {
+        eval('$ret = $dispatch->' . $action . '(' . var_export($args, TRUE) . ');');
+    }
     if ($action == '') {
         $action = 'main';
     }

@@ -33,7 +33,7 @@
 					alert("恭喜你！提交成功！");
 				} 
 				else {
-					alert("错误：" + data.code.msg);
+					alert("错误：" + data.msg);
 				}
 			}
 		};
