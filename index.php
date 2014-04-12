@@ -13,7 +13,8 @@ try {
             'submit_vote'
         ),
         'common' => array('', 
-            'index'
+            'index',
+            'dub'
         ),
         'ajax_type' => array(
             'json',
@@ -60,6 +61,9 @@ try {
         $ret = $dispatch->$action($args);
     } else {
         $ret = null;
+    }
+    if ($ajax === FALSE) {
+        $ret['random_token'] = getToken();
     }
     view_handler($ret, $action, $ret, $callback);
     // happy ending.

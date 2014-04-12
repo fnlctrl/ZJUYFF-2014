@@ -7,6 +7,13 @@
 	<link rel='stylesheet' type='text/css' href='./css/ui.css'>
 	<link rel='stylesheet' type='text/css' href='./css/dub.css'>
 	<link rel='stylesheet' type='text/css' href='./css/nav.css'>
+    <script>
+        try {
+            var global_cfg = <?php echo $view_obj->global_cfg;?>;
+        } catch (e) {
+            var global_cfg = {"random_token":"error??? pu, we don't know."};
+        }
+    </script>
 	<script src='./js/jquery-2.1.0.min.js'></script>
 	<script src='./js/global.js'></script>
 	<script src='./js/dub.js'></script>
