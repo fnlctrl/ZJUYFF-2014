@@ -24,6 +24,7 @@ if ($con_ok != 0) {
     errorPage('发生了一个错误：「数据库无法访问，' . $con_ok . '」，<br>望能将错误反馈至 <a href="mailto:sen@senorsen.com?subject=[film_db_bug]bug%20report_' . $con_ok .'&body=bug_id_' . $con_ok . '" target="_blank">sen@senorsen.com</a>，谢谢啦～～<br></body></html>');
 }
 function view_handler($type, $file = null, $view_obj = null, $callback = 'cb') {
+    $view_obj = (object)$view_obj;
     if ($type == 'json') {
         echo json_encode($view_obj);
     } else if ($type == 'jsonp') {
@@ -34,6 +35,9 @@ function view_handler($type, $file = null, $view_obj = null, $callback = 'cb') {
         echo '(' . json_encode($view_obj) . ');';
     } else if ($type === FALSE) {
         // refers to 'html' view
+        $view_obj->global_cfg = array(
+            'random_token' => getToken()
+        );
         $path = 'view/' . $file . '.php';
         if (!file_exists($path)) {
             errorPage('似乎并木有这只视图喵～');

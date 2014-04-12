@@ -19,8 +19,11 @@ try {
             'submit_vote'
         ),
         'common' => array('', 
-            'index',
-            'dub'
+            'main',
+            'dub',
+            'forum',
+            'show',
+            'poster'
         ),
         'ajax_type' => array(
             'json',
@@ -76,13 +79,10 @@ try {
     } else {
         $ret = null;
     }
-    if ($ajax === FALSE) {
-        $ret['random_token'] = getToken();
-    }
     if ($action == '') {
         $action = 'main';
     }
-    view_handler($ajax, $action, $ret, $callback);
+    view_handler($ajax, $action, (object)$ret, $callback);
     // happy ending.
     
 } catch (Exception $e) {

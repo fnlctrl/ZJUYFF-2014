@@ -9,7 +9,7 @@
 	<link rel='stylesheet' type='text/css' href='./css/nav.css'>
     <script>
         try {
-            var global_config = <?php echo $view_obj->global_cfg;?>;
+            var global_config = <?php echo json_encode($view_obj->global_cfg);?>;
         } catch (e) [
             var global_config = {"random_token":"none_error"};
         }
@@ -23,16 +23,16 @@
 	<div id='nav-bar'>
 		<div id='nav-sections'>
 			<ul>
-				<li><a href='./dub.html' target='_blank' id='nav-dub'>配音大赛</a></li>
-				<li><a href='./poster.html' target='_blank' id='nav-poster'>海报扮演</a></li>
+				<li><a href='dub' target='_blank' id='nav-dub'>配音大赛</a></li>
+				<li><a href='poster' target='_blank' id='nav-poster'>海报扮演</a></li>
 				<li>
-					<a href='' id='nav-forum' class='comingsoon' onclick='return false'>
+					<a href='forum' id='nav-forum' class='comingsoon' onclick='return false'>
 						<span>论坛讲座</span>
 						<div class='comingsoon-text'>COMING<br>SOON</div>
 					</a>
 				</li>
 				<li>
-					<a href='' id='nav-show' class='comingsoon' onclick='return false'>
+					<a href='show' id='nav-show' class='comingsoon' onclick='return false'>
 						<span>放映单元</span>
 						<div class='comingsoon-text'>COMING<br>SOON</div>
 					</a>
@@ -40,7 +40,7 @@
 			</ul>
 		</div>
 		<img id='nav-menu-icon' class='svg' src='img/menu.svg'/>
-		<a id='nav-logo' href='./main.html' target='_blank'><img class='svg' src='img/FilmFestivalLogo.svg'/></a>
+		<a id='nav-logo' href='./' target='_blank'><img class='svg' src='img/FilmFestivalLogo.svg'/></a>
 		<div id='nav-name'><img class='svg' src='img/ZJU YOUTH FILM FESTIVAL.svg'/></div>
 	</div>
 	<div id='nav-menu'>

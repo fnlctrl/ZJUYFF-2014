@@ -25,7 +25,7 @@
 		e.preventDefault();
 		var settings = {
 			type: "POST",
-			url: baseUrl + 'index.php?ajax=json&random_token=' + window.global_cfg.random_token,
+			url: baseUrl + 'index.php?action=submit_signup&ajax=json&random_token=' + window.global_cfg.random_token,
 			dataType: "json",
 			data: $('#main-form-container').serialize(),
 			success: function(data) {
