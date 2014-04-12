@@ -1,4 +1,4 @@
-var pid = 1;
+var pid = 0;
 var baseUrl = 'http://localhost/ZJUYFF/';
 
 $(document).ready(function() {
@@ -6,7 +6,7 @@ $(document).ready(function() {
 	    view = new View(data);
 	view.setElement();
 	view.createCurrentPoster();
-	view.fillPosters();
+	data.getID(view.fillPosters);
 
 	$(window).bind('load resize', function() {view.setElement();});
 	$('#submit-container').submit(data.postPoster);
@@ -91,29 +91,27 @@ function View(data) {
 
 	this.fillPosters = function() {
 		// create posters on the left
-		var leftPosition = this.mainInfoPosition - this.sw,
-				leftCount = parseInt(leftPosition / this.posterW) + 1;
+		var leftPosition = that.mainInfoPosition - that.sw,
+				leftCount = parseInt(leftPosition / that.posterW) + 1;
 		for (var i = 0; i<leftCount; i++) {
-			leftPosition -= this.posterW;
-			this.createPosters(leftPosition, 'left');
+			leftPosition -= that.posterW;
+			data.getPoster(leftPosition, 'left', that.createPosters);
 		}
 		// create posters on the right
-		var rightPosition = this.mainInfoPosition + this.sw,
-		    rightCount = parseInt((this.w - rightPosition) / this.posterW) + 1;
+		var rightPosition = that.mainInfoPosition + that.sw,
+		    rightCount = parseInt((that.w - rightPosition) / that.posterW) + 1;
 		for (var i = 0; i<rightCount; i++) {
-				this.createPosters(rightPosition, 'right');
-			rightPosition += this.posterW;
+				data.getPoster(rightPosition, 'right', that.createPosters);
+			rightPosition += that.posterW;
 		}
 	}
 
 // insert current poster
 	this.createCurrentPoster = function() {
-		var posterData = data.getPoster();
 		var currentPoster = document.createElement('div'),
 				currentImg = document.createElement('img'),
 				currentHover = document.createElement('div'),
 				currentTitle = document.createElement('div');
-		$(currentPoster).data(posterData);
 		$(currentPoster).height(this.containerHeight).width(this.sw);
 		$(currentPoster).css({
 			position: 'absolute',
@@ -150,7 +148,7 @@ function View(data) {
 		$(currentPoster).bind('click', that.posterClick);
 	}
 
-	this.createPosters = function(position, dir) {
+	this.createPosters = function(position, dir, data) {
 			var posterTop = document.createElement('div'),
 					posterBottom = document.createElement('div'),
 					posterTopImg = document.createElement('img'),
@@ -160,8 +158,10 @@ function View(data) {
 					posterTopTitle = document.createElement('div'),
 					posterBottomTitle = document.createElement('div');
 		// main div
-			$(posterTop).width(this.posterW).height(this.posterH);
-			$(posterBottom).width(this.posterW).height(this.posterH);
+			$(posterTop).data(data[0]);
+			$(posterBottom).data(data[1]);
+			$(posterTop).width(that.posterW).height(that.posterH);
+			$(posterBottom).width(that.posterW).height(that.posterH);
 			$(posterTop).css({
 				position: 'absolute',
 				left: position.toString() + 'px',
@@ -174,7 +174,7 @@ function View(data) {
 			$(posterBottom).css({
 				position: 'absolute',
 				left: position.toString() + 'px',
-				top: this.posterH.toString() + 'px'
+				top: that.posterH.toString() + 'px'
 			});
 			$(posterBottom).attr({
 				class: 'posters'
@@ -280,9 +280,9 @@ function View(data) {
 			var left = $('.posters').first().position().left;
 			if (left + 2 * that.sw>=0) {
 				left -= that.posterW;
-				that.createPosters(left, 'left');
+				data.getPoster(left, 'left', that.createPosters);
 				left -= that.posterW;
-				that.createPosters(left, 'left');
+				data.getPoster(left, 'left', that.createPosters);
 			}
 			$('.posters').each(function(index) {
 				var left = $(this).position().left;
@@ -297,9 +297,9 @@ function View(data) {
 		else {
 			var right = $('.posters').last().position().left + that.posterW;
 			if (right - that.sw<that.w) {
-				that.createPosters(right, 'right');
+				data.getPoster(right, 'right', that.createPosters);
 				right += that.posterW;
-				that.createPosters(right, 'right');
+				data.getPoster(right, 'right', that.createPosters);
 			}
 			$('.posters').each(function() {
 				var left = $(this).position().left;
@@ -318,9 +318,9 @@ function View(data) {
 			var left = $('.posters').first().position().left;
 			if (left + 2 * that.sw>=0) {
 				left -= that.posterW;
-				that.createPosters(left, 'left');
+				data.getPoster(left, 'left', that.createPosters);
 				left -= that.posterW;
-				that.createPosters(left, 'left');
+				data.getPoster(left, 'left', that.createPosters);
 			}
 			$('.posters').each(function() {
 				var left = $(this).position().left;
@@ -336,9 +336,9 @@ function View(data) {
 		else {
 			var right = $('.posters').last().position().left + that.posterW;
 			if (right - that.sw<that.w) {
-				that.createPosters(right, 'right');
+				data.getPoster(right, 'right', that.createPosters);
 				right += that.posterW;
-				that.createPosters(right, 'right');
+				data.getPoster(right, 'right', that.createPosters);
 			}
 			$('.posters').each(function() {
 				var left = $(this).position().left;
@@ -652,6 +652,18 @@ function Data() {
 	this.vote = [0, 0, 0, 0, 0];
 	this.vote.id = 2;
 
+	this.getID = function(success) {
+		var settings = {
+			type: "GET",
+			url: baseUrl + 'getinfo.php',
+			dataType: "json",
+			success: function(data) {
+				that.posterID = data;
+				success();
+			}
+		};
+		$.ajax(settings);
+	}
 	this.postPoster = function(e) {
 		e.preventDefault();
 		var settings = {
@@ -663,22 +675,35 @@ function Data() {
 		$('#submit-container').ajaxSubmit(settings);
 	}
 
-	this.getPoster = function() {
+	this.getPoster = function(position, dir, success) {
 		var settings = {
 			type: 'GET',
-			url: baseUrl + 'getinfo.php?id=' + pid,
+			url: baseUrl + 'getinfo.php',
 			dataType: 'json',
 			success: function(data) {
-				that.posterData = data;
-				that.posterData.status = 'success';
-				return that.posterData;
+				success(position, dir, data);
 			},
-			error: function() {
-				that.posterData = {};
-				that.posterData.status = 'error';
+			error: function(xHRuquest, error) {
+				alert(xHRuquest.readyState);
 			}
 		};
-		return $.ajax(settings);
+		if (that.posterID.length  == pid ) {
+			alert("已经没有海报啦 > <");
+			return;
+		}
+		else if (that.posterID.length - 1 == pid) {
+			settings.data = {id: that.posterID[pid]};
+			pid ++;
+		}
+		else {
+			settings.data = {
+				id: that.posterID[pid],
+			  id2: that.posterID[pid + 1]
+			};
+			pid += 2;
+		}
+
+		$.ajax(settings);
 	}
 
 	this.postVote = function() {

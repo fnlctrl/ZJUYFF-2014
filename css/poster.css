@@ -58,7 +58,6 @@ input:focus {
   position: absolute;
   top: 0;
   overflow: hidden;
-  width: 400px; 
   background: #222;
   z-index: 2;
 }
