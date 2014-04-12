@@ -10,8 +10,7 @@
  *
  */
 
-if (!defined('SEN_DIR')) die('No direct script access.');
-require "film_config.php";
+if (!defined('SEN_DIR')) die('No direct script access. Senorsen.');
 date_default_timezone_set('PRC');
 $db = new mysqli($global_config['hostname'], $global_config['username'], $global_config['password'], $global_config['database']);
 $con_err = 0;
@@ -33,7 +32,8 @@ function view_handler($type, $file = null, $view_obj = null, $callback = 'cb') {
         }
         echo $callback;
         echo '(' . json_encode($view_obj) . ');';
-    } else if ($type == 'view') {
+    } else if ($type === FALSE) {
+        // refers to 'html' view
         include 'view/' . $file . '.php';
     }    
 }
