@@ -3,10 +3,18 @@
 <head>
 	<meta charset='utf-8'/>
 	<meta name='viewport' content='width=device-width, initial-scale=0.8, minimum-scale=0.8, maximum-scale=0.8'>
+    <title>配音大赛 - 浙江大学青年电影节</title>
 	<link rel='stylesheet' type='text/css' href='./css/global.css'>
 	<link rel='stylesheet' type='text/css' href='./css/ui.css'>
 	<link rel='stylesheet' type='text/css' href='./css/dub.css'>
 	<link rel='stylesheet' type='text/css' href='./css/nav.css'>
+    <script>
+        try {
+            var global_cfg = <?php echo $view_obj->global_cfg;?>;
+        } catch (e) {
+            var global_cfg = {"random_token":"error??? pu, we don't know."};
+        }
+    </script>
 	<script src='./js/jquery-2.1.0.min.js'></script>
 	<script src='./js/global.js'></script>
 	<script src='./js/dub.js'></script>

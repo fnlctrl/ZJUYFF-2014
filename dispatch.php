@@ -63,7 +63,7 @@ class Dispatch {
                 errorPage('噗，居然传来了一个数组……吓死人啦！！');
             }
         }
-        foreach ($requires as &$key => &$value) {
+        foreach ($requires as $key => &$value) {
             if (!in_array($value, $args)) {
                 return array('code' => 1, 'msg' => '关键表单项未找到');
             } else {
@@ -80,7 +80,7 @@ class Dispatch {
         $member_list = array();
         $phone_list = array();
         $email_list = array();
-        foreach ($newobj as &$key => &$value) {
+        foreach ($newobj as $key => &$value) {
             $value = $this->db->escape_string($value);
             $$key = $value;
             if (preg_match('/^phone/', $key)) {
@@ -109,8 +109,8 @@ class Dispatch {
             }
         }
         foreach ($member_list as &$value) {
-            $value['phone'] => $phone_list[$value['name_key']];
-            $value['email'] => $email_list[$value['name_key']];
+            $value['phone'] = $phone_list[$value['name_key']];
+            $value['email'] = $email_list[$value['name_key']];
             unset($value['name_key']);
         }
         $r_ip = $this->db->escape_string(getIP());
@@ -127,6 +127,6 @@ class Dispatch {
                 return array('code' => 100, 'msg' => '噗，数据库插入_teammate_操作出错！太可怕啦，请联系我～～ sen@senorsen.com');
             }
         }
+        return array('code' => 0, 'msg' => '提交成功');
     }
-    return array('code' => 0, 'msg' => '提交成功');
 }
