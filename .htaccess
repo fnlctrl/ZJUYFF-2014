@@ -1,6 +1,6 @@
 
 RewriteEngine On
 
-RewriteCond $1 !^(index\.php|res|js|css|img)
+RewriteCond $1 !^(index\.php|res|js|css|img|\w+\.php|\w+\.html)
 RewriteRule ^(.*)$ index.php?q=$1 [L]
 
