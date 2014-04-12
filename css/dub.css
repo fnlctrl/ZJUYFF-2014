@@ -1,6 +1,6 @@
 body {
   color: #fff;
-  overflow: auto;
+  overflow: hidden;
   z-index: 0;
   height: 100vh;
   position: relative;
@@ -56,6 +56,12 @@ input:focus {
   margin-left: 60px;
   position: absolute;
   top: 20%;
+  height: 400px;
+  width: 75%;
+}
+#main-intro-buttons{
+  position: absolute;
+  bottom: 20px;
 }
 #main-intro-subtitle {
   font-size: 18px;
@@ -64,7 +70,19 @@ input:focus {
 #main-intro-title {
   font-size: 48px;
   margin-top: 0;
-  margin-bottom: 50px;
+  margin: 0 0 30px 0;
+}
+#main-intro-text1 {
+  width: 300px;
+  display: block;
+  position: absolute;
+}
+#main-intro-text2 {
+  width: 320px;
+  display: block;
+  position: absolute;
+  left: 320px;
+  opacity: 0;
 }
 /* Main Info */
 #main-info-container {
@@ -73,7 +91,7 @@ input:focus {
   right: 40%;
   width: 90vh;
   max-width: 700px;
-  min-width: 500px;
+  min-width: 550px;
   margin: 0 50px 0 0;
 }
 .main-info-item {
