@@ -12,7 +12,6 @@ $(document).ready(function() {
 	$('#submit-container').submit(data.postPoster);
 	$('#main-info-submit').click(view.clickSubmit);
 	$('#submit-back-button').click(view.clickBack);
-	$('#main-info-vote').bind('click', view.vote);
 	$('#vote-submit-back').bind('click', view.voteBack);
 	$('#vote-submit-button').click(view.postVote);
 	$('#left-button, #right-button').bind('click', view.slide);
