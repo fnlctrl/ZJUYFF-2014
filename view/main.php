@@ -7,6 +7,13 @@
 	<link rel='stylesheet' type='text/css' href='./css/global.css'>
 	<link rel='stylesheet' type='text/css' href='./css/main.css'>
 	<link rel='stylesheet' type='text/css' href='./css/nav.css'>
+    <script>
+        try {
+            var global_config = <?php echo $view_obj->global_cfg;?>;
+        } catch (e) [
+            var global_config = {"random_token":"none_error"};
+        }
+    </script>
 	<script src='./js/jquery-2.1.0.min.js'></script>
 	<script src='./js/global.js'/></script>
 	<script src='./js/main.js'/></script>
