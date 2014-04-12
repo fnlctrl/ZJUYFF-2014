@@ -35,11 +35,10 @@ function View(data) {
 		$('#main-info-container').css('left', this.mainInfoPosition.toString() + 'px');
 
 		$('#container').height(this.containerHeight);
-		$('#main-info-container').width(this.sw);	
+		// $('#main-info-container').width(this.sw);	
 		$('#submit-container').width(this.mainInfoPosition);
-		$('#submit-info').width(this.mainInfoPosition - this.posterW);
-		$('#submit-poster').width(this.posterW).height(this.posterH).css('left', (this.mainInfoPosition - this.posterW).toString() + 'px');
-		$('#submit-origin-poster').width(this.posterW).height(this.posterH);
+		// $('#submit-poster').width(this.posterW).height(this.posterH).css('left', (this.mainInfoPosition - this.posterW).toString() + 'px');
+		// $('#submit-origin-poster').width(this.posterW).height(this.posterH);
 	}
 
 	this.clickSubmit = function() {

@@ -4,9 +4,9 @@
 	<meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<link rel="stylesheet" type="text/css" href="./css/global.css">
+	<link rel="stylesheet" type="text/css" href="./css/ui.css">
 	<link rel="stylesheet" type="text/css" href="./css/poster.css">
 	<link rel="stylesheet" type="text/css" href="./css/nav.css">
-	<link rel="stylesheet" type="text/css" href="./css/ui.css">
 	<script src="./js/jquery-2.1.0.min.js"></script>
 	<script src="./js/jquery.form.min.js"></script>
 	<script src="./js/global.js"></script>
@@ -24,7 +24,7 @@
 			</ul>
 		</div>
 		<img id="nav-menu-icon" class="svg" src="img/menu.svg"/>
-		<div id="nav-logo"><img class="svg" src="img/FilmFestivalLogo.svg"/></div>
+		<a id='nav-logo' href='./main.html' target='_blank'><img class='svg' src='img/FilmFestivalLogo.svg'/></a>
 		<div id="nav-name"><img class="svg" src="img/ZJU YOUTH FILM FESTIVAL.svg"/></div>
 	</div>
 	<div id="nav-menu">
@@ -35,36 +35,35 @@
 	<div id="container">
 		<form id="submit-container" action="upload.php">
 			<div id="submit-info">
-				<div class="submit-info-container">
-					<label>电影名称</label>
-					<input type="text" name="name" placeholder="电影名称">
-				</div>
-				<div class="submit-info-container">
-					<label>浙大邮箱</label>
-					<input type="text" name="mail" placeholder="队长邮箱">
-				</div>
-				<div class="submit-info-container">
-					<p>组员1</p>
-					<input type="text" name="name1" placeholder="姓名">
-					<input type="text" name="stuid1" placeholder="学号">
-					<input type="text" name="contact1" placeholder="电话">
-				</div>
-				<div class="submit-info-container">
-					<p>组员2</p>
-					<input type="text" name="name2" placeholder="姓名">
-					<input type="text" name="stuid2" placeholder="学号">
-					<input type="text" name="contact2" placeholder="电话">
-				</div>
-				<div class="submit-info-container">
-					<p>组员3</p>
-					<input type="text" name="name3" placeholder="姓名">
-					<input type="text" name="stuid3" placeholder="学号">
-					<input type="text" name="contact3" placeholder="电话">
-				</div>
-				<div class="submit-info-container"></div>
-
-				<input id="submit-button" class="submit-info-button" type="submit" value="提交">
-				<input id="submit-back-button" class="submit-info-button" type="button" value="返回">
+				<p class='submit-info-title'>参赛信息</p>
+				<input type="text" name="name" placeholder="电影名称">
+				<input type="text" name="mail" placeholder="浙大邮箱">
+				<p class='submit-info-title'>成员信息(至多7人)</p>
+				<input class='w120' type="text" name="name1" placeholder="队长姓名">
+				<input class='w120' type="text" name="stuid1" placeholder="学号">
+				<input class='w120' type="text" name="contact1" placeholder="手机">
+				<input class='w120' type="text" name="name2" placeholder="队员姓名">
+				<input class='w120' type="text" name="stuid2" placeholder="学号">
+				<input class='w120' type="text" name="contact2" placeholder="手机">
+				<input class='w120' type="text" name="name3" placeholder="队员姓名">
+				<input class='w120' type="text" name="stuid3" placeholder="学号">
+				<input class='w120' type="text" name="contact3" placeholder="手机">
+				<input class='w120' type="text" name="name4" placeholder="队员姓名">
+				<input class='w120' type="text" name="stuid4" placeholder="学号">
+				<input class='w120' type="text" name="contact4" placeholder="手机">
+				<input class='w120' type="text" name="name4" placeholder="队员姓名">
+				<input class='w120' type="text" name="stuid4" placeholder="学号">
+				<input class='w120' type="text" name="contact4" placeholder="手机">
+				<input class='w120' type="text" name="name5" placeholder="队员姓名">
+				<input class='w120' type="text" name="stuid5" placeholder="学号">
+				<input class='w120' type="text" name="contact5" placeholder="手机">
+				<input class='w120' type="text" name="name6" placeholder="队员姓名">
+				<input class='w120' type="text" name="stuid6" placeholder="学号">
+				<input class='w120' type="text" name="contact6" placeholder="手机">
+				<input class='w120' type="text" name="name7" placeholder="队员姓名">
+				<input class='w120' type="text" name="stuid7" placeholder="学号">
+				<input class='w120' type="text" name="contact7" placeholder="手机">
+				<button class="button" type="submit">提交</button>
 				<div id="submit-remark">
 					<p>注：</p>
 					<p>每个团队请使用一个固定的浙大邮箱。</p>
@@ -101,8 +100,8 @@
 					<p>成为心中最爱的人物</p>
 					<p>把你的面庞印刻在独属于自己的海报中</p>
 				</div>
-				<div id="main-info-submit" class="main-button">我要参加</div>
-				<div id="main-info-vote" class="main-button">我要投票</div>
+				<div id="main-info-submit" class="button">我要参加</div>
+				<div id="main-info-vote" class="button">我要投票</div>
 			</div>
 			<div id="main-submit-info">
 				<p id="main-info-subtitle">浙江大学第二届青年电影节</p>
