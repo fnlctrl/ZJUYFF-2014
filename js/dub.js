@@ -1,5 +1,6 @@
-$(document).ready(function() {
+﻿$(document).ready(function() {
 	var showForm = false;
+	var baseUrl = '';
 	var text = [];
 	$('#main-intro-join').click(function() {
 		if (showForm) {
