@@ -65,7 +65,7 @@ class Dispatch {
         }
         foreach ($requires as &$key => &$value) {
             if (!in_array($value, $args)) {
-                return array('code' => 1, 'msg' => '操作失败：关键表单项未找到');
+                return array('code' => 1, 'msg' => '关键表单项未找到');
             } else {
                 $newobj[$key] = $args[$value];
                 if (isset($req_no_empty[$key]) && $newobj[$key] == '') {
@@ -73,16 +73,60 @@ class Dispatch {
                 }
             }
         }
-        foreach ($newobj as $key => $value) {
+        if (!in_array($newobj['method'], $methods)) {
+            return array('code' => 3, 'msg' => '噗，参赛方式好像错误了，如果你确定你没选错，请联系 sen@senorsen.com ~打搅啦');
+        }
+        $members = 0;
+        $member_list = array();
+        $phone_list = array();
+        $email_list = array();
+        foreach ($newobj as &$key => &$value) {
+            $value = $this->db->escape_string($value);
+            $$key = $value;
             if (preg_match('/^phone/', $key)) {
                 if (!preg_match('/^\d*$/', $value)) {
                     return array('code' => 3, 'msg' => '手机号码必须为数字哦');
+                } else {
+                    $match = preg_replace('/^phone(\d+)$/', '$1', $key);
+                    $phone_list['name' . $match] = $value;
                 }
             }
             if (preg_match('/^email/', $key)) {
                 if ($value != '' && !preg_match('/^.+@.+\..+/', $value)) {
                     return array('code' => 3, 'msg' => '邮箱格式好像错了哦～');
+                } else {
+                    $match = preg_replace('/^email(\d+)$/', '$1', $key);
+                    $email_list['name' . $match] = $value;
                 }
             }
+            if (preg_match('/^name/', $key) && $value != '') {
+                $members++;
+                array_push($member_list, array(
+                    'leader' => $key == 'name1' ? 1 : 0,
+                    'name' => $value,
+                    'name_key' => $key
+                ));
+            }
         }
-        
+        foreach ($member_list as &$value) {
+            $value['phone'] => $phone_list[$value['name_key']];
+            $value['email'] => $email_list[$value['name_key']];
+            unset($value['name_key']);
+        }
+        $r_ip = $this->db->escape_string(getIP());
+        $sql = "INSERT INTO dub_team (team_name, slogan, method, members, time, ip) VALUES ('$team_name', '$slogan', '$method', '$members', NOW(), '$r_ip') ";
+        $this->db->query($sql);
+        if ($this->db->errno) {
+            return array('code' => 100, 'msg' => '噗，数据库插入_team_操作出错！太可怕啦，请联系我～～ sen@senorsen.com');
+        }
+        $tid = $this->db->insert_id;
+        foreach ($member_list as &$value) {
+            $sql = "INSERT INTO dub_teammate (tid, name, leader, phone, email) VALUES ($tid, '$value->name', $value->leader, '$value->phone', '$value->email') ";
+            $this->db->query($sql);
+            if ($this->db->errno) {
+                return array('code' => 100, 'msg' => '噗，数据库插入_teammate_操作出错！太可怕啦，请联系我～～ sen@senorsen.com');
+            }
+        }
+    }
+    return array('code' => 0, 'msg' => '提交成功');
+}

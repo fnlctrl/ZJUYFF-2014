@@ -74,6 +74,9 @@ function checkToken() {
         return FALSE;
     }
 }
+function getip() {
+    return $_SERVER['REMOTE_ADDR'];
+}
 function randomString($num = 10) {
     $char_list = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     $str = '';
