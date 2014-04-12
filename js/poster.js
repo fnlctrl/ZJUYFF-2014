@@ -1,5 +1,5 @@
 var pid = 1;
-var baseUrl = 'http://10.76.8.221/delostik/';
+var baseUrl = 'http://localhost/ZJUYFF/';
 
 $(document).ready(function() {
 	var data = new Data(),
