@@ -1,0 +1,181 @@
+#nav-bar {
+  height: 60px;
+  width: 100%;
+  background-color: #eee;
+  box-shadow: -1px 1px 3px #555;
+  margin: 0 auto;
+  position: fixed;
+  z-index: 10;
+}
+#nav-logo {
+  right: 50%;
+  margin-right: -30px; 
+  height: 60px;
+  position: absolute;
+  cursor: pointer;
+}
+#nav-name {
+  top: 0;
+  right: 50%;
+  height: 60px;
+  width: 285px;
+  position: absolute;
+  margin: 0 -340px 0 0;
+}
+#nav-sections {
+  position: absolute;
+  padding: 0;
+  top: 50%;
+  margin: -7px 50px 0 0;
+  right: 50%;
+  width: 500px;
+  overflow: hidden;
+}
+#nav-sections ul {
+  margin: 0;
+  padding: 0;
+}
+#nav-sections a {
+  float: right;
+  margin: 0 10px 0 10px;
+  height: 20px;
+  font-size: 14px;
+  line-height: 14px;
+}
+#nav-sections span {
+  position: absolute;
+}
+#nav-show:hover {
+  color: #a9ce52;
+  font-weight: bold;
+}
+#nav-show:active {
+  color: #00853c;
+  font-weight: bold;
+}
+#nav-forum:hover {
+  color: #f5ab2d;
+  font-weight: bold;
+}
+#nav-forum:active {
+  color: #e95520;
+  font-weight: bold;
+}
+#nav-poster:hover {
+  color: #7fc7ef;
+  font-weight: bold;
+}
+#nav-poster:active {
+  color: #008cce;
+  font-weight: bold;
+}
+#nav-dub:hover {
+  color: #c38f8d;
+  font-weight: bold;
+}
+#nav-dub:active {
+  color: #74308d;
+  font-weight: bold;
+}
+#nav-logo:hover path {
+  fill: #1dade5;
+}
+#nav-logo:active path {
+  fill: #008cce;
+}
+#nav-menu {
+  width: 0;
+  height: 160px;
+  top: 60px;
+  left: 0;
+  background: #fff;
+  position: fixed;
+  overflow: hidden;
+  box-shadow: -1px 1px 3px #555;
+  z-index: 2;
+}
+#nav-menu-icon {
+  position: absolute;
+  left: 0;
+  top: 0;
+  cursor: pointer;
+}
+.menu-item {
+  width: 150px;
+  height: 50px;
+  left: 0;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+  border-top: 1px solid #ddd;
+  position: relative;
+}
+.menu-item a {
+  font-size: 16px;
+  line-height: 16px;
+  height: 20px;
+  top: 50%;
+  overflow: hidden;
+  position: relative;
+  margin: -8px 0 0 0;
+  width: 80px;
+  transition: all 0.5s ease-in-out;
+}
+.menu-item:hover {
+  background-color: #eee;
+}
+.menu-item:hover a{
+  color: #ef821e;
+}
+.comingsoon-text {
+  position: relative;
+  font-size: 10px;
+  width: 56px;
+  line-height: 10px;
+  color: #888;
+  top: 20px;
+  left: 0;
+  font-weight: normal;
+}
+.menu-item span {
+  position: absolute;
+}
+/* Change color of svgs on hover */
+#nav-menu-icon:hover path {
+  fill: #ef821e;
+}
+#nav-menu-icon:hover path {
+  fill: #ef821e;
+}
+#nav-menu-icon:active path {
+  fill: #e95520;
+}
+#nav-menu-icon:active rect {
+  fill: #ccc;
+}
+#menu-timeline:hover rect{
+  fill: #e95520;
+}
+#menu-timeline:hover path{
+  fill: #f5ab2d;
+}
+#menu-timeline:hover polygon{
+  fill: #ef821e;
+}
+#menu-map:hover path:nth-child(1) {
+  fill: #e95520;
+}
+#menu-map:hover path:nth-child(2) {
+  fill: #f5ab2d;
+}
+#menu-map:hover path:nth-child(3) {
+  fill: #e95520;
+}
+#menu-map:hover polygon{
+  fill: #ef821e;
+}
+#menu-filmguide:hover polygon{
+  fill: #ef821e;
+}
+#menu-filmguide:hover path{
+  fill: #e95520;
+}

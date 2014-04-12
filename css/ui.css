@@ -1,0 +1,76 @@
+.button {
+  background-color: #1dab41;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: inherit;
+  color: white;
+  margin: 20px 15px 0 0;
+  padding: 10px 0 10px 0;
+  text-align: center;
+  width: 120px;
+  transition: all 0.1s ease;
+  outline: none;
+  -moz-user-select: none; 
+  -webkit-user-select: none;  
+  -ms-user-select: none;   
+  user-select: none;
+}
+.button:hover {
+  background-color: #23c144;
+}
+.button:active {
+  background-color: #00853c;
+}
+.button[disabled] {
+  background-color: #777;
+}
+.button[disabled]:hover {
+  background-color: #999;
+}
+.button[disabled]:active {
+  background-color: #666;
+}
+.w120 {
+  width: 120px;
+}
+.w100 {
+  width: 100px;
+}
+.w200 {
+  width: 200px;
+}
+.w330 {
+  width: 330px;
+}
+input {
+  position: relative;
+  border: none;
+/*  border-radius: 4px;*/
+  border-style-top: inset;
+  background-color: #eee;
+  font: inherit;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 5px 0 5px 10px;
+  margin: 0px -5px 0 0;
+  height: 20px;
+  outline: none;
+  color: #00853c;
+  transition: all 0.2s ease;
+}
+input:focus {
+  background: #afa;
+}
+input[type=radio] {
+  width: 20px;
+  height: 20px;
+  margin: 0 10px 0 0;
+  vertical-align: text-bottom;
+}
+input[type=file] {
+  background: none;
+}

@@ -1,0 +1,236 @@
+body {
+  color: #fff;
+  overflow-x: hidden;
+  z-index: 0;
+}
+#nav-poster {
+  color: #1dade5;
+  font-weight: bold;
+}
+/******UI Override*******/
+input {
+  color: #008cce !important;
+}
+input:focus {
+  background: #7fc7ef !important;
+}
+.button {
+  background-color: #1dade5;
+}
+.button:hover {
+  background-color: #7fc7ef;
+}
+.button:active {
+  background-color: #008cce;
+}
+/******Container Part*******/
+#container {
+  background-color: #252525;
+  position: absolute;
+  top: 60px;
+  overflow: hidden;
+  width: 100%;
+}
+.poster-button {
+  cursor: pointer;
+  display: none;
+  height: 80px;
+  margin-top: -40px;
+  top: 50%;
+  width: 40px;
+  position: absolute;
+  z-index: 5;
+}
+#left-button {
+  background-image: url('../img/poster-left-button.svg');
+  left: 60px;
+}
+#right-button {
+  background-image: url('../img/poster-right-button.svg');
+  right: 60px;
+}
+
+/******main-info part******/
+
+#main-info-container {
+  height: 100%;
+  left: 60%;
+  position: absolute;
+  top: 0;
+  overflow: hidden;
+  background: #222;
+  z-index: 2;
+}
+#main-info {
+  height: 400px;
+  margin-left: 60px;
+  position: absolute;
+  top: 20%;
+  width: 300px;
+}
+#main-info-subtitle {
+  font-size: 18px;
+  margin-bottom: 0;
+}
+#main-info-title {
+  font-size: 48px;
+  margin-top: 0;
+  margin-bottom: 50px;
+}
+#main-info-content {
+  font-size: 15px;
+  position: absolute;
+  width: 300px;
+}
+#main-submit-info {
+  left: 300px;
+  position: absolute;
+  width: 300px;
+  opacity: 0;
+}
+#main-info-submit {
+  bottom: 80px;
+  position: absolute;
+}
+#main-info-vote {
+  bottom: 80px;
+  left: 140px;
+  position: absolute;
+}
+
+/******vote part******/
+
+#vote-container {
+  left: -400px;
+  margin-left: 60px;
+  position: absolute;
+  top: 15%;
+}
+#vote-box, #vote-id-container {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 40px;
+}
+.vote-box {
+  height: 25px;
+  margin-top: 12px;
+}
+.vote-box p {
+  float: left;
+  width: 100px;
+}
+.star-box {
+  float: left;
+}
+.star-box img {
+  display: inline-block;
+}
+#vote-id {
+  font-family: "Microsoft YaHei";
+  font-size: 18px;
+  height: 28px;
+  margin-left: 10px;
+  width: 180px;
+}
+.vote-submit-button {
+  margin-top: 30px;
+  margin-right: 15px;
+  width: 115px;
+}
+
+/*****submit part*****/
+#submit-container {
+  background-color: #fff;
+  height: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: 9;
+}
+#submit-info {
+  color: #444;
+  font-weight: bold;
+  width: 400px;
+  position: absolute;
+  right: 35vh;
+
+}
+.submit-info-button {
+  background-color: #888;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: bold;
+  height: 30px;
+  margin-top: 20px;
+  margin-right: 20px;
+  text-align: center;
+  padding-top: 5px;
+  width: 120px;
+}
+#submit-remark {
+  color: #000;
+  font-size: 12px;
+  margin-top: 20px;
+}
+#submit-poster {
+  background-color: #dbdcdc;
+  color: #444;
+  position: absolute;
+  right: 0;
+}
+#submit-poster-title {
+  font-weight: bold;
+  left: 15px;
+  top: 15px;
+  position: absolute;
+}
+#submit-poster-content {
+  left: 50%;
+  top: 50%;
+  margin-top: -50px;
+  margin-left: -50px;
+  position: absolute;
+}
+#submit-poster-button {
+  bottom: 30px;
+  left: 15px;
+  position: absolute;
+}
+#submit-origin-poster {
+  background-color: #888;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+}
+#submit-origin-poster-title {
+  font-weight: bold;
+  top: 15px;
+  left: 15px;
+  position: absolute;
+}
+#submit-origin-poster-button {
+  bottom: 30px;
+  left: 15px;
+  position: absolute;
+}
+#submit-container img {
+  height: 100%;
+  width: 100%;
+}
+.submit-info-title {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  color: #008cce;
+  margin: 20px 0 10px 0;
+  position: relative;
+}
+/******poster part*****/
+.posters {
+  z-index: 2;
+}
+#current-poster {
+  z-index: 3;
+}

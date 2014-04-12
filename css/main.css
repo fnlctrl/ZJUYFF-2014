@@ -1,0 +1,298 @@
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 100%;
+  position: absolute;
+}
+/* Main */
+#main-container {
+  position: absolute;
+  width: 100%;
+  top: 60px;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+.slide {
+  float: left;
+  width: 8%;
+  height: 100%;
+  background-color: #eee;
+  z-index: 1;
+  -webkit-transition: all 0.7s ease;
+  -moz-transition: all 0.7s ease;
+  -o-transition: all 0.7s ease;
+  transition: all 0.7s ease;
+  position: relative; 
+  overflow: hidden;
+  min-height: 450px;
+}
+.slide-selected {
+  width: 68%;
+  background-color: #fff;
+  z-index: 1;
+}
+.slide-small {
+  width: 100vw;
+  height: 80vw;
+  float: left;
+  background-color: #fff;
+}
+.main-bg {
+  position: absolute;
+  left: -1%;
+  bottom: -10%;
+  transition: all 1s ease;
+  z-index: -1;  
+}
+.main-comingsoon {
+  font-weight: bold;
+  font-size: 60px;
+  position: absolute;
+  right: 10%;
+  bottom: 20%;
+  text-align: right;
+}
+.main-title {
+  font-size: 28px;
+  width: 28px;
+  font-weight: bold;
+  top: 90px;
+  left: 50%;
+  margin: 0 0 0 -14px;
+  position: absolute;
+  line-height: 30px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.main-title-selected {
+  width: 300px;
+  top: 32px;
+  left: 100px;
+  position: absolute;
+  margin: 0;
+}
+.main-title-small {
+  width: 216px;
+  top: 32px;
+  font-weight: bold;
+  left: 100px;
+  position: absolute;
+  margin: 0;
+}
+.main-icon {
+  position: absolute;
+  left: 50%;
+  margin: 0 0 0 -20px;
+  top: 30px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.main-icon-selected {
+  position: absolute;
+  left: 30px;
+  top: 30px;
+  margin: 0;
+}
+.main-icon-small {
+  position: absolute;
+  left: 30px;
+  top: 30px;
+  margin: 0;
+}
+.main-word {
+  text-align: right;
+  position: absolute;
+  right: -100px;
+  bottom: 20%;
+  white-space: nowrap;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 30px;
+  background: rgba(255,255,255,0.8);
+  transition: all 0.8s ease;
+  width: 0px;
+  color: inherit;
+}
+.main-word a {
+  margin: 30px 0 0 0;
+  font-weight: bold;
+  color: inherit;
+}
+#main-show {
+  color: #1dab41 !important;
+}
+#main-forum {
+  color: #ef821e !important;
+}
+#main-poster {
+  color: #1dade5 !important;
+}
+#main-dub {
+  color: #90529c !important;
+}
+#main-show:hover {
+  color: #00853c !important;
+}
+#main-forum:hover {
+  color: #e95520 !important;
+}
+#main-poster:hover {
+  color: #008cce !important;
+}
+#main-dub:hover {
+  color: #74308d !important;
+}
+/* Main intro page */
+#main-intro {
+  font-size: 450px;
+}
+#main-intro-logo {
+  position: absolute;
+  height: 90%;
+  width: 100%;
+  top: 3%;
+  right: -27%;
+  z-index: 0;
+  max-height: 700px;
+  cursor: pointer;
+}
+#main-intro-title {
+  position: absolute;
+  font-size: 40px;
+  left: 12%;
+  top: 20%;
+  color: #444;
+  transition: all 0.7s ease;
+  white-space: nowrap;
+  z-index: 0;
+}
+#main-intro-word {
+  position: absolute;
+  left: 12%;
+  bottom: 10%;
+  color: #444;
+  font-size: 12px;
+  transition: all 0.7s ease;
+  white-space: nowrap;
+  z-index: 0;
+}
+.shade {
+  position: relative;
+  height: 100%;
+  width: 8vw;
+  left: 0;
+  z-index: 1;
+  background-color: #fff;
+  transition: all 0.7s ease;
+}
+/* Change color of SVGs on hover*/
+#main-show:hover path {
+  fill: #00853c;
+}
+#main-show:hover polygon {
+  fill: #a9ce52;
+}
+#main-forum:hover polygon {
+  fill: #e95520;
+}
+#main-poster:hover circle {
+ fill: #008cce;
+}
+#main-poster:hover polygon {
+ fill: #7fc7ef;
+}
+#main-dub:hover path:nth-child(1) {
+  fill: #74308d;
+}
+#main-dub:hover path:nth-child(2) {
+  fill: #c38fbd;
+}
+/* Footer */
+#footer-container {
+  position: absolute;
+  height: 300px;
+  width: 100%;
+  background: #222;
+  color: #fff;
+  font-size: 12px;
+  text-align: center;
+  clear: both;
+  bottom: 0;
+}
+#footer-container a {
+  color: #fff;
+  margin: 0 5px 0 5px;
+}
+#footer-container a:hover {
+  text-decoration: underline;
+}
+#footer-container img {
+  float: left;
+}
+#footer-container .svg:hover path{
+  fill: #1dade5;
+}
+#footer-logo {
+  position: relative;
+  top: 40px;
+}
+#footer-column-container {
+  position: relative;
+  left: 50%;
+  margin: 0 0 0 -300px;
+  top: 50px;
+  width: 600px;
+  height: 150px;
+}
+.footer-column {
+  width: 200px;
+  float: left;
+  display: inline-block;
+}
+.footer-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #888;
+  margin: 15px 0 5px 0;
+  clear: both;
+}
+#footer-copyright {
+  position: absolute;
+  font-size: 10px;
+  color: #888;
+  bottom: 20px;
+  left: 50%;
+  margin: 0 0 0 -66px;
+}
+/* Special shadow effect */
+.slide:after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  -webkit-box-shadow: 0 0 22px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0 0 22px rgba(0,0,0,0.5);
+  box-shadow: 0 0 22px rgba(0,0,0,0.5);
+  -moz-border-radius: 10px/150px;
+  border-radius: 10px/150px;
+  top: 10%;
+  bottom: 0;
+  height: 80%;
+  width: 300px;
+  left: -300px;
+}
+.slide-small:after {
+  content: '';
+  position: absolute;
+  z-index: 3;
+  -webkit-box-shadow: 0 0 22px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0 0 22px rgba(0,0,0,0.5);
+  box-shadow: 0 0 22px rgba(0,0,0,0.5);
+  -moz-border-radius: 10px/150px;
+  border-radius: 260px/9px;
+  left: 5%;
+  width: 90%;
+  top: 100%;
+}
