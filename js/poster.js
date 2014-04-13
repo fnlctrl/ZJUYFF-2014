@@ -157,8 +157,8 @@ function View(data) {
 					posterTopTitle = document.createElement('div'),
 					posterBottomTitle = document.createElement('div');
 		// main div
-			$(posterTop).data(data[0]);
-			$(posterBottom).data(data[1]);
+			// $(posterTop).data(data[0]);
+			// $(posterBottom).data(data[1]);
 			$(posterTop).width(that.posterW).height(that.posterH);
 			$(posterBottom).width(that.posterW).height(that.posterH);
 			$(posterTop).css({
@@ -671,11 +671,12 @@ function Data() {
 			method: 'POST',
 			url: baseUrl + 'index.php?ajax=json&action=submit_poster&random_token=' + window.global_cfg.random_token,
 			dataType: 'json',
-			success: function() {
+			success: function(data) {
 				if (data.code == 0) {
 					showNotice("恭喜你！提交成功！");
+				}
 			},
-			error: function() {
+			error: function(data) {
 				showNotice("错误：" + data.msg);
 			}
 		};
@@ -709,7 +710,7 @@ function Data() {
 			};
 			pid += 2;
 		}
-		success(position, dir, data);
+		success(position, dir);
 		// $.ajax(settings);
 	}
 
