@@ -179,14 +179,14 @@ class Dispatch {
                 if (!isset($newobj['stuid' . $this_id]) || !isset($newobj['contact' . $this_id])) {
                     return array('code' => 1, 'msg' => '队员的信息是必填的哟～');
                 } else {
-                    $members++;
+                    $cnt_members;
                     array_push($members, array('name' => $value, 'stuid' => $newobj['stuid' . $this_id], 'contact' => $newobj['contact' . $this_id], 'leader' => $key == 'name1' ? 1 : 0));
                 }
             }
             $$key = $value;
         }
         $ip = $this->db->escape_string(getIP());
-        $sql = "INSERT INTO poster_signup (name, members, time, ip) VALUES ('$name', $members, NOW(), '$ip') ";
+        $sql = "INSERT INTO poster_signup (name, members, time, ip) VALUES ('$name', $cnt_members, NOW(), '$ip') ";
         $this->db->query($sql);
         if ($this->db->errno) {
             return array('code' => 100, 'msg' => '处理poster_signup时遇到数据库插入错误，非常抱歉！请联系 sen@senorsen.com，谢谢啦～');
