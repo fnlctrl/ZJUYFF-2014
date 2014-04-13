@@ -185,7 +185,7 @@ class Dispatch {
             }
             $$key = $value;
         }
-        $ip = $this->escape_string(getIP());
+        $ip = $this->db->escape_string(getIP());
         $sql = "INSERT INTO poster_signup (name, members, time, ip) VALUES ('$name', $members, NOW(), '$ip') ";
         $this->db->query($sql);
         if ($this->db->errno) {
