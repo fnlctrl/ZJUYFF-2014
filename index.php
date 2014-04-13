@@ -83,7 +83,8 @@ try {
     $dispatch = new Dispatch($args, $db);
     $ret = null;
     if (method_exists($dispatch, $action)) {
-        eval('$ret = $dispatch->' . $action . '(' . var_export($args, TRUE) . ');');
+        // the saf
+        eval('$ret = $dispatch->' . $action . '($args);');
     }
     if ($action == '') {
         $action = 'main';
