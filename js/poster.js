@@ -692,8 +692,11 @@ function Data() {
 				alert(xHRuquest.readyState);
 			}
 		};
-		if (that.posterID.length  == pid ) {
+		if (that.posterID.length < pid) 
+			return;
+		else if (that.posterID.length  == pid ) {
 			alert("已经没有海报啦 > <");
+			pid ++;
 			return;
 		}
 		else if (that.posterID.length - 1 == pid) {
