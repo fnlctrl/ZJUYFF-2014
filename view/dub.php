@@ -3,10 +3,18 @@
 <head>
 	<meta charset='utf-8'/>
 	<meta name='viewport' content='width=device-width, initial-scale=0.8, minimum-scale=0.8, maximum-scale=0.8'>
+    <title>配音大赛 - 浙江大学青年电影节</title>
 	<link rel='stylesheet' type='text/css' href='./css/global.css'>
 	<link rel='stylesheet' type='text/css' href='./css/ui.css'>
 	<link rel='stylesheet' type='text/css' href='./css/dub.css'>
 	<link rel='stylesheet' type='text/css' href='./css/nav.css'>
+    <script>
+        try {
+            var global_cfg = <?php echo json_encode($view_obj->global_cfg);?>;
+        } catch (e) {
+            var global_cfg = {"random_token":"error??? pu, we don't know."};
+        }
+    </script>
 	<script src='./js/jquery-2.1.0.min.js'></script>
 	<script src='./js/global.js'></script>
 	<script src='./js/dub.js'></script>
@@ -16,16 +24,16 @@
 <div id='nav-bar'>
     <div id='nav-sections'>
       <ul>
-        <li><a href='' id='nav-dub'>配音大赛</a></li>
-        <li><a href='' id='nav-poster'>海报扮演</a></li>
+        <li><a href='dub' id='nav-dub'>配音大赛</a></li>
+        <li><a href='poster' id='nav-poster'>海报扮演</a></li>
         <li>
-          <a href='' id='nav-forum' class='comingsoon' onclick='return false'>
+          <a href='forum' id='nav-forum' class='comingsoon' onclick='return false'>
             <span>论坛讲座</span>
             <div class='comingsoon-text'>COMING<br>SOON</div>
           </a>
         </li>
         <li>
-          <a href='' id='nav-show' class='comingsoon' onclick='return false'>
+          <a href='show' id='nav-show' class='comingsoon' onclick='return false'>
             <span>放映单元</span>
             <div class='comingsoon-text'>COMING<br>SOON</div>
           </a>
@@ -33,7 +41,7 @@
       </ul>
     </div>
     <img id='nav-menu-icon' class='svg' src='img/menu.svg'/>
-    <a id='nav-logo' href='./main.html' target='_blank'><img class='svg' src='img/FilmFestivalLogo.svg'/></a>
+    <a id='nav-logo' href='./' target='_blank'><img class='svg' src='img/FilmFestivalLogo.svg'/></a>
     <div id='nav-name'><img class='svg' src='img/ZJU YOUTH FILM FESTIVAL.svg'/></div>
   </div>
   <div id='nav-menu'>

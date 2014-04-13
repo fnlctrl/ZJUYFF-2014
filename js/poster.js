@@ -1,5 +1,5 @@
 var pid = 0;
-var baseUrl = 'http://localhost/ZJUYFF/';
+var baseUrl = '';
 
 $(document).ready(function() {
 	var data = new Data(),
@@ -12,7 +12,6 @@ $(document).ready(function() {
 	$('#submit-container').submit(data.postPoster);
 	$('#main-info-submit').click(view.clickSubmit);
 	$('#submit-back-button').click(view.clickBack);
-	$('#main-info-vote').bind('click', view.vote);
 	$('#vote-submit-back').bind('click', view.voteBack);
 	$('#vote-submit-button').click(view.postVote);
 	$('#left-button, #right-button').bind('click', view.slide);
@@ -123,7 +122,7 @@ function View(data) {
 		});
 		$('#poster-container').prepend(currentPoster);
 
-		$(currentImg).attr('src', 'img/1.jpg').width('100%').height('100%');
+		$(currentImg).attr('src', 'img/temp-posters/' + pid + '-cos.jpg').width('100%').height('100%');
 		$(currentPoster).append(currentImg);
 
 		$(currentHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover').css({
@@ -145,7 +144,7 @@ function View(data) {
 		$(currentHover).prepend(currentTitle);
 		$(currentPoster).bind('mouseenter', currentHover, that.posterOver);
 		$(currentPoster).bind('mouseleave', currentHover, that.posterOut);
-		$(currentPoster).bind('click', that.posterClick);
+		// $(currentPoster).bind('click', that.posterClick);
 	}
 
 	this.createPosters = function(position, dir, data) {
@@ -184,8 +183,8 @@ function View(data) {
 			else 
 				$('#poster-container').prepend(posterBottom).prepend(posterTop);
 		// img div
-			$(posterTopImg).attr('src', 'img/1.jpg').width('100%').height('100%');
-			$(posterBottomImg).attr('src', 'img/1.jpg').width('100%').height('100%');
+			$(posterTopImg).attr('src', 'img/temp-posters/' + $(posterTop).data('id') + '-cos.jpg').width('100%').height('100%');
+			$(posterBottomImg).attr('src', 'img/temp-posters/' + $(posterBottom).data('id') + '-cos.jpg').width('100%').height('100%');
 			$(posterTop).append(posterTopImg);
 			$(posterBottom).append(posterBottomImg);
 		// hover div
@@ -227,8 +226,8 @@ function View(data) {
 			$(posterBottom).bind('mouseenter', posterBottomHover, that.posterOver);
 			$(posterTop).bind('mouseleave', posterTopHover, that.posterOut);
 			$(posterBottom).bind('mouseleave', posterBottomHover, that.posterOut);
-			$(posterTop).bind('click', that.posterClick);
-			$(posterBottom).bind('click', that.posterClick);
+			// $(posterTop).bind('click', that.posterClick);
+			// $(posterBottom).bind('click', that.posterClick);
 	}
 
 	this.posterOver = function(e) {
@@ -670,7 +669,13 @@ function Data() {
 			target: "#submit-container",
 			method: 'POST',
 			url: baseUrl + 'upload.php',
-			dataType: 'json'
+			dataType: 'json',
+			success: function() {
+				alert("恭喜你！提交成功！");
+			},
+			error: function() {
+				alert("错误。。请稍候再试。XD")
+			}
 		};
 		$('#submit-container').ajaxSubmit(settings);
 	}

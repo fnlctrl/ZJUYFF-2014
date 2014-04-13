@@ -3,10 +3,18 @@
 <head>
 	<meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>海报扮演 - 浙江大学青年电影节</title>
 	<link rel="stylesheet" type="text/css" href="./css/global.css">
 	<link rel="stylesheet" type="text/css" href="./css/ui.css">
 	<link rel="stylesheet" type="text/css" href="./css/poster.css">
 	<link rel="stylesheet" type="text/css" href="./css/nav.css">
+    <script>
+        try {
+            var global_config = <?php echo json_encode($view_obj->global_cfg);?>;
+        } catch (e) {
+            var global_config = {"random_token":"none_error"};
+        }
+    </script>
 	<script src="./js/jquery-2.1.0.min.js"></script>
 	<script src="./js/jquery.form.min.js"></script>
 	<script src="./js/global.js"></script>
@@ -14,23 +22,42 @@
 	<script src="./js/nav.js"></script>
 </head>
 <body>
-	<div id="nav-bar">
-		<div id="nav-sections">
+	<div id='nav-bar'>
+		<div id='nav-sections'>
 			<ul>
-				<a href=""><li id="nav-dub">配音大赛</li></a>
-				<a href=""><li id="nav-poster">海报扮演</li></a>
-				<a href=""><li id="nav-forum">论坛讲座</li></a>
-				<a href=""><li id="nav-show">放映单元</li></a>
+				<li><a href='dub' target='_blank' id='nav-dub'>配音大赛</a></li>
+				<li><a href='poster' target='_blank' id='nav-poster'>海报扮演</a></li>
+				<li>
+					<a href='forum' id='nav-forum' class='comingsoon' onclick='return false'>
+						<span>论坛讲座</span>
+						<div class='comingsoon-text'>COMING<br>SOON</div>
+					</a>
+				</li>
+				<li>
+					<a href='show' id='nav-show' class='comingsoon' onclick='return false'>
+						<span>放映单元</span>
+						<div class='comingsoon-text'>COMING<br>SOON</div>
+					</a>
+				</li>
 			</ul>
 		</div>
-		<img id="nav-menu-icon" class="svg" src="img/menu.svg"/>
-		<a id='nav-logo' href='./main.html' target='_blank'><img class='svg' src='img/FilmFestivalLogo.svg'/></a>
-		<div id="nav-name"><img class="svg" src="img/ZJU YOUTH FILM FESTIVAL.svg"/></div>
+		<img id='nav-menu-icon' class='svg' src='img/menu.svg'/>
+		<a id='nav-logo' href='./' target='_blank'><img class='svg' src='img/FilmFestivalLogo.svg'/></a>
+		<div id='nav-name'><img class='svg' src='img/ZJU YOUTH FILM FESTIVAL.svg'/></div>
 	</div>
-	<div id="nav-menu">
-		<div class="menu-item" id="menu-timeline"><img id="menu-timeline-icon" class="svg left" src="./img/menu-timeline.svg"/><a class="left" href="">时间轴</a></div>
-		<div class="menu-item" id="menu-map"><img id="menu-map-icon" class="svg left" src="./img/menu-map.svg"/><a class="left" href="">地图</a></div>
-		<div class="menu-item" id="menu-filmguide"><img id="menu-filmguide-icon"class="svg left" src="./img/menu-filmguide.svg"/><a class="left" href="">观影指南</a></div>
+	<div id='nav-menu'>
+		<div class='menu-item comingsoon' id='menu-timeline'>
+			<img id='menu-timeline-icon' class='svg left' src='./img/menu-timeline.svg'/>
+			<a class='left' href='' onclick='return false'><span>时间轴</span><div class='comingsoon-text'>COMING<br>SOON</div></a>
+		</div>
+		<div class='menu-item comingsoon' id='menu-map'>
+			<img id='menu-map-icon' class='svg left' src='./img/menu-map.svg'/>
+			<a class='left' href='' onclick='return false'><span>地图</span><div class='comingsoon-text'>COMING<br>SOON</div></a>
+		</div>
+		<div class='menu-item comingsoon' id='menu-filmguide'>
+			<img id='menu-filmguide-icon' class='svg left' src='./img/menu-filmguide.svg'/>
+			<a class='left' href='' onclick='return false'><span>观影指南</span><div class='comingsoon-text'>COMING<br>SOON</div></a>
+		</div>
 	</div>
 	<div id="container">
 		<form id="submit-container" action="upload.php">
@@ -107,7 +134,7 @@
 					<p>5月5日晚23:59分</p>
 				</span>
 				<div id="main-info-submit" class="button">我要参加</div>
-				<div id="main-info-vote" class="button">我要投票</div>
+				<div id="main-info-vote" class="button" disabled>我要投票</div>
 			</div>
 			<div id="vote-container">
 				<div id="vote-content">

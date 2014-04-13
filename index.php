@@ -1,4 +1,10 @@
 <?php
+/**
+ *
+ * main functional area of Senorsen's code of film_dub.
+ * @author Senorsen
+ * 
+ */
 define('SEN_DIR', __DIR__);
 require "film_config.php";
 require "film_common.php";
@@ -13,17 +19,26 @@ try {
             'submit_vote'
         ),
         'common' => array('', 
-            'index'
+            'main',
+            'dub',
+            'forum',
+            'show',
+            'poster'
         ),
         'ajax_type' => array(
             'json',
             'jsonp',
             'pjax'
+        )
     );
     if (!isset($callback)) {
         $callback = 'callback';
     }
     if (!defined('SEN_SHELL')) {
+        if (isset($_GET['q'])) {
+            // q存在时将覆盖在action的♂上边。
+            $_REQUEST['action'] = $_GET['q'];
+        }
         if (isset($_REQUEST['ajax']) && is_string($_REQUEST['ajax'])) {
             if (!checkToken() || !in_array($_REQUEST['ajax'], $actions['ajax_type'])) {
                 errorPage('奇怪的错误，不知道是为什么，想报告给我嘛？～');
@@ -36,7 +51,15 @@ try {
         if (isset($_REQUEST['action']) && is_string($_REQUEST['action'])) {
             if ($ajax === FALSE) {
                 if (!in_array($_REQUEST['action'], $actions['common'])) {
+                    header("HTTP/1.1 404 Not Found");
                     errorPage('噗，这个页面并没有被定义。<br>如果您认为这是个错误，欢迎向我来报告哟～～');
+                } else {
+                    $action = $_REQUEST['action'];
+                }
+            } else {
+                if (!in_array($_REQUEST['action'], $actions['ajax'])) {
+                    header("HTTP/1.1 404 Not Found");
+                    errorPage("ajax_action未找到。。。困死了");
                 } else {
                     $action = $_REQUEST['action'];
                     if (isset($_REQUEST['callback']) && is_string($_REQUEST['callback'])) {
@@ -47,6 +70,8 @@ try {
         } else {
             if ($ajax != FALSE) {
                 errorPage('好像有点小错误吧。。。。噗。。。天哪噜。。。');
+            } else {
+                $action = 'main';
             }
         }
         $args = $_REQUEST;
@@ -56,12 +81,14 @@ try {
         unset($args['callback']);
     }
     $dispatch = new Dispatch($args, $db);
-    if (isset($dispatch->$action)) {
-        $ret = $dispatch->$action($args);
-    } else {
-        $ret = null;
+    $ret = null;
+    if (method_exists($dispatch, $action)) {
+        eval('$ret = $dispatch->' . $action . '(' . var_export($args, TRUE) . ');');
     }
-    view_handler($ret, $action, $ret, $callback);
+    if ($action == '') {
+        $action = 'main';
+    }
+    view_handler($ajax, $action, (object)$ret, $callback);
     // happy ending.
     
 } catch (Exception $e) {
