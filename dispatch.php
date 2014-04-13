@@ -133,7 +133,7 @@ class Dispatch {
     }
     public function submit_poster($args) {
         $length_limit = 3 * 1024 * 1024; 
-        if (is_uploaded_file($_FILES['img1']) && is_uploaded_file($_FILES['img2'])) {
+        if (is_uploaded_file($_FILES['img1']['tmp_file']) && is_uploaded_file($_FILES['img2']['tmp_file'])) {
             if ($_FILES['img1']['size'] > $length_limit) {
                 return array('code' => 1, 'msg' => '参赛作品大小超过限制了哦～请压缩后重新上传');
             }
