@@ -35,5 +35,5 @@ var showNotice = function(string) {
 	setTimeout(clearNotice, 2000);
 }
 var clearNotice = function() {
-	$('#message-bar').animate({opacity:0},{duration:500});
+	$('#message-bar').animate({opacity:0},{duration:500,complete: function(){$('#message-bar').remove()}});
 }
