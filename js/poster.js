@@ -675,6 +675,9 @@ function Data() {
 				if (data.code == 0) {
 					showNotice("恭喜你！提交成功！");
 				}
+				else {
+					showNotice("错误：" + data.msg);
+				}
 			},
 			error: function(data) {
 				showNotice("错误：" + data.msg);
