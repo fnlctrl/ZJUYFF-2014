@@ -9,6 +9,7 @@ define('SEN_DIR', __DIR__);
 require "film_config.php";
 require "film_common.php";
 require "dispatch.php";
+set_error_handler("customError");
 try {
 /*
   main block

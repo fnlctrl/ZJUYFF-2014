@@ -21,7 +21,7 @@ if (! @$db->set_charset("utf8")) {
     $con_err = 'charset';
 }
 if ($con_err != 0) {
-    errorPage('发生了一个错误：「数据库无法访问，' . $con_ok . '」，<br>望能将错误反馈至 <a href="mailto:sen@senorsen.com?subject=[film_db_bug]bug%20report_' . $con_ok .'&body=bug_id_' . $con_ok . '" target="_blank">sen@senorsen.com</a>，谢谢啦～～<br><br><a href="./">点击此处返回首页</a></body></html>');
+    errorPage('发生了一个错误：「数据库无法访问，' . $con_ok . '」，<br>望能将错误反馈至 <a href="mailto:sen@senorsen.com?subject=[film_db_bug]bug%20report_' . $con_ok .'&body=bug_id_' . $con_ok . '" target="_blank">sen@senorsen.com</a>，谢谢啦～～<br></body></html>');
 }
 function view_handler($type, $file = null, $view_obj = null, $callback = 'cb') {
     $view_obj = (object)$view_obj;
@@ -90,17 +90,26 @@ function curlFetch($url, $data = null, $timeout = 5) {
     curl_close($ch);
     return $str;
 }
-
+function customError($errno, $errsstr, $errfile, $errline) {
+    $str = '';
+    $str .= "噗，<b>出错啦:</b> [$errno] $errstr<br />";
+    $str .= " Line $errline in $errfile<br />";
+    errorPage($str);
+}
 function errorPage($content, $e = null, $title = '=_= 出错了') {
+    if (is_null($e)) {
+        $e = new Exception;
+    }
     if (!is_null($e)) {
         $es = $e->getTraceAsString();
+        $es = explode("\n", $es);
         $e0 = $es[0];
     } else {
         $e0 = 'unknown_bug';
     }
     echo '<!doctype html>
         <html><head><meta charset="utf-8"><title>' . htmlspecialchars($title) . '</title></head><body>
-        ' . $content . '<br>欢迎报告错误：E-mail: <a href="mailto:sen@senorsen.com?subject=[film_dub_bug_report]bug_report&body=' . htmlspecialchars($e0) . '" target="_blank">sen@senorsen.com</a><br>';
+        ' . $content . '<br>欢迎报告错误：E-mail: <a href="mailto:sen@senorsen.com?subject=[film_dub_bug_report]bug_report&body=' . htmlspecialchars($e0) . '" target="_blank">sen@senorsen.com</a><br><br><a href="./">点击此处返回首页</a><br>';
     if (!is_null($e)) {
         echo 'Trace 喵 log =v=: <br>';
         getTrace($e);
@@ -148,21 +157,14 @@ function randomString($num = 10) {
     return $str;
 }
 function getTrace($e, $ret_to_var = FALSE, $nl2br = TRUE) {
-    if ($ret_to_var || $nl2br) {
-        ob_start();
+    $ret = $e->getTraceAsString();
+    if ($nl2br) {
+        $ret = nl2br($ret);
     }
-    var_dump($e->getTraceAsString());
-    if ($ret_to_var || $nl2br) {
-        $ret = ob_get_clean();
-        if (!$ret_to_var) {
-            // $nl2br here must be TRUE.
-            echo nl2br($ret);
-        } else {
-            if ($nl2br) {
-                $ret = nl2br($ret);
-            }
-            return $ret;
-        }
+    if ($ret_to_var) {
+        return $ret;
+    } else {
+        echo $ret;
     }
 }
 
