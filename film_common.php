@@ -38,6 +38,9 @@ function view_handler($type, $file = null, $view_obj = null, $callback = 'cb') {
         $view_obj->global_cfg = array(
             'random_token' => getToken()
         );
+        if (!isset($view_obj->page_cfg)) {
+            $view_obj->page_cfg = array();
+        }
         $path = 'view/' . $file . '.php';
         if (!file_exists($path)) {
             errorPage('似乎并木有这只视图喵～');
