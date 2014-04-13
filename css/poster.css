@@ -150,9 +150,13 @@ input:focus {
 #submit-info {
   color: #444;
   font-weight: bold;
+  height: 100%;
   width: 400px;
   position: absolute;
-  right: 35vh;
+  padding: 0 31.5px 0 0;
+  right: 30.5vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 #submit-info textarea {
   height: 100px;
@@ -171,6 +175,10 @@ input:focus {
   text-align: center;
   padding-top: 5px;
   width: 120px;
+}
+#submit-info button {
+
+  position: relative;
 }
 #submit-poster {
   background-color: #dbdcdc;
