@@ -14,6 +14,7 @@
         } catch (e) {
             var global_cfg = {"random_token":"none_error"};
         }
+        var page_cfg = <?php echo json_encode($view_obj->page_cfg);?>;
     </script>
 	<script src="./js/jquery-2.1.0.min.js"></script>
 	<script src="./js/jquery.form.min.js"></script>
