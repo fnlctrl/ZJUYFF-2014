@@ -19,6 +19,8 @@ try {
             'submit_poster'
         ),
         'common' => array('', 
+            'setQSCToken',
+            'goLogin',
             'main',
             'dub',
             'forum',
@@ -80,7 +82,7 @@ try {
         unset($args['random_token']);
         unset($args['callback']);
     }
-    $dispatch = new Dispatch($args, $db);
+    $dispatch = new Dispatch($args, $db, $global_config);
     $ret = null;
     if (method_exists($dispatch, $action)) {
         // the saf

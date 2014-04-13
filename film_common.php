@@ -21,7 +21,7 @@ if (! @$db->set_charset("utf8")) {
     $con_err = 'charset';
 }
 if ($con_err != 0) {
-    errorPage('发生了一个错误：「数据库无法访问，' . $con_ok . '」，<br>望能将错误反馈至 <a href="mailto:sen@senorsen.com?subject=[film_db_bug]bug%20report_' . $con_ok .'&body=bug_id_' . $con_ok . '" target="_blank">sen@senorsen.com</a>，谢谢啦～～<br></body></html>');
+    errorPage('发生了一个错误：「数据库无法访问，' . $con_ok . '」，<br>望能将错误反馈至 <a href="mailto:sen@senorsen.com?subject=[film_db_bug]bug%20report_' . $con_ok .'&body=bug_id_' . $con_ok . '" target="_blank">sen@senorsen.com</a>，谢谢啦～～<br><br><a href="./">点击此处返回首页</a></body></html>');
 }
 function view_handler($type, $file = null, $view_obj = null, $callback = 'cb') {
     $view_obj = (object)$view_obj;
@@ -43,11 +43,54 @@ function view_handler($type, $file = null, $view_obj = null, $callback = 'cb') {
         }
         $path = 'view/' . $file . '.php';
         if (!file_exists($path)) {
-            errorPage('似乎并木有这只视图喵～');
+            //errorPage('似乎并木有这只视图喵～');
+            return;
         }
         include $path;
     }    
 }
+function checkQSCToken($token = null) {
+    $check_url = 'http://passport.myqsc.com/api/get_member_by_token?token=';
+    if (is_null($token)) {
+        if (isset($_COOKIE['qsctoken'])) {
+            $token = $_COOKIE['qsctoken'];
+        } else {
+            return FALSE;
+        }
+    }
+    $check_url .= $token;
+    $retstr = curlFetch($check_url);
+    $retobj = json_decode($retstr);
+    if (is_null($retobj)) {
+        return FALSE;
+    } else {
+        if (isset($retobj->code) && $retobj->code == 0) {
+            return FALSE;
+        } else {
+            return $retobj;
+        }
+    }
+}       
+function curlFetch($url, $data = null, $timeout = 5) {
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
+    curl_setopt($ch, CURLOPT_HEADER, false);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+    if (!is_null($data)) {
+        if (is_string($data)) {
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFILEDS, $data);
+        } else {
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+        }
+    }
+    curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+    $str = curl_exec($ch);
+    curl_close($ch);
+    return $str;
+}
+
 function errorPage($content, $e = null, $title = '=_= 出错了') {
     if (!is_null($e)) {
         $es = $e->getTraceAsString();

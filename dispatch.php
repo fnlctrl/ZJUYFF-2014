@@ -13,14 +13,42 @@
 if (!defined('SEN_DIR')) die('No direct script access. Senorsen.');
 
 class Dispatch {
-    private $db;
+    private $db, $bcfg;
     private $args;
     private $upload_dir;
-    function __construct($args, $db) {
+    function __construct($args, $db, $bcfg) {
         global $global_config;
         $this->args = $args;
         $this->db = $db;
+        $this->bcfg = $bcfg;
         $this->upload_dir = $global_config->upload_dir;
+    }
+    public function setQSCToken($args) {
+        if (isset($args['token']) && is_string($args['token'])) {
+            $ret = checkQSCToken($args['token']);
+            if ($ret != FALSE) {
+                setcookie('qsctoken', $args['token'], time() + 3600 * 24 * 30, '/', 'myqsc.com');
+                header('Location: ./'.$args['senredir']);
+            } else {
+                errorPage('错误：登录失败～');
+            }
+        } else {
+            errorPage('错误：根本没有登录信息噗');
+        }
+    }
+    public function goLogin($args) {
+        $my_url = $this->bcfg->my_url_wrap . 'setQSCToken';
+        // 临时地址
+        $passport_login_dir = 'https://passport.myqsc.com/member/auth?redirect=';
+        if (isset($args['redir']) && !is_string($args['redir'])) {
+            errorPage('错误：redir参数有误哦～');
+        }
+        $redir = '';
+        if (isset($args['redir'])) {
+            $redir = $args['redir'];
+        }
+        $go_url = $passport_login_dir . urlencode($my_url . '?senredir=' . $redir);
+        header('Location: ' . $go_url);
     }
     public function poster($args) {
         $sql = "SELECT id,name,members,time FROM poster_signup ";
