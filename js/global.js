@@ -29,11 +29,15 @@ $(document).ready(function() {
 	});
 })
 var showNotice = function(string) {
-	$('body').append("<div id='message-bar'><div id='message-content'></div></div>");
-	$('#message-bar').animate({opacity:1},{duration:500});
-	$('#message-content').text(string);
-	setTimeout(clearNotice, 2000);
+    var $this_notice = $("<div id='message-bar"+Math.random()+"' class='message-bar'></div>").append($("<div class='message-content'></div>").text(string));
+	$('body').append($this_notice);
+	$this_notice.animate({opacity:1},{duration:500});
+	setTimeout(clearNotice($this_notice), 2000);
 }
-var clearNotice = function() {
-	$('#message-bar').animate({opacity:0},{duration:500,complete: function(){$('#message-bar').remove()}});
+var clearNotice = function($obj) {
+    return function() {
+        $obj.fadeOut(function() {
+            $obj.remove();
+        });
+    };
 }

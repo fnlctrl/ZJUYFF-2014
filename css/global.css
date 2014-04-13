@@ -38,7 +38,7 @@ img {
   -o-user-select: none;
   user-select: none;
 }
-#message-bar {
+.message-bar {
   width:500px;
   height:100px;
   background-color: rgba(0,140,206,0.8);
@@ -51,7 +51,7 @@ img {
   z-index: 11;
   opacity: 0;
 }
-#message-content {
+.message-content {
   font-size: 20px;
   color: white;
   text-align: center;
