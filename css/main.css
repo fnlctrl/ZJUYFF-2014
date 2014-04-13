@@ -21,13 +21,17 @@ body {
   height: 100%;
   background-color: #eee;
   z-index: 1;
-  -webkit-transition: all 0.7s ease;
-  -moz-transition: all 0.7s ease;
-  -o-transition: all 0.7s ease;
-  transition: all 0.7s ease;
+  -webkit-transition: all 1.2s ease;
+  -moz-transition: all 1.2s ease;
+  -o-transition: all 1.2s ease;
+  transition: all 1.2s ease;
   position: relative; 
   overflow: hidden;
   min-height: 450px;
+  cursor: pointer;
+}
+.slide a {
+  color: inherit;
 }
 .slide-selected {
   width: 68%;
