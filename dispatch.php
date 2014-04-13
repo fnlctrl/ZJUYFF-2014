@@ -195,7 +195,7 @@ class Dispatch {
                 return array('code' => 1, 'msg' => $value . '是必填的哟=v=');
             }
         }
-        $all = array('name');
+        $all = array('name', 'introduction');
         for ($i = 1; $i <= 7; $i++) {
             array_push($all, 'name' . $i);
             array_push($all, 'stuid' . $i);
