@@ -6,7 +6,7 @@ $(document).ready(function() {
 	    view = new View(data);
 	view.setElement();
 	view.createCurrentPoster();
-	data.getID(view.fillPosters);
+	view.fillPosters();
 
 	$(window).bind('load resize', function() {view.setElement();});
 	$('#submit-container').submit(data.postPoster);
@@ -80,7 +80,7 @@ function View(data) {
 		if (this.files.length === 0) { return; }
 		var oFile = this.files[0];
 		if (!oFile.type.match('image.jpeg')) { 
-			showNotice("请选择JPG格式"); 
+			showNotice("请选择JPG格式图片"); 
 			oFile = {};
 			this.value = null;
 			return; 
@@ -147,7 +147,7 @@ function View(data) {
 		// $(currentPoster).bind('click', that.posterClick);
 	}
 
-	this.createPosters = function(position, dir, data) {
+	this.createPosters = function(position, dir) {
 			var posterTop = document.createElement('div'),
 					posterBottom = document.createElement('div'),
 					posterTopImg = document.createElement('img'),
@@ -157,8 +157,6 @@ function View(data) {
 					posterTopTitle = document.createElement('div'),
 					posterBottomTitle = document.createElement('div');
 		// main div
-			// $(posterTop).data(data[0]);
-			// $(posterBottom).data(data[1]);
 			$(posterTop).width(that.posterW).height(that.posterH);
 			$(posterBottom).width(that.posterW).height(that.posterH);
 			$(posterTop).css({
@@ -651,19 +649,6 @@ function Data() {
 	this.vote = [0, 0, 0, 0, 0];
 	this.vote.id = 2;
 
-	this.getID = function(success) {
-		var settings = {
-			type: "GET",
-			url: baseUrl + 'getinfo.php',
-			dataType: "json",
-			success: function(data) {
-				that.posterID = data;
-				// that.posterID = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17];
-				success();
-			}
-		};
-		$.ajax(settings);
-	}
 	this.postPoster = function(e) {
 		e.preventDefault();
 		var settings = {
@@ -691,14 +676,6 @@ function Data() {
 	}
 
 	this.getPoster = function(position, dir, success) {
-		var settings = {
-			type: 'GET',
-			url: baseUrl + 'getinfo.php',
-			dataType: 'json',
-			success: function(data) {
-				success(position, dir, data);
-			}
-		};
 		if (17 < pid) 
 			return;
 		else if (17  == pid ) {
@@ -707,18 +684,12 @@ function Data() {
 			return;
 		}
 		else if (17 - 1 == pid) {
-			settings.data = {id: that.posterID[pid]};
 			pid ++;
 		}
 		else {
-			settings.data = {
-				id: that.posterID[pid],
-			  id2: that.posterID[pid + 1]
-			};
 			pid += 2;
 		}
 		success(position, dir);
-		// $.ajax(settings);
 	}
 
 	this.postVote = function() {
