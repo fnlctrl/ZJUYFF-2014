@@ -23,7 +23,20 @@ class Dispatch {
         $this->upload_dir = $global_config->upload_dir;
     }
     public function poster($args) {
-        return array('page_cfg' => array());
+        $sql = "SELECT id,name,members,time FROM poster_signup ";
+        $result = $this->db->query($sql);
+        $s_rows = array();
+        $id2vid = array();
+        while ($s_row = $result->fetch_object()) {
+            $s_rows[$s_row->id] =  $s_row;
+            $s_rows[$s_row->id]['m'] = array();
+            $sql = "SELECT * FROM poster_member WHERE sid=$s_row->id ";
+            $m_res = $this->db->query($sql));
+            while ($m_row = $m_res->fetch_object()) {
+                array_push($s_rows[$s_row->id]['m'], $m_row);
+            }
+        }
+        return array('page_cfg' => array('poster' => $s_rows));
     }
     public function submit_signup($args) {
         $methods = array('online', 'live');
