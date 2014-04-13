@@ -9,9 +9,9 @@
 	<link rel='stylesheet' type='text/css' href='./css/nav.css'>
     <script>
         try {
-            var global_config = <?php echo json_encode($view_obj->global_cfg);?>;
+            var global_cfg = <?php echo json_encode($view_obj->global_cfg);?>;
         } catch (e) {
-            var global_config = {"random_token":"none_error"};
+            var global_cfg = {"random_token":"none_error"};
         }
     </script>
 	<script src='./js/jquery-2.1.0.min.js'></script>

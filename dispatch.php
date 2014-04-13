@@ -4,7 +4,7 @@
  *
  * @version none
  * @author Senorsen <sen@senorsen.com>
- % @description as is
+ * @description as is
  * @description 2014-04-13 Sun 03:18:20 EST
  * @link http://pub.qsc.senorsen.com/dub/
  *
@@ -15,14 +15,14 @@ if (!defined('SEN_DIR')) die('No direct script access. Senorsen.');
 class Dispatch {
     private $db;
     private $args;
+    private $upload_dir;
     function __construct($args, $db) {
+        global $global_config;
         $this->args = $args;
         $this->db = $db;
+        $this->upload_dir = $global_config->upload_dir;
     }
-    function index($args) {
-        return null;
-    }
-    function submit_signup($args) {
+    public function submit_signup($args) {
         $methods = array('online', 'live');
         $requires = array(
             'team-name' => 'team_name',
@@ -130,5 +130,77 @@ class Dispatch {
             }
         }
         return array('code' => 0, 'msg' => '提交成功');
+    }
+    public function submit_poster($args) {
+        $length_limit = 3 * 1024 * 1024; 
+        if (is_uploaded_file($_FILES['img1']) && is_uploaded_file($_FILES['img2'])) {
+            if ($_FILES['img1']['size'] > $length_limit) {
+                return array('code' => 1, 'msg' => '参赛作品大小超过限制了哦～请压缩后重新上传');
+            }
+            if ($_FILES['img2']['size'] > $length_limit) {
+                return array('code' => 1, 'msg' => '原版海报大小超过限制了哦～请压缩后重新上传');
+            }
+        } else {
+            return array('code' => 1, 'msg' => '噗，参赛作品和原版海报都要上传的哟～');
+        }
+        $requires = array(
+            'name' => '电影名称',
+            'name1' => '队长姓名',
+            'stuid1' => '队长学号',
+            'contact1' => '队长联系方式'
+        );
+        foreach ($args as $value) {
+            if (is_array($value)) {
+                errorPage('错误：本页面不能接受数组的。。');
+            }
+        }
+        foreach ($requires as $key => $value) {
+            if (!isset($args[$key])) {
+                return array('code' => 1, 'msg' => $value . '是必填的哟=v=');
+            }
+        }
+        $all = array('name');
+        for ($i = 1; $i <= 7; $i++) {
+            array_push($all, 'name' . $i);
+            array_push($all, 'stuid' . $i);
+            array_push($all, 'contact' . $i);
+        }
+        $newobj = array();
+        foreach ($all as $value) {
+            if (isset($args[$value]) && $args[$value] != '') {
+                $newobj[$value] = $this->db->escape_string($args[$value]);
+            }
+        }
+        $members = array();
+        $cnt_members = 0;
+        foreach ($newobj as $key => &$value) {
+            if (preg_match('/^name(\d+)$/', $key)) {
+                $this_id = preg_replace('/^name(\d+)$/', '$1', $key);
+                if (!isset($newobj['stuid' . $this_id]) || !isset($newobj['contact' . $this_id])) {
+                    return array('code' => 1, 'msg' => '队员的信息是必填的哟～');
+                } else {
+                    $members++;
+                    array_push($members, array('name' => $value, 'stuid' => $newobj['stuid' . $this_id], 'contact' => $newobj['contact' . $this_id], 'leader' => $key == 'name1' ? 1 : 0));
+                }
+            }
+            $$key = $value;
+        }
+        $ip = $this->escape_string(getIP());
+        $sql = "INSERT INTO poster_signup (name, members, time, ip) VALUES ('$name', $members, NOW(), '$ip') ";
+        $this->db->query($sql);
+        if ($this->db->errno) {
+            return array('code' => 100, 'msg' => '处理poster_signup时遇到数据库插入错误，非常抱歉！请联系 sen@senorsen.com，谢谢啦～');
+        }
+        $sid = $this->db->insert_id;
+        move_uploaded_file($_FILE['img1']['tmp_file'], $this->upload_dir . 'img1_' . $sid . '.jpg');
+        move_uploaded_file($_FILE['img2']['tmp_file'], $this->upload_dir . 'img2_' . $sid . '.jpg');
+        foreach ($members as $value) {
+            $sql = "INSERT INTO poster_member (sid, name, leader, stuid, contact) VALUES ($value->sid, '$value->name', $value->leader, '$value->stuid', '$value->contact') ";
+            $this->db->query($sql);
+            if ($this->db->errno) {
+                return array('code' => 100, 'msg' => '处理poster_member时遇到数据库插入错误，非常抱歉！请联系 sen@senorsen.com，谢谢啦～');
+            }
+        }
+        return array('code' => 0, 'sid' => $sid, 'msg' => '报名成功，感谢参与～');
     }
 }

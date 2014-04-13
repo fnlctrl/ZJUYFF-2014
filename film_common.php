@@ -12,7 +12,7 @@
 
 if (!defined('SEN_DIR')) die('No direct script access. Senorsen.');
 date_default_timezone_set('PRC');
-$db = new mysqli($global_config['hostname'], $global_config['username'], $global_config['password'], $global_config['database']);
+$db = new mysqli($global_config->db['hostname'], $global_config->db['username'], $global_config->db['password'], $global_config->db['database']);
 $con_err = 0;
 if ($db->errno) {
     $con_err = $db->errno;
