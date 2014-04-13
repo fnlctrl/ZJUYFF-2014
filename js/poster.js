@@ -5,10 +5,12 @@ $(document).ready(function() {
 	var data = new Data(),
 	    view = new View(data);
 	view.setElement();
-	view.createCurrentPoster();
 	view.fillPosters();
 
-	$(window).bind('load resize', function() {view.setElement();});
+	$(window).bind('load resize', function() {
+		view.setElement();
+		view.fillPosters();
+	});
 	$('#submit-container').submit(data.postPoster);
 	$('#main-info-submit').click(view.clickSubmit);
 	$('#submit-back-button').click(view.clickBack);
@@ -90,6 +92,9 @@ function View(data) {
 
 	this.fillPosters = function() {
 		// create posters on the left
+		pid = 0;
+		$('.posters').remove();
+		that.createCurrentPoster();
 		var leftPosition = that.mainInfoPosition - that.sw,
 				leftCount = parseInt(leftPosition / that.posterW) + 1;
 		for (var i = 0; i<leftCount; i++) {

@@ -156,7 +156,7 @@ input:focus {
   padding: 0 31.5px 0 0;
   right: 30.5vh;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 #submit-info textarea {
   height: 100px;
