@@ -147,7 +147,7 @@
 				<input type='radio' value='online' name='method' required/><span class='main-form-text'>上传视频</span>
 				<input type='radio' value='live' name='method' required/><span class='main-form-text'>现场演出</span>
 				<br><br>
-				<button class='button' type='submit'>提交报名表</button>
+				<button id='main-form-submit' class='button' type='submit'>提交报名表</button>
 				<br><br>
 				<p class='main-form-text'>注:</p>
 				<p class='main-form-text'>若选择"上传视频"，请在报名截止前将配音视频发送至</p>
