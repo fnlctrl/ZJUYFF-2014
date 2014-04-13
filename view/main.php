@@ -24,8 +24,8 @@
 	<div id='nav-bar'>
 		<div id='nav-sections'>
 			<ul>
-				<li><a href='dub' target='_blank' id='nav-dub'>配音大赛</a></li>
-				<li><a href='poster' target='_blank' id='nav-poster'>海报扮演</a></li>
+				<li><a href='dub' id='nav-dub'>配音大赛</a></li>
+				<li><a href='poster' id='nav-poster'>海报扮演</a></li>
 				<li>
 					<a href='forum' id='nav-forum' class='comingsoon' onclick='return false'>
 						<span>论坛讲座</span>
@@ -41,7 +41,7 @@
 			</ul>
 		</div>
 		<img id='nav-menu-icon' class='svg' src='img/menu.svg'/>
-		<a id='nav-logo' href='./' target='_blank'><img class='svg' src='img/FilmFestivalLogo.svg'/></a>
+		<a id='nav-logo' href='./'><img class='svg' src='img/FilmFestivalLogo.svg'/></a>
 		<div id='nav-name'><img class='svg' src='img/ZJU YOUTH FILM FESTIVAL.svg'/></div>
 	</div>
 	<div id='nav-menu'>
@@ -83,7 +83,7 @@
 		</div>
 		<div id='main-poster' class='slide shadow'>
 			<div id='main-poster-icon' class='main-icon'><img class='svg' src='./img/main-poster.svg'/></div>
-			<div class='main-title'>海报扮演大赛</div>
+			<a href='./poster'><div class='main-title'>海报扮演大赛</div></a>
 			<div class='main-word'>
 				<p>曾经无数次游走在光与影的边缘，</p>
 				<p>曾经无数次幻想成为胶片中的主角。</p>
@@ -91,13 +91,13 @@
 				<p>换上新装，戴上面具，成为心中最爱的人物，</p>
 				<p>把你的面庞印刻在独属于自己的海报中。</p>
 				<br>
-				<a href='./poster.html' target='_blank'>More...</a>
+				<a href='./poster'>More...</a>
 			</div>
 			<img id='main-poster-bg' class='main-bg' src='./img/main-poster-bg.jpg'/>
 		</div>
 		<div id='main-dub' class='slide shadow'>
 			<div id='main-dub-icon' class='main-icon'><img class='svg' src='./img/main-dub.svg'/></div>
-			<div class='main-title'>配音大赛</div>
+			<a href='./dub'><div class='main-title'>配音大赛</div></a>
 			<div class='main-word'>
 				<p>旧影新词 以声启真。</p>
 				<p>用你的声线重释一段对白，</p>
@@ -106,7 +106,7 @@
 				<p>现在你的面前，每一部都是聋哑的默片。</p>
 				<p>你是玩家，所有人都是虔诚的听众。</p>
 				<br>
-				<a href='./dub.html' target='_blank'>More...</a>
+				<a href='./dub'>More...</a>
 			</div>
 			<img id='main-poster-bg' class='main-bg' src='./img/main-dub-bg.jpg'/>
 		</div>
@@ -116,25 +116,25 @@
 		<div id='footer-column-container'>
 			<div class='footer-column'>
 				<p class='footer-title'>主办</p>
-				<a href='http://www.xgb.zju.edu.cn/' target='_blank'>浙江大学党委学工部</a>
+				<a href='http://www.xgb.zju.edu.cn/'>浙江大学党委学工部</a>
 				<p class='footer-title'>承办</p>
-				<a href='http://www.qsc.zju.edu.cn/' target='_blank'>浙江大学求是潮</a>
+				<a href='http://www.qsc.zju.edu.cn/'>浙江大学求是潮</a>
 			</div>
 			<div class='footer-column'>
 				<p class='footer-title'>合作单位</p>
-				<p><a href='http://site.douban.com/211516/' target='_blank'>后窗放映</a></p>
-				<p><a href='http://site.douban.com/177837/' target='_blank'>瓢虫映像</a></p>
-				<p><a href='http://site.douban.com/afhangzhou/' target='_blank'>杭州法语联盟</a></p>
-				<p><a href='http://www.cmic.zju.edu.cn/' target='_blank'>浙江大学传媒学院</a></p>
-				<p><a href='http://www.zjicm.edu.cn/' target='_blank'>浙江传媒学院</a></p>
-				<p><a href='http://www.zjut.edu.cn/' target='_blank'>浙江工业大学</a></p>
-				<p><a href='http://hzdaily.hangzhou.com.cn/dskb/html/2014-04/05/node_85.htm' target='_blank'>都市快报</a></p>
+				<p><a href='http://site.douban.com/211516/'>后窗放映</a></p>
+				<p><a href='http://site.douban.com/177837/'>瓢虫映像</a></p>
+				<p><a href='http://site.douban.com/afhangzhou/'>杭州法语联盟</a></p>
+				<p><a href='http://www.cmic.zju.edu.cn/'>浙江大学传媒学院</a></p>
+				<p><a href='http://www.zjicm.edu.cn/'>浙江传媒学院</a></p>
+				<p><a href='http://www.zjut.edu.cn/'>浙江工业大学</a></p>
+				<p><a href='http://hzdaily.hangzhou.com.cn/dskb/html/2014-04/05/node_85.htm'>都市快报</a></p>
 			</div>
 			<div class='footer-column'>
 				<p class='footer-title'>关注我们</p>
-				<a href='http://weibo.com/3427611600' target='_blank'><img class='svg' src='./img/footer-weibo-icon.svg'/></a>
-				<!-- <a href='' target='_blank'><img class='svg' src='./img/footer-douban-icon.svg'/></a> -->
-				<a href='http://page.renren.com/601378976/' target='_blank'><img class='svg' src='./img/footer-renren-icon.svg'/></a>
+				<a href='http://weibo.com/3427611600'><img class='svg' src='./img/footer-weibo-icon.svg'/></a>
+				<!-- <a href=''><img class='svg' src='./img/footer-douban-icon.svg'/></a> -->
+				<a href='http://page.renren.com/601378976/'><img class='svg' src='./img/footer-renren-icon.svg'/></a>
 				<p class='footer-title'>联系我们</p>
 				<p>tide@myqsc.com</p>
 			</div>
