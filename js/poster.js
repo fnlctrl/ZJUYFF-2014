@@ -672,6 +672,7 @@ function Data() {
 			url: baseUrl + 'index.php?ajax=json&action=submit_poster&random_token=' + window.global_cfg.random_token,
 			dataType: 'json',
 			success: function(data) {
+				$('#submit-container button').removeAttr('disabled');
 				if (data.code == 0) {
 					showNotice("恭喜你！提交成功！");
 				}
@@ -681,9 +682,12 @@ function Data() {
 			},
 			error: function(data) {
 				showNotice("错误：" + data.msg);
+				$('#submit-container button').removeAttr('disabled');
+
 			}
 		};
 		$('#submit-container').ajaxSubmit(settings);
+		$('#submit-container button').attr('disabled', 'true');
 	}
 
 	this.getPoster = function(position, dir, success) {
