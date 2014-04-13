@@ -250,6 +250,7 @@ body {
 .footer-column {
   width: 200px;
   float: left;
+  line-height: 1.7em;
   display: inline-block;
 }
 .footer-title {
