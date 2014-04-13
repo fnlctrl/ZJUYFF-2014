@@ -16,7 +16,7 @@ try {
     $actions = array(
         'ajax' => array(
             'submit_signup',
-            'submit_vote'
+            'submit_poster'
         ),
         'common' => array('', 
             'main',
