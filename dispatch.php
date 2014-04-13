@@ -22,6 +22,9 @@ class Dispatch {
         $this->db = $db;
         $this->upload_dir = $global_config->upload_dir;
     }
+    public function poster($args) {
+        
+    }
     public function submit_signup($args) {
         $methods = array('online', 'live');
         $requires = array(
