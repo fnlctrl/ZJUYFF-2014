@@ -90,6 +90,7 @@
 				<input class='w120' type="text" name="name7" placeholder="队员姓名">
 				<input class='w120' type="text" name="stuid7" placeholder="学号">
 				<input class='w120' type="text" name="contact7" placeholder="手机">
+				<textarea class="w120" maxlength="140" placeholder="140字以内"></textarea>
 				<button class="button" type="submit">提交</button>
 			</div>
 			<div id="submit-poster">
