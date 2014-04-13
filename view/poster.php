@@ -4,7 +4,8 @@
 	<meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<title>海报扮演 - 浙江大学青年电影节</title>
-	<link rel="stylesheet" type="text/css" href="./css/global.css">
+	<link rel="shortcut icon" href="favicon.png"/>
+    <link rel="stylesheet" type="text/css" href="./css/global.css">
 	<link rel="stylesheet" type="text/css" href="./css/ui.css">
 	<link rel="stylesheet" type="text/css" href="./css/poster.css">
 	<link rel="stylesheet" type="text/css" href="./css/nav.css">
@@ -64,7 +65,7 @@
 		<form id="submit-container" action="upload.php">
 			<div id="submit-info">
 				<p class='submit-info-title'>参赛信息</p>
-				<input type="text" name="name" placeholder="电影名称" required>
+				<input class='w380' type="text" name="name" placeholder="电影名称" required>
 				<p class='submit-info-title'>成员信息(至多7人)</p>
 				<input class='w120' type="text" name="name1" placeholder="队长姓名" required>
 				<input class='w120' type="text" name="stuid1" placeholder="学号" required>
