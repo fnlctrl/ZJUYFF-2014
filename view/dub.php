@@ -42,7 +42,7 @@
       </ul>
     </div>
     <img id='nav-menu-icon' class='svg' src='img/menu.svg'/>
-    <a id='nav-logo' href='./' target='_blank'><img class='svg' src='img/FilmFestivalLogo.svg'/></a>
+    <a id='nav-logo' href='./'><img class='svg' src='img/FilmFestivalLogo.svg'/></a>
     <div id='nav-name'><img class='svg' src='img/ZJU YOUTH FILM FESTIVAL.svg'/></div>
   </div>
   <div id='nav-menu'>
