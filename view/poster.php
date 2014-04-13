@@ -90,13 +90,6 @@
 				<input class='w120' type="text" name="stuid7" placeholder="学号">
 				<input class='w120' type="text" name="contact7" placeholder="手机">
 				<button class="button" type="submit">提交</button>
-				<div id="submit-remark">
-					<p>注：</p>
-					<p>每个团队请使用一个固定的浙大邮箱。</p>
-					<p>获奖信息将会发送到所填写的浙大邮箱中，</p>
-					<p>只要填写相同的邮箱就可以重复提交，</p>
-					<p>新上传的版本将会替换早先的版本。</p>
-				</div>
 			</div>
 			<div id="submit-poster">
 				<p id="submit-poster-title">参赛作品</p>

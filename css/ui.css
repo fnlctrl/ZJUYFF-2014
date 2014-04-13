@@ -57,7 +57,7 @@ input {
   font-weight: bold;
   padding: 5px 0 5px 10px;
   margin: 0px -5px 0 0;
-  height: 20px;
+  height: 30px;
   outline: none;
   color: #00853c;
   transition: all 0.2s ease;
@@ -70,7 +70,15 @@ input[type=radio] {
   height: 20px;
   margin: 0 10px 0 0;
   vertical-align: text-bottom;
+  background: rgba(0,0,0,0);
+}
+input[type=radio]:active {
+    background: rgba(0,0,0,0);
 }
 input[type=file] {
   background: none;
+  outline: none;
+}
+input[type=file]:focus {
+  background: none !important;
 }

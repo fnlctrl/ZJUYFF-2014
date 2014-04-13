@@ -37,7 +37,7 @@ function View(data) {
 		this.mainInfoPosition = $('#main-info-container').position().left;
 		$('#main-info-container').css('left', this.mainInfoPosition.toString() + 'px');
 
-		$('#container').height(this.containerHeight);
+		// $('#container').height(this.containerHeight);
 		$('#main-info-container').width(this.sw);	
 		$('#submit-container').width(this.mainInfoPosition);
 		$('#submit-poster').width(this.posterW).height(this.posterH).css('left', (this.mainInfoPosition - this.posterW).toString() + 'px');
