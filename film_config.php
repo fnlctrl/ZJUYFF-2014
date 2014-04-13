@@ -1,5 +1,5 @@
 <?php
-$global_config = array(
+$global_config = (object)array(
     'db ' => array(
         'hostname' => 'localhost',
         'username' => 'film',
