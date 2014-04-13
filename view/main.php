@@ -75,16 +75,10 @@
 		<div id='main-show' class='slide shadow'>
 			<div id='main-show-icon' class='main-icon'><img class='svg' src='./img/main-show.svg'/></div>
 			<div class='main-title'>放映单元</div>
-			<div class='main-comingsoon'>
-				<p>COMING<br>SOON</p>
-			</div>
 		</div>
 		<div id='main-forum' class='slide shadow'>
 			<div id='main-forum-icon' class='main-icon'><img class='svg' src='./img/main-forum.svg'/></div>
 			<div class='main-title'>论坛讲座</div>
-			<div class='main-comingsoon'>
-				<p>COMING<br>SOON</p>
-			</div>
 		</div>
 		<div id='main-poster' class='slide shadow'>
 			<div id='main-poster-icon' class='main-icon'><img class='svg' src='./img/main-poster.svg'/></div>
