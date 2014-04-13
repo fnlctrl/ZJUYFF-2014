@@ -80,7 +80,7 @@ function View(data) {
 		if (this.files.length === 0) { return; }
 		var oFile = this.files[0];
 		if (!oFile.type.match('image.jpeg')) { 
-			alert("请选择JPG格式"); 
+			showNotice("请选择JPG格式"); 
 			oFile = {};
 			this.value = null;
 			return; 
@@ -640,7 +640,7 @@ function View(data) {
 	this.postVote = function() {
 		var id = $('#vote-id').val();
 		if (id.length != 10)
-			alert("请填写正确的学号");
+			showNotice("请填写正确的学号");
 		else data.postVote();
 	}
 }
@@ -671,10 +671,10 @@ function Data() {
 			url: baseUrl + 'upload.php',
 			dataType: 'json',
 			success: function() {
-				alert("恭喜你！提交成功！");
+				showNotice("恭喜你！提交成功！");
 			},
 			error: function() {
-				alert("错误。。请稍候再试。XD")
+				showNotice("错误。。请稍候再试。XD")
 			}
 		};
 		$('#submit-container').ajaxSubmit(settings);
@@ -689,13 +689,13 @@ function Data() {
 				success(position, dir, data);
 			},
 			error: function(xHRuquest, error) {
-				alert(xHRuquest.readyState);
+				showNotice(xHRuquest.readyState);
 			}
 		};
 		if (17 < pid) 
 			return;
 		else if (17  == pid ) {
-			alert("已经没有海报啦 > <");
+			showNotice("已经没有海报啦 > <");
 			pid ++;
 			return;
 		}

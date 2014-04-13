@@ -32,7 +32,7 @@ var showNotice = function(string) {
 	$('body').append("<div id='message-bar'><div id='message-content'></div></div>");
 	$('#message-bar').animate({opacity:1},{duration:500});
 	$('#message-content').text(string);
-	setTimeout(clearNotice,3000);
+	setTimeout(clearNotice, 2000);
 }
 var clearNotice = function() {
 	$('#message-bar').animate({opacity:0},{duration:500});
