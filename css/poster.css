@@ -153,7 +153,9 @@ input:focus {
   width: 400px;
   position: absolute;
   right: 35vh;
-
+}
+#submit-info textarea {
+  height: 100px;
 }
 .submit-info-button {
   background-color: #888;
