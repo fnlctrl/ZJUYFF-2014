@@ -14,8 +14,8 @@ body {
 input {
   color: #90529c !important;
 }
-input:focus {
-  background: #ffbdfa !important;
+input[type=text]:focus {
+  background: #ffbdfa;
 }
 .button {
   background-color: #90529c;
@@ -36,11 +36,12 @@ input:focus {
   height: 100%;
 }
 #main-container {
-  position: relative;
+  position: absolute;
   width: 100vw;
-  height: calc(100vh - 60px);
+  height: calc(100% - 60px);
   min-height: 540px;
   top: 60px;
+  z-index: 1;
 }
 /* Main Intro */
 #main-intro-container {

@@ -30,6 +30,7 @@ input:focus {
   top: 60px;
   overflow: hidden;
   width: 100%;
+  height: calc(100% - 60px);
 }
 .poster-button {
   cursor: pointer;
@@ -169,11 +170,6 @@ input:focus {
   padding-top: 5px;
   width: 120px;
 }
-#submit-remark {
-  color: #000;
-  font-size: 12px;
-  margin-top: 20px;
-}
 #submit-poster {
   background-color: #dbdcdc;
   color: #444;
@@ -196,6 +192,7 @@ input:focus {
 #submit-poster-button {
   bottom: 30px;
   left: 15px;
+  width: 80%;
   position: absolute;
 }
 #submit-origin-poster {
@@ -213,6 +210,7 @@ input:focus {
 #submit-origin-poster-button {
   bottom: 30px;
   left: 15px;
+  width: 80%;
   position: absolute;
 }
 #submit-container img {
