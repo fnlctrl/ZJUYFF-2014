@@ -63,11 +63,11 @@
 		<form id="submit-container" action="upload.php">
 			<div id="submit-info">
 				<p class='submit-info-title'>参赛信息</p>
-				<input type="text" name="name" placeholder="电影名称">
+				<input type="text" name="name" placeholder="电影名称" required>
 				<p class='submit-info-title'>成员信息(至多7人)</p>
-				<input class='w120' type="text" name="name1" placeholder="队长姓名">
-				<input class='w120' type="text" name="stuid1" placeholder="学号">
-				<input class='w120' type="text" name="contact1" placeholder="手机">
+				<input class='w120' type="text" name="name1" placeholder="队长姓名" required>
+				<input class='w120' type="text" name="stuid1" placeholder="学号" required>
+				<input class='w120' type="text" name="contact1" placeholder="手机" required>
 				<input class='w120' type="text" name="name2" placeholder="队员姓名">
 				<input class='w120' type="text" name="stuid2" placeholder="学号">
 				<input class='w120' type="text" name="contact2" placeholder="手机">
@@ -100,7 +100,7 @@
 			</div>
 			<div id="submit-poster">
 				<p id="submit-poster-title">参赛作品</p>
-				<input id="submit-poster-button" class="file" type="file" name="img2">
+				<input id="submit-poster-button" class="file" type="file" name="img1">
 				<img>
 				<div id="submit-poster-content">
 					<p>长宽比2:3</p>
@@ -110,7 +110,7 @@
 			</div>
 			<div id="submit-origin-poster">
 				<p id="submit-origin-poster-title">原版海报</p>
-				<input id="submit-origin-poster-button" class="file" type="file" name="img1">
+				<input id="submit-origin-poster-button" class="file" type="file" name="img2">
 				<img>
 			</div>
 		</form>

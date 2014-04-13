@@ -5,6 +5,7 @@
   box-shadow: -1px 1px 3px #555;
   margin: 0 auto;
   position: fixed;
+  top: 0;
   z-index: 10;
 }
 #nav-logo {
