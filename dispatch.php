@@ -133,7 +133,7 @@ class Dispatch {
     }
     public function submit_poster($args) {
         $length_limit = 3 * 1024 * 1024; 
-        if (is_uploaded_file($_FILES['img1']['tmp_file']) && is_uploaded_file($_FILES['img2']['tmp_file'])) {
+        if (is_uploaded_file($_FILES['img1']['tmp_name']) && is_uploaded_file($_FILES['img2']['tmp_name'])) {
             if ($_FILES['img1']['size'] > $length_limit) {
                 return array('code' => 1, 'msg' => '参赛作品大小超过限制了哦～请压缩后重新上传');
             }
@@ -192,8 +192,8 @@ class Dispatch {
             return array('code' => 100, 'msg' => '处理poster_signup时遇到数据库插入错误，非常抱歉！请联系 sen@senorsen.com，谢谢啦～');
         }
         $sid = $this->db->insert_id;
-        move_uploaded_file($_FILE['img1']['tmp_file'], $this->upload_dir . 'img1_' . $sid . '.jpg');
-        move_uploaded_file($_FILE['img2']['tmp_file'], $this->upload_dir . 'img2_' . $sid . '.jpg');
+        move_uploaded_file($_FILE['img1']['tmp_name'], $this->upload_dir . 'img1_' . $sid . '.jpg');
+        move_uploaded_file($_FILE['img2']['tmp_name'], $this->upload_dir . 'img2_' . $sid . '.jpg');
         foreach ($members as $value) {
             $sql = "INSERT INTO poster_member (sid, name, leader, stuid, contact) VALUES ($value->sid, '$value->name', $value->leader, '$value->stuid', '$value->contact') ";
             $this->db->query($sql);
