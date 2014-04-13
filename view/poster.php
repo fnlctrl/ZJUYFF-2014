@@ -11,7 +11,7 @@
     <script>
         try {
             var global_config = <?php echo json_encode($view_obj->global_cfg);?>;
-        } catch (e) [
+        } catch (e) {
             var global_config = {"random_token":"none_error"};
         }
     </script>
