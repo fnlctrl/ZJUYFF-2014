@@ -20,7 +20,6 @@
 			showForm = true;
 		}
 	});
-	
 	$('#main-form-container').submit(function(e) {
 		e.preventDefault();
 		var settings = {
@@ -29,8 +28,9 @@
 			dataType: "json",
 			data: $('#main-form-container').serialize(),
 			success: function(data) {
+				$('#main-form-submit').removeAttr('disabled');
 				if (data.code == 0) {
-					showNotice("恭喜你！提交成功！");
+					showNotice("提交成功！");
 				} 
 				else {
 					showNotice("错误：" + data.msg);
@@ -38,6 +38,7 @@
 			}
 		};
 		$.ajax(settings);
+		$('#main-form-submit').attr('disabled','true');
 	});
 })
 
