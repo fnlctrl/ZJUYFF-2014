@@ -64,7 +64,7 @@
 		<form id="submit-container" action="upload.php">
 			<div id="submit-info">
 				<p class='submit-info-title'>参赛信息</p>
-				<input type="text" name="name" placeholder="电影名称" required>
+				<input class='w380' type="text" name="name" placeholder="电影名称" required>
 				<p class='submit-info-title'>成员信息(至多7人)</p>
 				<input class='w120' type="text" name="name1" placeholder="队长姓名" required>
 				<input class='w120' type="text" name="stuid1" placeholder="学号" required>
