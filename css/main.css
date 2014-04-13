@@ -29,6 +29,9 @@ body {
   overflow: hidden;
   min-height: 450px;
 }
+.slide a {
+  color: inherit;
+}
 .slide-selected {
   width: 68%;
   background-color: #fff;
