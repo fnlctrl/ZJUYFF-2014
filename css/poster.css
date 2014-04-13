@@ -8,10 +8,10 @@ body {
   font-weight: bold;
 }
 /******UI Override*******/
-input {
+input,textarea {
   color: #008cce !important;
 }
-input:focus {
+input:focus,textarea:focus {
   background: #7fc7ef !important;
 }
 .button {
@@ -151,7 +151,7 @@ input:focus {
   color: #444;
   font-weight: bold;
   height: 100%;
-  width: 400px;
+  width: 410px;
   position: absolute;
   padding: 0 31.5px 0 0;
   right: 30.5vh;
