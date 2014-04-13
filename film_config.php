@@ -1,6 +1,6 @@
 <?php
 $global_config = (object)array(
-    'db ' => array(
+    'db' => array(
         'hostname' => 'localhost',
         'username' => 'film',
         'password' => 'SUVtvL7j6vSXsrhs',
