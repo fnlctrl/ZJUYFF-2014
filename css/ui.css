@@ -46,7 +46,10 @@
 .w330 {
   width: 330px;
 }
-input {
+.w380 {
+  width: 380px;
+}
+input,textarea {
   position: relative;
   border: none;
 /*  border-radius: 4px;*/
@@ -62,7 +65,7 @@ input {
   color: #00853c;
   transition: all 0.2s ease;
 }
-input:focus {
+input:focus,textarea:focus {
   background: #afa;
 }
 input[type=radio] {
