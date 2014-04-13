@@ -38,6 +38,22 @@ class Dispatch {
         }
         return array('page_cfg' => array('poster' => $s_rows));
     }
+    public function get_intro($args) {
+        if (!isset($args['id'])) {
+            return array('code' => 1, 'msg' => '未提供id');
+        }
+        $id = intval($args['id']);
+        $sql = "SELECT id,introduction FROM poster_signup WHERE id=$id";
+        $result = $this->db->query($sql);
+        if (!$result) {
+            return array('code' => 100, 'msg' => '查询时错误');
+        }
+        $row = $result->fetch_object();
+        if (!$row) {
+            return array('code' => 100, 'msg' => '查询集 == 0');
+        }
+        return array('code' => 0, 'msg' => 'ERR_SUCCESS', 'obj' => $row);
+    }
     public function submit_signup($args) {
         $methods = array('online', 'live');
         $requires = array(
@@ -166,11 +182,12 @@ class Dispatch {
             'name' => '电影名称',
             'name1' => '队长姓名',
             'stuid1' => '队长学号',
-            'contact1' => '队长联系方式'
+            'contact1' => '队长联系方式',
+            'introduction' => '作品介绍'
         );
         foreach ($args as $value) {
             if (is_array($value)) {
-                errorPage('错误：本页面不能接受数组的。。');
+                errorPage('错误：本页面真·不能接受数组的。。');
             }
         }
         foreach ($requires as $key => $value) {
@@ -205,7 +222,7 @@ class Dispatch {
             $$key = $value;
         }
         $ip = $this->db->escape_string(getIP());
-        $sql = "INSERT INTO poster_signup (name, members, time, ip) VALUES ('$name', $cnt_members, NOW(), '$ip') ";
+        $sql = "INSERT INTO poster_signup (name, members, introduction, time, ip) VALUES ('$name', $cnt_members, '$introduction', NOW(), '$ip') ";
         $this->db->query($sql);
         if ($this->db->errno) {
             return array('code' => 100, 'msg' => '处理poster_signup时遇到数据库插入错误，非常抱歉！请联系 sen@senorsen.com，谢谢啦～');
