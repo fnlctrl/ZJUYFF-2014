@@ -6,6 +6,6 @@ $global_config = (object)array(
         'password' => 'SUVtvL7j6vSXsrhs',
         'database' => 'film'
     ),
-    'upload_dir' => './upload/'
+    'upload_dir' => SEN_DIR . '/upload/'
 );
 

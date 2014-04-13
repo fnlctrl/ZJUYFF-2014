@@ -133,7 +133,10 @@ class Dispatch {
     }
     public function submit_poster($args) {
         $length_limit = 3 * 1024 * 1024; 
-        if (is_uploaded_file($_FILES['img1']) && is_uploaded_file($_FILES['img2'])) {
+        if (!isset($_FILES['img1']) || !isset($_FILES['img2'])) {
+            return array('code' => 1, 'msg' => '噗，参赛作品和原版海报都要上传的哦～');
+        }
+        if (is_uploaded_file($_FILES['img1']['tmp_name']) && is_uploaded_file($_FILES['img2']['tmp_name'])) {
             if ($_FILES['img1']['size'] > $length_limit) {
                 return array('code' => 1, 'msg' => '参赛作品大小超过限制了哦～请压缩后重新上传');
             }
@@ -179,23 +182,24 @@ class Dispatch {
                 if (!isset($newobj['stuid' . $this_id]) || !isset($newobj['contact' . $this_id])) {
                     return array('code' => 1, 'msg' => '队员的信息是必填的哟～');
                 } else {
-                    $members++;
+                    $cnt_members;
                     array_push($members, array('name' => $value, 'stuid' => $newobj['stuid' . $this_id], 'contact' => $newobj['contact' . $this_id], 'leader' => $key == 'name1' ? 1 : 0));
                 }
             }
             $$key = $value;
         }
-        $ip = $this->escape_string(getIP());
-        $sql = "INSERT INTO poster_signup (name, members, time, ip) VALUES ('$name', $members, NOW(), '$ip') ";
+        $ip = $this->db->escape_string(getIP());
+        $sql = "INSERT INTO poster_signup (name, members, time, ip) VALUES ('$name', $cnt_members, NOW(), '$ip') ";
         $this->db->query($sql);
         if ($this->db->errno) {
             return array('code' => 100, 'msg' => '处理poster_signup时遇到数据库插入错误，非常抱歉！请联系 sen@senorsen.com，谢谢啦～');
         }
         $sid = $this->db->insert_id;
-        move_uploaded_file($_FILE['img1']['tmp_file'], $this->upload_dir . 'img1_' . $sid . '.jpg');
-        move_uploaded_file($_FILE['img2']['tmp_file'], $this->upload_dir . 'img2_' . $sid . '.jpg');
+        move_uploaded_file($_FILES['img1']['tmp_name'], $this->upload_dir . 'img1_' . $sid . '.jpg');
+        move_uploaded_file($_FILES['img2']['tmp_name'], $this->upload_dir . 'img2_' . $sid . '.jpg');
         foreach ($members as $value) {
-            $sql = "INSERT INTO poster_member (sid, name, leader, stuid, contact) VALUES ($value->sid, '$value->name', $value->leader, '$value->stuid', '$value->contact') ";
+            $value = (object)$value;
+            $sql = "INSERT INTO poster_member (sid, name, leader, stuid, contact) VALUES ($sid, '$value->name', $value->leader, '$value->stuid', '$value->contact') ";
             $this->db->query($sql);
             if ($this->db->errno) {
                 return array('code' => 100, 'msg' => '处理poster_member时遇到数据库插入错误，非常抱歉！请联系 sen@senorsen.com，谢谢啦～');
