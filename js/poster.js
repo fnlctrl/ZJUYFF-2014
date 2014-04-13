@@ -668,7 +668,7 @@ function Data() {
 		var settings = {
 			target: "#submit-container",
 			method: 'POST',
-			url: baseUrl + 'upload.php',
+			url: baseUrl + 'index.php?action=submit_poster&random_token=' + window.global_cfg.random_token,
 			dataType: 'json',
 			success: function() {
 				showNotice("恭喜你！提交成功！");
