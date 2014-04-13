@@ -183,8 +183,8 @@ function View(data) {
 			else 
 				$('#poster-container').prepend(posterBottom).prepend(posterTop);
 		// img div
-			$(posterTopImg).attr('src', 'img/temp-posters/' + $(posterTop).data('id') + '-cos.jpg').width('100%').height('100%');
-			$(posterBottomImg).attr('src', 'img/temp-posters/' + $(posterBottom).data('id') + '-cos.jpg').width('100%').height('100%');
+			$(posterTopImg).attr('src', 'img/temp-posters/' + pid + '-cos.jpg').width('100%').height('100%');
+			$(posterBottomImg).attr('src', 'img/temp-posters/' + (pid-1) + '-cos.jpg').width('100%').height('100%');
 			$(posterTop).append(posterTopImg);
 			$(posterBottom).append(posterBottomImg);
 		// hover div
@@ -658,6 +658,7 @@ function Data() {
 			dataType: "json",
 			success: function(data) {
 				that.posterID = data;
+				// that.posterID = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17];
 				success();
 			}
 		};
@@ -671,10 +672,11 @@ function Data() {
 			url: baseUrl + 'index.php?ajax=json&action=submit_poster&random_token=' + window.global_cfg.random_token,
 			dataType: 'json',
 			success: function() {
-				showNotice("恭喜你！提交成功！");
+				if (data.code == 0) {
+					showNotice("恭喜你！提交成功！");
 			},
 			error: function() {
-				showNotice("错误。。请稍候再试。XD")
+				showNotice("错误：" + data.msg);
 			}
 		};
 		$('#submit-container').ajaxSubmit(settings);
@@ -687,9 +689,6 @@ function Data() {
 			dataType: 'json',
 			success: function(data) {
 				success(position, dir, data);
-			},
-			error: function(xHRuquest, error) {
-				showNotice(xHRuquest.readyState);
 			}
 		};
 		if (17 < pid) 
@@ -710,8 +709,8 @@ function Data() {
 			};
 			pid += 2;
 		}
-
-		$.ajax(settings);
+		success(position, dir, data);
+		// $.ajax(settings);
 	}
 
 	this.postVote = function() {
