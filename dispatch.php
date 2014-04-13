@@ -176,7 +176,7 @@ class Dispatch {
         foreach ($newobj as $key => &$value) {
             if (preg_match('/^name(\d+)$/', $key)) {
                 $this_id = preg_replace('/^name(\d+)$/', '$1', $key);
-                if (!isset($newobj['stuid' . $this_id]) || !isset($newobj['contact'] . $this_id)) {
+                if (!isset($newobj['stuid' . $this_id]) || !isset($newobj['contact' . $this_id])) {
                     return array('code' => 1, 'msg' => '队员的信息是必填的哟～');
                 } else {
                     $members++;
