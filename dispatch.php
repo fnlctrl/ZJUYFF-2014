@@ -29,11 +29,11 @@ class Dispatch {
         $id2vid = array();
         while ($s_row = $result->fetch_object()) {
             $s_rows[$s_row->id] =  $s_row;
-            $s_rows[$s_row->id]['m'] = array();
+            $s_rows[$s_row->id]->m = array();
             $sql = "SELECT * FROM poster_member WHERE sid=$s_row->id ";
             $m_res = $this->db->query($sql);
             while ($m_row = $m_res->fetch_object()) {
-                array_push($s_rows[$s_row->id]['m'], $m_row);
+                array_push($s_rows[$s_row->id]->m, $m_row);
             }
         }
         return array('page_cfg' => array('poster' => $s_rows));
