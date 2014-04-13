@@ -672,6 +672,9 @@ function Data() {
 			dataType: 'json',
 			success: function() {
 				alert("恭喜你！提交成功！");
+			},
+			error: function() {
+				alert("错误。。请稍候再试。XD")
 			}
 		};
 		$('#submit-container').ajaxSubmit(settings);
