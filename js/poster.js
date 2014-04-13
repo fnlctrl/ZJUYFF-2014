@@ -692,14 +692,14 @@ function Data() {
 				alert(xHRuquest.readyState);
 			}
 		};
-		if (that.posterID.length < pid) 
+		if (17 < pid) 
 			return;
-		else if (that.posterID.length  == pid ) {
+		else if (17  == pid ) {
 			alert("已经没有海报啦 > <");
 			pid ++;
 			return;
 		}
-		else if (that.posterID.length - 1 == pid) {
+		else if (17 - 1 == pid) {
 			settings.data = {id: that.posterID[pid]};
 			pid ++;
 		}
