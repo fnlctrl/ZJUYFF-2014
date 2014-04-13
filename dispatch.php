@@ -149,12 +149,12 @@ class Dispatch {
             'stuid1' => '队长学号',
             'contact1' => '队长联系方式'
         );
-        for ($args as $value) {
+        foreach ($args as $value) {
             if (is_array($value)) {
                 errorPage('错误：本页面不能接受数组的。。');
             }
         }
-        for ($requires as $key => $value) {
+        foreach ($requires as $key => $value) {
             if (!isset($args[$key])) {
                 return array('code' => 1, 'msg' => $value . '是必填的哟=v=');
             }
