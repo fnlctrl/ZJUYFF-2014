@@ -84,7 +84,7 @@
 		</div>
 		<div id='main-poster' class='slide shadow'>
 			<div id='main-poster-icon' class='main-icon'><img class='svg' src='./img/main-poster.svg'/></div>
-			<a href='./poster'><div class='main-title'>海报扮演大赛</div></a>
+			<div class='main-title'>海报扮演大赛</div>
 			<div class='main-word'>
 				<p>曾经无数次游走在光与影的边缘，</p>
 				<p>曾经无数次幻想成为胶片中的主角。</p>
@@ -98,7 +98,7 @@
 		</div>
 		<div id='main-dub' class='slide shadow'>
 			<div id='main-dub-icon' class='main-icon'><img class='svg' src='./img/main-dub.svg'/></div>
-			<a href='./dub'><div class='main-title'>配音大赛</div></a>
+			<div class='main-title'>配音大赛</div>
 			<div class='main-word'>
 				<p>旧影新词 以声启真。</p>
 				<p>用你的声线重释一段对白，</p>
