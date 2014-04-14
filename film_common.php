@@ -26,14 +26,17 @@ if ($con_err != 0) {
 function view_handler($type, $file = null, $view_obj = null, $callback = 'cb') {
     $view_obj = (object)$view_obj;
     if ($type == 'json') {
+        header("Content-Type: application/json; charset=utf-8");
         echo json_encode($view_obj);
     } else if ($type == 'jsonp') {
         if (!preg_match('/^\w+$/', $callback)) {
             $callback = 'cb';
         }
+        header("Content-Type: application/javascript; charset=utf-8");
         echo $callback;
         echo '(' . json_encode($view_obj) . ');';
     } else if ($type === FALSE) {
+        header("Content-Type: text/html; charset=utf-8");
         // refers to 'html' view
         $view_obj->global_cfg = array(
             'random_token' => getToken()
@@ -100,13 +103,15 @@ function errorPage($content, $e = null, $title = '=_= 出错了') {
     if (is_null($e)) {
         $e = new Exception;
     }
+/*
     if (!is_null($e)) {
         $es = $e->getTraceAsString();
         $es = explode("\n", $es);
-        $e0 = $es[0];
+        $e0 = $es[1];
     } else {
         $e0 = 'unknown_bug';
     }
+*/
     echo '<!doctype html>
         <html><head><meta charset="utf-8"><title>' . htmlspecialchars($title) . '</title></head><body>
         ' . $content . '<br>欢迎报告错误：E-mail: <a href="mailto:sen@senorsen.com?subject=[film_dub_bug_report]bug_report&body=' . htmlspecialchars($e0) . '" target="_blank">sen@senorsen.com</a><br><br><a href="./">点击此处返回首页</a><br>';

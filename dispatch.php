@@ -174,7 +174,7 @@ class Dispatch {
             $value['email'] = $email_list[$value['name_key']];
             unset($value['name_key']);
         }
-        $r_ip = $this->db->escape_string(getIP());
+        $r_ip = $this->db->escape_string(getip());
         $sql = "INSERT INTO dub_team (team_name, slogan, method, members, time, ip) VALUES ('$team_name', '$slogan', '$method', '$members', NOW(), '$r_ip') ";
         $this->db->query($sql);
         if ($this->db->errno) {
@@ -249,7 +249,7 @@ class Dispatch {
             }
             $$key = $value;
         }
-        $ip = $this->db->escape_string(getIP());
+        $ip = $this->db->escape_string(getip());
         $sql = "INSERT INTO poster_signup (name, members, introduction, time, ip) VALUES ('$name', $cnt_members, '$introduction', NOW(), '$ip') ";
         $this->db->query($sql);
         if ($this->db->errno) {
