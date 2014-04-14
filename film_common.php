@@ -26,14 +26,17 @@ if ($con_err != 0) {
 function view_handler($type, $file = null, $view_obj = null, $callback = 'cb') {
     $view_obj = (object)$view_obj;
     if ($type == 'json') {
+        header("Content-Type: application/json; charset=utf-8");
         echo json_encode($view_obj);
     } else if ($type == 'jsonp') {
         if (!preg_match('/^\w+$/', $callback)) {
             $callback = 'cb';
         }
+        header("Content-Type: application/javascript; charset=utf-8");
         echo $callback;
         echo '(' . json_encode($view_obj) . ');';
     } else if ($type === FALSE) {
+        header("Content-Type: text/html; charset=utf-8");
         // refers to 'html' view
         $view_obj->global_cfg = array(
             'random_token' => getToken()
@@ -43,21 +46,75 @@ function view_handler($type, $file = null, $view_obj = null, $callback = 'cb') {
         }
         $path = 'view/' . $file . '.php';
         if (!file_exists($path)) {
-            errorPage('似乎并木有这只视图喵～');
+            //errorPage('似乎并木有这只视图喵～');
+            return;
         }
         include $path;
     }    
 }
+function checkQSCToken($token = null) {
+    $check_url = 'http://passport.myqsc.com/api/get_member_by_token?token=';
+    if (is_null($token)) {
+        if (isset($_COOKIE['qsctoken'])) {
+            $token = $_COOKIE['qsctoken'];
+        } else {
+            return FALSE;
+        }
+    }
+    $check_url .= $token;
+    $retstr = curlFetch($check_url);
+    $retobj = json_decode($retstr);
+    if (is_null($retobj)) {
+        return FALSE;
+    } else {
+        if (isset($retobj->code) && $retobj->code == 0) {
+            return FALSE;
+        } else {
+            return $retobj;
+        }
+    }
+}       
+function curlFetch($url, $data = null, $timeout = 5) {
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
+    curl_setopt($ch, CURLOPT_HEADER, false);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+    if (!is_null($data)) {
+        if (is_string($data)) {
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFILEDS, $data);
+        } else {
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+        }
+    }
+    curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+    $str = curl_exec($ch);
+    curl_close($ch);
+    return $str;
+}
+function customError($errno, $errsstr, $errfile, $errline) {
+    $str = '';
+    $str .= "噗，<b>出错啦:</b> [$errno] $errstr<br />";
+    $str .= " Line $errline in $errfile<br />";
+    errorPage($str);
+}
 function errorPage($content, $e = null, $title = '=_= 出错了') {
+    if (is_null($e)) {
+        $e = new Exception;
+    }
+/*
     if (!is_null($e)) {
         $es = $e->getTraceAsString();
-        $e0 = $es[0];
+        $es = explode("\n", $es);
+        $e0 = $es[1];
     } else {
         $e0 = 'unknown_bug';
     }
+*/
     echo '<!doctype html>
         <html><head><meta charset="utf-8"><title>' . htmlspecialchars($title) . '</title></head><body>
-        ' . $content . '<br>欢迎报告错误：E-mail: <a href="mailto:sen@senorsen.com?subject=[film_dub_bug_report]bug_report&body=' . htmlspecialchars($e0) . '" target="_blank">sen@senorsen.com</a><br>';
+        ' . $content . '<br>欢迎报告错误：E-mail: <a href="mailto:sen@senorsen.com?subject=[film_dub_bug_report]bug_report&body=' . htmlspecialchars($e0) . '" target="_blank">sen@senorsen.com</a><br><br><a href="./">点击此处返回首页</a><br>';
     if (!is_null($e)) {
         echo 'Trace 喵 log =v=: <br>';
         getTrace($e);
@@ -105,21 +162,14 @@ function randomString($num = 10) {
     return $str;
 }
 function getTrace($e, $ret_to_var = FALSE, $nl2br = TRUE) {
-    if ($ret_to_var || $nl2br) {
-        ob_start();
+    $ret = $e->getTraceAsString();
+    if ($nl2br) {
+        $ret = nl2br($ret);
     }
-    var_dump($e->getTraceAsString());
-    if ($ret_to_var || $nl2br) {
-        $ret = ob_get_clean();
-        if (!$ret_to_var) {
-            // $nl2br here must be TRUE.
-            echo nl2br($ret);
-        } else {
-            if ($nl2br) {
-                $ret = nl2br($ret);
-            }
-            return $ret;
-        }
+    if ($ret_to_var) {
+        return $ret;
+    } else {
+        echo $ret;
     }
 }
 

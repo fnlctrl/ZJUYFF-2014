@@ -9,6 +9,7 @@ define('SEN_DIR', __DIR__);
 require "film_config.php";
 require "film_common.php";
 require "dispatch.php";
+set_error_handler("customError");
 try {
 /*
   main block
@@ -19,6 +20,8 @@ try {
             'submit_poster'
         ),
         'common' => array('', 
+            'setQSCToken',
+            'goLogin',
             'main',
             'dub',
             'forum',
@@ -80,7 +83,7 @@ try {
         unset($args['random_token']);
         unset($args['callback']);
     }
-    $dispatch = new Dispatch($args, $db);
+    $dispatch = new Dispatch($args, $db, $global_config);
     $ret = null;
     if (method_exists($dispatch, $action)) {
         // the saf
