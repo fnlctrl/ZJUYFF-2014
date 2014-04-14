@@ -12,6 +12,10 @@ $(window).bind('load resize scroll',function() {
 	}).mouseleave(function() {
 		$(this).find('.main-bg').css('transform','scale(1)');
 	});
+	
+	var dubHasLink = false;
+	var posterHasLink = false;
+	//
 	$('.slide').click(function() {
 		$('.slide-selected').removeClass('slide-selected');
 		$('.main-title-selected').removeClass('main-title-selected');
@@ -35,19 +39,12 @@ $(window).bind('load resize scroll',function() {
 			}
 		})
 		//Add <a> to main-title-selected
-		if ($('#main-dub').hasClass('slide-selected')) {
-			$('#main-dub').find('.main-title').wrap("<a href='./dub'></a>");
-			var dubHasLink = true;
-		}
-		else {
-			if (dubHasLink) {
-				$('#main-dub').find('.main-title').unwrap();
-				dubHasLink = false;
-			}
-		}
-		if ($('#main-poster').hasClass('slide-selected')) {
+		if ($('#main-poster').hasClass('slide-selected') & !posterHasLink) {
 			$('#main-poster').find('.main-title').wrap("<a href='./poster'></a>");
-			var posterHasLink = true;
+			posterHasLink = true;
+		}
+		else if ($('#main-poster').hasClass('slide-selected') & posterHasLink) {
+			return
 		}
 		else {
 			if (posterHasLink) {
@@ -55,6 +52,19 @@ $(window).bind('load resize scroll',function() {
 				posterHasLink = false;
 			}
 		}
+		if ($('#main-dub').hasClass('slide-selected') & !dubHasLink) {
+			$('#main-dub').find('.main-title').wrap("<a href='./dub'></a>");
+			dubHasLink = true;
+		}
+		else if ($('#main-dub').hasClass('slide-selected') & dubHasLink) {
+			return
+		}
+		else {
+			if (dubHasLink) {
+				$('#main-dub').find('.main-title').unwrap();
+				dubHasLink = false;
+			}
+		}	
 	})
 	if (window.W>850) {
 		// $('.slide').animate({height:window.H-60},{duration:100,queue:false});

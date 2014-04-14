@@ -33,9 +33,6 @@ body {
 .slide a {
   color: inherit;
 }
-.slide * {
-  transition: none;
-}
 .slide-selected {
   width: 68%;
   background-color: #fff;
@@ -72,7 +69,7 @@ body {
   position: absolute;
   line-height: 30px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
 .main-title-selected {
   width: 300px;
