@@ -102,7 +102,7 @@
 			</div>
 			<div class='main-info-item'>
 				<img class='ring' id='main-ring-3' src='./img/dub-ring-3.svg'/>
-				<p class='main-info-caption'>作品上传截止</p>
+				<p class='main-info-caption'>作品上传截止<br>开始线上投票</p>
 			</div>
 			<div class='main-info-item'>
 				<img class='ring' id='main-ring-4' src='./img/dub-ring-4.svg'/>
