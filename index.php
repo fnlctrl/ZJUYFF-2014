@@ -26,7 +26,8 @@ try {
             'dub',
             'forum',
             'show',
-            'poster'
+            'poster',
+            'myadmin'
         ),
         'ajax_type' => array(
             'json',
