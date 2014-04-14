@@ -93,7 +93,7 @@ function curlFetch($url, $data = null, $timeout = 5) {
     curl_close($ch);
     return $str;
 }
-function customError($errno, $errsstr, $errfile, $errline) {
+function customError($errno, $errstr, $errfile, $errline) {
     $str = '';
     $str .= "噗，<b>出错啦:</b> [$errno] $errstr<br />";
     $str .= " Line $errline in $errfile<br />";
@@ -103,7 +103,6 @@ function errorPage($content, $e = null, $title = '=_= 出错了') {
     if (is_null($e)) {
         $e = new Exception;
     }
-/*
     if (!is_null($e)) {
         $es = $e->getTraceAsString();
         $es = explode("\n", $es);
@@ -111,7 +110,6 @@ function errorPage($content, $e = null, $title = '=_= 出错了') {
     } else {
         $e0 = 'unknown_bug';
     }
-*/
     echo '<!doctype html>
         <html><head><meta charset="utf-8"><title>' . htmlspecialchars($title) . '</title></head><body>
         ' . $content . '<br>欢迎报告错误：E-mail: <a href="mailto:sen@senorsen.com?subject=[film_dub_bug_report]bug_report&body=' . htmlspecialchars($e0) . '" target="_blank">sen@senorsen.com</a><br><br><a href="./">点击此处返回首页</a><br>';
@@ -163,6 +161,14 @@ function randomString($num = 10) {
 }
 function getTrace($e, $ret_to_var = FALSE, $nl2br = TRUE) {
     $ret = $e->getTraceAsString();
+    $retarr = explode("\n", $ret);
+    foreach ($retarr as &$value) {
+        if (preg_match('/password/', $value)) {
+            $value = '#n database settings will not be displayed.';
+        }
+        $value = htmlspecialchars($value);
+    }
+    $ret = implode("\n", $retarr);
     if ($nl2br) {
         $ret = nl2br($ret);
     }
