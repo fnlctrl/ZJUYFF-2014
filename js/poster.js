@@ -1,4 +1,4 @@
-var pid = 0;
+﻿var pid = 0;
 var baseUrl = '';
 
 $(document).ready(function() {
@@ -36,11 +36,8 @@ function View(data) {
 		this.sw = (this.containerHeight / 3 * 2);
 		this.mainInfoPosition = $('#main-info-container').position().left;
 
-		this.mainInfoPosition = $('#main-info-container').position().left;
-		$('#main-info-container').css('left', this.mainInfoPosition.toString() + 'px');
 
 		// $('#container').height(this.containerHeight);
-		$('#main-info-container').width(this.sw);	
 		$('#submit-container').width(this.mainInfoPosition);
 		$('#submit-poster').width(this.posterW).height(this.posterH).css('left', (this.mainInfoPosition - this.posterW).toString() + 'px');
 		$('#submit-origin-poster').width(this.posterW).height(this.posterH);

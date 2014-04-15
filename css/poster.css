@@ -31,6 +31,7 @@ input:focus,textarea:focus {
   overflow: hidden;
   width: 100%;
   height: calc(100% - 60px);
+  z-index: 1;
 }
 .poster-button {
   cursor: pointer;
@@ -62,6 +63,7 @@ input:focus,textarea:focus {
   overflow: hidden;
   width: 400px;
   z-index: 2;
+  width: 400px;
 }
 #main-info {
   height: 400px;

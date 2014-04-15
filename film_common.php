@@ -26,14 +26,17 @@ if ($con_err != 0) {
 function view_handler($type, $file = null, $view_obj = null, $callback = 'cb') {
     $view_obj = (object)$view_obj;
     if ($type == 'json') {
+        header("Content-Type: application/json; charset=utf-8");
         echo json_encode($view_obj);
     } else if ($type == 'jsonp') {
         if (!preg_match('/^\w+$/', $callback)) {
             $callback = 'cb';
         }
+        header("Content-Type: application/javascript; charset=utf-8");
         echo $callback;
         echo '(' . json_encode($view_obj) . ');';
     } else if ($type === FALSE) {
+        header("Content-Type: text/html; charset=utf-8");
         // refers to 'html' view
         $view_obj->global_cfg = array(
             'random_token' => getToken()
@@ -90,7 +93,7 @@ function curlFetch($url, $data = null, $timeout = 5) {
     curl_close($ch);
     return $str;
 }
-function customError($errno, $errsstr, $errfile, $errline) {
+function customError($errno, $errstr, $errfile, $errline) {
     $str = '';
     $str .= "噗，<b>出错啦:</b> [$errno] $errstr<br />";
     $str .= " Line $errline in $errfile<br />";
@@ -103,7 +106,7 @@ function errorPage($content, $e = null, $title = '=_= 出错了') {
     if (!is_null($e)) {
         $es = $e->getTraceAsString();
         $es = explode("\n", $es);
-        $e0 = $es[0];
+        $e0 = $es[1];
     } else {
         $e0 = 'unknown_bug';
     }
@@ -158,6 +161,14 @@ function randomString($num = 10) {
 }
 function getTrace($e, $ret_to_var = FALSE, $nl2br = TRUE) {
     $ret = $e->getTraceAsString();
+    $retarr = explode("\n", $ret);
+    foreach ($retarr as &$value) {
+        if (preg_match('/password/', $value)) {
+            $value = '#n database settings will not be displayed.';
+        }
+        $value = htmlspecialchars($value);
+    }
+    $ret = implode("\n", $retarr);
     if ($nl2br) {
         $ret = nl2br($ret);
     }

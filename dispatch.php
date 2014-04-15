@@ -50,6 +50,83 @@ class Dispatch {
         $go_url = $passport_login_dir . urlencode($my_url . '?senredir=' . $redir);
         header('Location: ' . $go_url);
     }
+    public function myadmin($args) {
+        if (!isset($args['view'])) {
+            $args['view'] = 'dub';
+        }
+        if (isset($args['view']) && is_string($args['view'])) {
+           $view = $args['view'];
+        } else {
+            errorPage('错误：view未指定或错误');
+        }
+        $wl_view = array('dub', 'poster');
+        if (!in_array($view, $wl_view)) {
+            errorPage('view未定义');
+        }
+        if (isset($_SERVER['PHP_AUTH_USER'])) {
+            $user = $_SERVER['PHP_AUTH_USER'];
+            $pwd = $_SERVER['PHP_AUTH_PW'];
+            if ($user == 'zjuff' && $pwd == 'MjAxNMTqIDA0') {
+            
+            } else {
+                header('WWW-Authenticate: Basic realm="Hey hey hey pu"');
+                header('HTTP/1.1 401 Unauthorized');
+                errorPage('噗，看看吧。');
+            }
+        } else {
+            header('WWW-Authenticate: Basic realm="Hey hey hey pu"');
+            header('HTTP/1.1 401 Unauthorized');
+            errorPage('噗，看看吧。');
+        }
+        $retarr = $this->{$view . 'Admin'}();
+        foreach ($retarr as &$value) {
+            foreach ($value as &$vvalue) {
+                if (is_string($vvalue)) {
+                    $vvalue = htmlspecialchars($vvalue);
+                } else if (is_array($vvalue) && is_object($vvalue)) {
+                    foreach ($vvalue as &$vvvalue) {
+                        $vvvalue = htmlspecialchars($vvvalue);
+                    }
+                }
+            }
+        }
+        return (object)array(
+            'view' => $view,
+            'retarr' => $retarr
+        );
+    }
+    private function dubAdmin() {
+        $sql = "SELECT * FROM dub_team ";
+        $result = $this->db->query($sql);
+        $rows = array();
+        while ($row = $result->fetch_object()) {
+            $dub_rows = array();
+            $dub_sql = "SELECT * FROM dub_teammate WHERE tid=" . $row->id;
+            $dub_result = $this->db->query($dub_sql);
+            while ($dub_row = $dub_result->fetch_object()) {
+                array_push($dub_rows, $dub_row);
+            }
+            $row->teammate = $dub_rows;
+            array_push($rows, $row);
+        }
+        return $rows;
+    }
+    private function posterAdmin() {
+        $sql = "SELECT * FROM poster_signup ";
+        $result = $this->db->query($sql);
+        $rows = array();
+        while ($row = $result->fetch_object()) {
+            $dub_rows = array();
+            $dub_sql = "SELECT * FROM poster_member WHERE sid=" . $row->id;
+            $dub_result = $this->db->query($dub_sql);
+            while ($dub_row = $dub_result->fetch_object()) {
+                array_push($dub_rows, $dub_row);
+            }
+            $row->teammate = $dub_rows;
+            array_push($rows, $row);
+        }
+        return $rows;
+    }
     public function poster($args) {
         $sql = "SELECT id,name,members,time FROM poster_signup ";
         $result = $this->db->query($sql);
@@ -174,7 +251,7 @@ class Dispatch {
             $value['email'] = $email_list[$value['name_key']];
             unset($value['name_key']);
         }
-        $r_ip = $this->db->escape_string(getIP());
+        $r_ip = $this->db->escape_string(getip());
         $sql = "INSERT INTO dub_team (team_name, slogan, method, members, time, ip) VALUES ('$team_name', '$slogan', '$method', '$members', NOW(), '$r_ip') ";
         $this->db->query($sql);
         if ($this->db->errno) {
@@ -243,13 +320,13 @@ class Dispatch {
                 if (!isset($newobj['stuid' . $this_id]) || !isset($newobj['contact' . $this_id])) {
                     return array('code' => 1, 'msg' => '队员的信息是必填的哟～');
                 } else {
-                    $cnt_members;
+                    $cnt_members++;
                     array_push($members, array('name' => $value, 'stuid' => $newobj['stuid' . $this_id], 'contact' => $newobj['contact' . $this_id], 'leader' => $key == 'name1' ? 1 : 0));
                 }
             }
             $$key = $value;
         }
-        $ip = $this->db->escape_string(getIP());
+        $ip = $this->db->escape_string(getip());
         $sql = "INSERT INTO poster_signup (name, members, introduction, time, ip) VALUES ('$name', $cnt_members, '$introduction', NOW(), '$ip') ";
         $this->db->query($sql);
         if ($this->db->errno) {

@@ -143,3 +143,9 @@ input[type=text]:focus {
   margin: 0 10px 0 0;
   color: #90529c;
 }
+#main-form-submit {
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  margin-top: -18px;
+}

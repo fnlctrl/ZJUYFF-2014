@@ -15,7 +15,7 @@
         } catch (e) {
             var global_cfg = {"random_token":"error??? pu, we don't know."};
         }
-        var page_cfg = <?php echo json_encode($view_obj->global_cfg);?>;
+        var page_cfg = <?php echo json_encode($view_obj->page_cfg);?>;
     </script>
 	<script src='./js/jquery-2.1.0.min.js'></script>
 	<script src='./js/global.js'></script>
@@ -102,7 +102,7 @@
 			</div>
 			<div class='main-info-item'>
 				<img class='ring' id='main-ring-3' src='./img/dub-ring-3.svg'/>
-				<p class='main-info-caption'>作品上传截止</p>
+				<p class='main-info-caption'>作品上传截止<br>开始线上投票</p>
 			</div>
 			<div class='main-info-item'>
 				<img class='ring' id='main-ring-4' src='./img/dub-ring-4.svg'/>
@@ -148,12 +148,11 @@
 				<p class='main-form-title'>参赛方式</p>
 				<input type='radio' value='online' name='method' required/><span class='main-form-text'>上传视频</span>
 				<input type='radio' value='live' name='method' required/><span class='main-form-text'>现场演出</span>
-				<br><br>
 				<button id='main-form-submit' class='button' type='submit'>提交报名表</button>
 				<br><br>
 				<p class='main-form-text'>注:</p>
-				<p class='main-form-text'>若选择"上传视频"，请在报名截止前将配音视频发送至</p>
-				<p class='main-form-text'>tide@myqsc.com，邮件标题格式:[配音大赛][团队名称][队长姓名]</p>
+				<p class='main-form-text'>若选择"上传视频"，请在报名截止前将配音视频发送至tide@myqsc.com</p>
+				<p class='main-form-text'>邮件标题格式: [配音大赛][团队名称][队长姓名]</p>
 			</div>
 		</form>
 	</div>
