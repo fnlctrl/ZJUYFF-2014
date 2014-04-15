@@ -1,4 +1,4 @@
-<!doctype html>
+<!doctype>
 <html>
 <head>
   <meta charset="UTF-8">
@@ -11,32 +11,14 @@
   <script src="js/myadmin.js"></script>
 </head>
 <body class="overview">
-  <header style="display: none">
-    <div id="overview-mode">概览模式</div><input type="text" id="search" placeholder="全局快速检索，使用空格以分隔关键词">
-    <nav>
-      <h3>Filter</h3>
-      <div id="count"></div>
-      <ul>
-        <li>上传视频</li>
-        <li>现场演出</li>
-      </ul>
-    </nav>
-    <div class="help">
-      <br>搜索指令：name, phone, slogan, method, leader, teammate-name, members, <br>
-      <ul>
-        <li>第一志愿检索示例：method:上传视频（横杠的左右没有空格）</li>
-        <li>组合搜索示例：method:现场演出 members:3</li>
-      </ul>
-    </div>
-  </header>
-  <pre>
 <?php
-echo '<h1 style="font-weight: normal">';
+echo '<h1 style="margin-left: 20px; font-weight: normal">';
 echo $view_obj->view == 'dub' ? '配音大赛' : '海报扮演';
 echo '</h1>';
 ?><span style="margin-left: 50px">当前报名人数：<?php echo count($view_obj->retarr);?></span>
-<a id="exp-switch" style="-webkit-user-select: none; -moz-user-select:none;  cursor: pointer; color: blue" onclick="switchAll();">全部展开</a> <?php if ($view_obj->view == 'poster') { ?><a href="myadmin?view=dub" style="margin-left: 50px">切换至配音大赛</a><?php } else { ?><a href="myadmin?view=poster" style="margin-left: 50px">切换至海报扮演</a><?php } ?>
+<a id="exp-switch" style="margin-left: 40px; -webkit-user-select: none; -moz-user-select:none;  cursor: pointer; color: blue" onclick="switchAll();">全部展开</a> <?php if ($view_obj->view == 'poster') { ?><a href="myadmin?view=dub" style="margin-left: 20px">切换至配音大赛</a><?php } else { ?><a href="myadmin?view=poster" style="margin-left: 20px">切换至海报扮演</a><?php } ?>
 <br>
+  <pre>
 <?php
 if ($view_obj->view == 'dub') {
 foreach ($view_obj->retarr as $value) {
