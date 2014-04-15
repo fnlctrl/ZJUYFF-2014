@@ -65,13 +65,6 @@ function View(data) {
 		next.animate({left: 0, opacity: 1}, speed * 1.2);
 	}
 
-	this.clickBack = function() {
-		$('#main-info').fadeIn('200', function() {
-			$('#main-submit-info').fadeOut(200);
-		});
-		$('#submit-container').slideUp(800);
-	}
-
 	this.showSubmitImg = function() {
 		var oFReader = new FileReader();
 		var itself = this;
@@ -102,7 +95,7 @@ function View(data) {
 			data.getPoster(leftPosition, 'left', that.createPosters);
 		}
 		// create posters on the right
-		var rightPosition = that.mainInfoPosition + that.sw,
+		var rightPosition = that.mainInfoPosition + 400,
 		    rightCount = parseInt((that.w - rightPosition) / that.posterW) + 1;
 		for (var i = 0; i<rightCount; i++) {
 				data.getPoster(rightPosition, 'right', that.createPosters);

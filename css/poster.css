@@ -54,12 +54,13 @@ input:focus,textarea:focus {
 /******main-info part******/
 
 #main-info-container {
+  background: #222;
   height: 100%;
   left: 60%;
   position: absolute;
   top: 0;
   overflow: hidden;
-  background: #222;
+  width: 400px;
   z-index: 2;
 }
 #main-info {
