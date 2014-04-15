@@ -34,10 +34,9 @@
 echo '<h1 style="font-weight: normal">';
 echo $view_obj->view == 'dub' ? '配音大赛' : '海报扮演';
 echo '</h1>';
-?>
+?><span style="margin-left: 50px">当前报名人数：<?php echo count($view_obj->retarr);?></span>
+<a id="exp-switch" style="-webkit-user-select: none; -moz-user-select:none;  cursor: pointer; color: blue" onclick="switchAll();">全部展开</a> <?php if ($view_obj->view == 'poster') { ?><a href="myadmin?view=dub" style="margin-left: 50px">切换至配音大赛</a><?php } else { ?><a href="myadmin?view=poster" style="margin-left: 50px">切换至海报扮演</a><?php } ?>
 <br>
-<a id="exp-switch" style="-webkit-user-select: none; -moz-user-select:none;  cursor: pointer; color: blue" onclick="switchAll();">全部展开</a> <?php if ($view_obj->view == 'poster') { ?><a href="myadmin?view=dub">配音大赛</a><?php } else { ?><a href="myadmin?view=poster">海报扮演</a><?php } ?>
-<br><br>
 <?php
 if ($view_obj->view == 'dub') {
 foreach ($view_obj->retarr as $value) {
