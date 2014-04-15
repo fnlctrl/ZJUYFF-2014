@@ -42,7 +42,7 @@ if ($view_obj->view == 'dub') {
 foreach ($view_obj->retarr as $value) {
 ?>
     <table id="obj-v<?php echo $value->id;?>">
-        <tr class="name"><td>队名</td><td><?php echo $value->team_name;?></td></tr>
+        <tr class="name"><td><a href="#obj-v<?php echo $value->id;?>">队名</a></td><td><?php echo $value->team_name;?></td></tr>
         <tr class="method"><td>参赛方式</td><td><?php echo $value->method == 'online' ? '上传视频' : '现场演出';?></td></tr>
         <tr class="slogan"><td>参赛口号</td><td><?php echo $value->slogan;?></td></tr>
         <tr class="members"><td>团队人数</td><td><?php echo $value->members;?></td></tr>
@@ -64,7 +64,7 @@ foreach ($view_obj->retarr as $value) {
 foreach ($view_obj->retarr as $value) {
 ?>
     <table id="obj-v<?php echo $value->id;?>">
-        <tr class="name"><td>电影名称</td><td><?php echo $value->name;?></td></tr>
+        <tr class="name"><td><a href="#obj-v<?php echo $value->id;?>">电影名称</a></td><td><?php echo $value->name;?></td></tr>
         <tr class="members"><td>团队人数</td><td><?php echo $value->members;?></td></tr>
         <tr class="time"><td>报名时间</td><td><?php echo $value->time;?></td></tr>
         <tr class="ip"><td>报名地址</td><td><?php echo $value->ip;?></td></tr>
