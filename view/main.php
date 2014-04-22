@@ -125,7 +125,7 @@
 				<p class='footer-title'>合作单位</p>
 				<p><a href='http://site.douban.com/211516/'>后窗放映</a></p>
 				<p><a href='http://site.douban.com/177837/'>瓢虫映像</a></p>
-				<p><a href='http://site.douban.com/afhangzhou/'>杭州法语联盟</a></p>
+				<p><a href='http://www.hzedcm.com/'>E动传媒</a></p>
 				<p><a href='http://www.cmic.zju.edu.cn/'>浙江大学传媒学院</a></p>
 				<p><a href='http://www.zjicm.edu.cn/'>浙江传媒学院</a></p>
 				<p><a href='http://www.zjut.edu.cn/'>浙江工业大学</a></p>
@@ -134,7 +134,6 @@
 			<div class='footer-column'>
 				<p class='footer-title'>关注我们</p>
 				<a href='http://weibo.com/3427611600'><img class='svg' src='./img/footer-weibo-icon.svg'/></a>
-				<!-- <a href=''><img class='svg' src='./img/footer-douban-icon.svg'/></a> -->
 				<a href='http://page.renren.com/601378976/'><img class='svg' src='./img/footer-renren-icon.svg'/></a>
 				<p class='footer-title'>联系我们</p>
 				<p>tide@myqsc.com</p>
