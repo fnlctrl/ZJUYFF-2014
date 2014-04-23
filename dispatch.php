@@ -133,13 +133,13 @@ class Dispatch {
         $s_rows = array();
         $id2vid = array();
         while ($s_row = $result->fetch_object()) {
-            $s_rows[$s_row->id] =  $s_row;
-            $s_rows[$s_row->id]->m = array();
+            $s_row->m = array();
             $sql = "SELECT id,sid,name,leader FROM poster_member WHERE sid=$s_row->id ";
             $m_res = $this->db->query($sql);
             while ($m_row = $m_res->fetch_object()) {
-                array_push($s_rows[$s_row->id]->m, $m_row);
+                array_push($s_row->m, $m_row);
             }
+            array_push($s_rows, $s_row);
         }
         return array('page_cfg' => array('poster' => $s_rows));
     }
