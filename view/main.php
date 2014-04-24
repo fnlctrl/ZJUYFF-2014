@@ -123,13 +123,14 @@
 			</div>
 			<div class='footer-column'>
 				<p class='footer-title'>合作单位</p>
-				<p><a href='http://site.douban.com/211516/'>后窗放映</a></p>
-				<p><a href='http://site.douban.com/177837/'>瓢虫映像</a></p>
-				<p><a href='http://www.hzedcm.com/'>E动传媒</a></p>
-				<p><a href='http://www.cmic.zju.edu.cn/'>浙江大学传媒学院</a></p>
-				<p><a href='http://www.zjicm.edu.cn/'>浙江传媒学院</a></p>
-				<p><a href='http://www.zjut.edu.cn/'>浙江工业大学</a></p>
-				<p><a href='http://hzdaily.hangzhou.com.cn/dskb/html/2014-04/05/node_85.htm'>都市快报</a></p>
+				<p><a href='http://site.douban.com/211516/' target='_blank'>后窗放映</a></p>
+				<p><a href='http://site.douban.com/177837/' target='_blank'>瓢虫映像</a></p>
+				<p><a href='http://site.douban.com/afhangzhou/' target='_blank'>杭州法语联盟</a></p>
+				<p><a href='http://www.cmic.zju.edu.cn/' target='_blank'>浙江大学传媒学院</a></p>
+				<p><a href='http://www.zjicm.edu.cn/' target='_blank'>浙江传媒学院</a></p>
+				<p><a href='http://www.zjut.edu.cn/' target='_blank'>浙江工业大学</a></p>
+				<p><a href='http://www.hzedcm.com/' target='_blank'>E动传媒</a></p>
+				<p><a href='http://hzdaily.hangzhou.com.cn/dskb/html/2014-04/05/node_85.htm' target='_blank'>都市快报</a></p>
 			</div>
 			<div class='footer-column'>
 				<p class='footer-title'>关注我们</p>
