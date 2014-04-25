@@ -23,6 +23,7 @@ input:focus,textarea:focus {
 .button:active {
   background-color: #008cce;
 }
+
 /******Container Part*******/
 #container {
   background-color: #252525;
@@ -244,4 +245,19 @@ input:focus,textarea:focus {
 }
 #current-poster {
   z-index: 3;
+}
+.poster-hover {
+  background: #000;
+  opacity: 0;
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+}
+.poster-hover-title {
+  font-size: 20px;
+  font-weight: bold;
+  position: absolute;
+  top: 40%;
+  text-align: center;
+  width: 100%;
 }

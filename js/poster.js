@@ -12,11 +12,10 @@ $(document).ready(function() {
 		view.fillPosters();
 	});
 	$('#submit-container').submit(data.postPoster);
-	$('#main-info-submit').click(view.clickSubmit);
+	$('#main-info-submit').bind('click', view.clickSubmit);
 	$('#main-info-vote').bind('click',view.vote)
-	$('#submit-back-button').click(view.clickBack);
 	$('#vote-submit-back').bind('click', view.voteBack);
-	$('#vote-submit-button').click(view.postVote);
+	$('#vote-submit-button').bind('click', view.postVote);
 	$('#left-button, #right-button').bind('click', view.slide);
 	$('.file').bind('change', view.showSubmitImg);
 });
@@ -37,8 +36,6 @@ function View(data) {
 		this.sw = (this.containerHeight / 3 * 2);
 		this.mainInfoPosition = $('#main-info-container').position().left;
 
-
-		// $('#container').height(this.containerHeight);
 		$('#submit-container').width(this.mainInfoPosition);
 		$('#submit-poster').width(this.posterW).height(this.posterH).css('left', (this.mainInfoPosition - this.posterW).toString() + 'px');
 		$('#submit-origin-poster').width(this.posterW).height(this.posterH);
@@ -69,7 +66,7 @@ function View(data) {
 		oFReader.onload = function (oFREvent) {
 		  $(itself).next().attr('src', oFREvent.target.result);
 		};
-		
+
 		if (this.files.length === 0) { return; }
 		var oFile = this.files[0];
 		if (!oFile.type.match('image.jpeg')) { 
@@ -121,22 +118,10 @@ function View(data) {
 		$(currentImg).attr('src', 'img/temp-posters/' + pid + '-cos.jpg').width('100%').height('100%');
 		$(currentPoster).append(currentImg);
 
-		$(currentHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover').css({
-				background: '#000',
-				opacity: '0',
-				bottom: 0,
-				position: 'absolute'
-		});
+		$(currentHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover');
 		$(currentPoster).prepend(currentHover);
 
-		$(currentTitle).text('<' + 'Film Name' + '>').css({
-				'font-size': '20px',
-				'font-weight': 'bold',
-				position: 'absolute',
-				top: '40%',
-				'text-align': 'center',
-				width: '100%'
-		});
+		$(currentTitle).text('<' + 'Film Name' + '>').addClass('poster-hover-title');
 		$(currentHover).prepend(currentTitle);
 		$(currentPoster).bind('mouseenter', currentHover, that.posterOver);
 		$(currentPoster).bind('mouseleave', currentHover, that.posterOut);
@@ -182,37 +167,13 @@ function View(data) {
 			$(posterTop).append(posterTopImg);
 			$(posterBottom).append(posterBottomImg);
 		// hover div
-			$(posterTopHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover').css({
-				background: '#000',
-				opacity: '0',
-				bottom: 0,
-				position: 'absolute'
-			});
-			$(posterBottomHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover').css({
-				background: '#000',
-				opacity: '0',
-				bottom: 0,
-				position: 'absolute'
-			});
+			$(posterTopHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover');
+			$(posterBottomHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover');
 			$(posterTop).prepend(posterTopHover);
 			$(posterBottom).prepend(posterBottomHover);
 		// hover title div
-			$(posterTopTitle).text('<' + 'Film Name' + '>').css({
-				'font-size': '20px',
-				'font-weight': 'bold',
-				position: 'absolute',
-				top: '40%',
-				'text-align': 'center',
-				width: '100%'
-			});
-			$(posterBottomTitle).text('<' + 'Film Name' + '>').css({
-				'font-size': '20px',
-				'font-weight': 'bold',
-				position: 'absolute',
-				top: '40%',
-				'text-align': 'center',
-				width: '100%'
-			});
+			$(posterTopTitle).text('<' + 'Film Name' + '>').addClass('poster-hover-title');
+			$(posterBottomTitle).text('<' + 'Film Name' + '>').addClass('poster-hover-title');
 			$(posterTopHover).prepend(posterTopTitle);
 			$(posterBottomHover).prepend(posterBottomTitle);
 
@@ -224,15 +185,17 @@ function View(data) {
 			$(posterBottom).bind('click', that.posterClick);
 	}
 
-	this.showMainInfo = function() {
-		$('.posters').each(function(index) {
-			var left = $(this).position().left;
-			if (left>that.mainInfoPosition-that.posterW)
-				$(this).animate({left: '+=' + that.sw}, speed);
-		});
-		$('#main-info-container').css('display', 'block');
+	this.posterOver = function(e) {
+		if ($(this).height() <= that.posterH + 1)
+			$(e.data).animate({opacity: '0.6'}, 200);
 	}
 
+	this.posterOut = function(e) {
+		$(e.data).animate({opacity: 0}, 200);
+	}
+
+/*Vote part
+*/
 	this.vote = function() {
 		$('.poster-button').fadeIn(400);
 		$('#main-info').fadeOut(400);
@@ -245,10 +208,7 @@ function View(data) {
 		$('.poster-button').fadeOut(400);
 		$('#main-info').fadeIn(400);
 		$('#vote-container').animate({left: -400}, 400);
-
 	}
-
-	
 
 	this.voteStar = function() {
 		for (var i = 1; i<=5; i++) {
