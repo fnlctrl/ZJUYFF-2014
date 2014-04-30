@@ -101,8 +101,8 @@
 				<img>
 				<div id="submit-poster-content">
 					<p>长宽比2:3</p>
-					<p>JPG,PNG,BMP,GIF格式静态图片</p>
-					<p>3MB以内</p>
+					<p>JPG,PNG,BMP,GIF<br>格式静态图片</p>
+					<p>(3MB以内)</p>
 				</div>
 			</div>
 			<div id="submit-origin-poster">
