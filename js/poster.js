@@ -102,6 +102,8 @@ function View(data) {
 				currentImg = document.createElement('img'),
 				currentHover = document.createElement('div'),
 				currentTitle = document.createElement('div');
+		$(currentPoster).data('data', data.posterData[pid]);
+
 		$(currentPoster).height(this.containerHeight).width(this.sw);
 		$(currentPoster).css({
 			position: 'absolute',
@@ -113,17 +115,18 @@ function View(data) {
 		});
 		$('#poster-container').prepend(currentPoster);
 
-		$(currentImg).attr('src', 'img/temp-posters/' + pid + '-cos.jpg').width('100%').height('100%');
+		$(currentImg).attr('src', 'upload/img1_' + pid + '.jpg').width('100%').height('100%');
 		$(currentPoster).append(currentImg);
 
 		$(currentHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover');
 		$(currentPoster).prepend(currentHover);
 
-		$(currentTitle).text('<' + 'Film Name' + '>').addClass('poster-hover-title');
+		$(currentTitle).text('<' + data.posterData[pid]. + '>').addClass('poster-hover-title');
 		$(currentHover).prepend(currentTitle);
 		$(currentPoster).bind('mouseenter', currentHover, that.posterOver);
 		$(currentPoster).bind('mouseleave', currentHover, that.posterOut);
 		// $(currentPoster).bind('click', that.posterClick);
+		pid++;
 	}
 
 	this.createPosters = function(position, dir) {
