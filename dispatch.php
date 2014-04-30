@@ -328,8 +328,8 @@ class Dispatch {
         }
         $ip = $this->db->escape_string(getip());
         if (function_exists('exif_imagetype')) {
-            $pictype1 = @exif_imagetype($_FILES['img1']['tmp_name']);
-            $pictype2 = @exif_imagetype($_FILES['img2']['tmp_name']);
+            $pictype1 = intval(exif_imagetype($_FILES['img1']['tmp_name']));
+            $pictype2 = intval(exif_imagetype($_FILES['img2']['tmp_name']));
             $suffix1 = $this->getsuffix($pictype1);
             $suffix2 = $this->getsuffix($pictype2);
         } else {
