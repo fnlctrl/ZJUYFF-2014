@@ -27,7 +27,8 @@ try {
             'forum',
             'show',
             'poster',
-            'myadmin'
+            'myadmin',
+            'posterParse',
         ),
         'ajax_type' => array(
             'json',
