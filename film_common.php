@@ -179,10 +179,10 @@ function getTrace($e, $ret_to_var = FALSE, $nl2br = TRUE) {
     }
 }
 function isunknown($type) {
-    if (in_array($type, array(1, 2, 3, 6))) {
-        return FALSE;
-    } else {
+    if (!in_array(intval($type), array(1, 2, 3, 6))) {
         return TRUE;
+    } else {
+        return FALSE;
     }
 }
 
