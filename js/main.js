@@ -2,7 +2,8 @@ $(window).bind('load resize scroll',function() {
 	window.H = $(window).height();
 	window.W = $(window).width();
 	// Fix issue#1 bug. Add by Hetong
-	$('main-container').height(window.H - 60);
+	$('#main-container').height(window.H - 60);
+	$('.slide').height(window.H - 60);
 
 	if ($('.slide-selected').width()>$('.slide-selected').height()) {
 		$('.main-bg').width($('.slide-selected').width()+100).css('height','');
