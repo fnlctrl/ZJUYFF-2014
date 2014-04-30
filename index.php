@@ -30,6 +30,7 @@ try {
             'poster',
             'myadmin',
             'posterParse',
+            'getposter',
         ),
         'ajax_type' => array(
             'json',
