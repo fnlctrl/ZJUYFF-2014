@@ -70,12 +70,14 @@ function View(data) {
 		
 		if (this.files.length === 0) { return; }
 		var oFile = this.files[0];
-		if (!oFile.type.match('image.jpeg')) { 
+		/*
+        if (!oFile.type.match('image.jpeg')) { 
 			showNotice("请选择JPG格式图片"); 
 			oFile = {};
 			this.value = null;
 			return; 
 		}
+        */
 		oFReader.readAsDataURL(oFile);
 	}
 

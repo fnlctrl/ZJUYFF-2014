@@ -51,8 +51,8 @@ foreach ($view_obj->retarr as $value) {
         <tr class="time"><td>报名时间</td><td><?php echo $value->time;?></td></tr>
         <tr class="ip"><td>报名地址</td><td><?php echo $value->ip;?></td></tr>
         <tr class="introduction"><td>作品介绍</td><td><?php echo $value->introduction;?></td></tr>
-        <tr class="link-img1"><td>参赛作品</td><td><a href="<?php echo wrapImage(1, $value->id);?>" target="_blank">点击查看参赛作品</a></td></tr>
-        <tr class="link-img2"><td>原版海报</td><td><a href="<?php echo wrapImage(2, $value->id);?>" target="_blank">点击查看原版海报</a></td></tr>
+        <tr class="link-img1"><td>参赛作品</td><td><a href="<?php echo wrapImage(1, $value->id, $value->pictype1 ? '.jpg' : $value->suffix1);?>" target="_blank">点击查看参赛作品</a> <?php if (!$value->pictype1) echo "未知格式的图片";?></td></tr>
+        <tr class="link-img2"><td>原版海报</td><td><a href="<?php echo wrapImage(2, $value->id, $value->pictype2 ? '.jpg' : $value->suffix2);?>" target="_blank">点击查看原版海报</a> <?php if (!$value->pictype2) echo "未知格式的图片";?></td></tr>
 <?php
     foreach ($value->teammate as $vvalue) {
 ?>
@@ -67,8 +67,8 @@ foreach ($view_obj->retarr as $value) {
 }
 ?>
 <?php
-function wrapImage($type, $id) {
-    return 'upload/img' . $type . '_' . $id . '.jpg';
+function wrapImage($type, $id, $suffix) {
+    return 'upload/img' . $type . '_' . $id . $suffix;
 }
 ?>
   </pre>
