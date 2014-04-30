@@ -327,14 +327,30 @@ class Dispatch {
             $$key = $value;
         }
         $ip = $this->db->escape_string(getip());
-        $sql = "INSERT INTO poster_signup (name, members, introduction, time, ip) VALUES ('$name', $cnt_members, '$introduction', NOW(), '$ip') ";
+        if (function_exists('exif_imagetype')) {
+            $pictype1 = @exif_imagetype($_FILES['img1']['tmp_name']);
+            $pictype2 = @exif_imagetype($_FILES['img2']['tmp_name']);
+            $suffix1 = $this->getsuffix($pictype1);
+            $suffix2 = $this->getsuffix($pictype2);
+        } else {
+            // 未知
+            $pictype1 = 0;
+            $pictype2 = 0;
+        }
+        $sql = "INSERT INTO poster_signup (name, members, pictype1, pictype2, suffix1, suffix2, introduction, time, ip) VALUES ('$name', $cnt_members, $pictype1, $pictype2, '$suffix1', '$suffix2', '$introduction', NOW(), '$ip') ";
         $this->db->query($sql);
         if ($this->db->errno) {
             return array('code' => 100, 'msg' => '处理poster_signup时遇到数据库插入错误，非常抱歉！请联系 sen@senorsen.com，谢谢啦～');
         }
         $sid = $this->db->insert_id;
-        move_uploaded_file($_FILES['img1']['tmp_name'], $this->upload_dir . 'img1_' . $sid . '.jpg');
-        move_uploaded_file($_FILES['img2']['tmp_name'], $this->upload_dir . 'img2_' . $sid . '.jpg');
+        $pic1filename = $this->upload_dir . 'img1_' . $sid . $suffix1;
+        $pic2filename = $this->upload_dir . 'img2_' . $sid . $suffix2;
+        $pic1jpg = $this->upload_dir . 'img1_' . $sid . '.jpg';
+        $pic2jpg = $this->upload_dir . 'img2_' . $sid . '.jpg';
+        move_uploaded_file($_FILES['img1']['tmp_name'], $pic1filename);
+        move_uploaded_file($_FILES['img2']['tmp_name'], $pic2filename);
+        $this->convert2jpg($pic1filename, $pic1jpg, $pictype1);
+        $this->convert2jpg($pic2filename, $pic2jpg, $pictype2);
         foreach ($members as $value) {
             $value = (object)$value;
             $sql = "INSERT INTO poster_member (sid, name, leader, stuid, contact) VALUES ($sid, '$value->name', $value->leader, '$value->stuid', '$value->contact') ";
@@ -344,5 +360,43 @@ class Dispatch {
             }
         }
         return array('code' => 0, 'sid' => $sid, 'msg' => '报名成功，感谢参与～');
+    }
+    public function getsuffix($typeno) {
+        $typenp = intval($typeno);
+        $types = array('unknown', 'gif', 'jpg', 'png', 'swf', 'psd', 'bmp', 'tiff', 'tiff', 'jpc', 'jp2', 'jpx', 'jb2', 'swc', 'iff', 'wbmp', 'xbm', 'ico');
+        return '.' . $types[$typeno];
+    }
+    public function convert2jpg($orgfile, $destfile, $type) {
+        switch ($type) {
+            case 1:
+                $gdimg = imagecreatefromgif($orgfile);
+                break;
+            case 3:
+                $gdimg = imagecreatefrompng($orgfile);
+                break;
+            case 6:
+                $gdimg = imagecreatefrombmp($orgfile);
+                break;
+            default:
+                return FALSE;
+        }
+        imagejpeg($gdimg, $destfile);
+    }
+    public function posterParse() {
+        $sql = "SELECT * FROM poster_signup WHERE pictype1=0 or pictype2=0 ";
+        $result = $this->db->query($sql);
+        while ($row = $result->fetch_object()) {
+            echo "ID=$row->id $row->name ";
+            // =v= 再重复一遍： 晚上或明天我会添加各种图片，包括bmp，转jpg功能。
+            $pictype1 = exif_imagetype($this->upload_dir . 'img1_' . $row->id . '.jpg');
+            $pictype2 = exif_imagetype($this->upload_dir . 'img2_' . $row->id . '.jpg');
+            $suffix1 = $this->getsuffix($pictype1);
+            $suffix2 = $this->getsuffix($pictype2);
+            $this->convert2jpg($this->upload_dir . 'img1_' . $row->id . '.jpg', $this->upload_dir . 'img1_' . $row->id . '.jpg', $pictype1);
+            $this->convert2jpg($this->upload_dir . 'img2_' . $row->id . '.jpg', $this->upload_dir . 'img2_' . $row->id . '.jpg', $pictype2);
+            echo "pictype1=$pictype1, pictype2=$pictype2<br>\n";
+            $sql = "UPDATE poster_signup SET pictype1=$pictype1, pictype2=$pictype2 WHERE id=$row->id ";
+            $this->db->query($sql);
+        }
     }
 }
