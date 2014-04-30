@@ -380,7 +380,7 @@ class Dispatch {
             default:
                 return FALSE;
         }
-        imagejpeg($gdimg, $destfile);
+        imagejpeg($gdimg, $destfile, 100);
     }
     public function posterParse() {
         $sql = "SELECT * FROM poster_signup WHERE pictype1=0 or pictype2=0 ";
