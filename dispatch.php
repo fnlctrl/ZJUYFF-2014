@@ -387,7 +387,6 @@ class Dispatch {
         $result = $this->db->query($sql);
         while ($row = $result->fetch_object()) {
             echo "ID=$row->id $row->name ";
-            // =v= 再重复一遍： 晚上或明天我会添加各种图片，包括bmp，转jpg功能。
             $pictype1 = exif_imagetype($this->upload_dir . 'img1_' . $row->id . '.jpg');
             $pictype2 = exif_imagetype($this->upload_dir . 'img2_' . $row->id . '.jpg');
             $suffix1 = $this->getsuffix($pictype1);
@@ -398,5 +397,50 @@ class Dispatch {
             $sql = "UPDATE poster_signup SET pictype1=$pictype1, pictype2=$pictype2 WHERE id=$row->id ";
             $this->db->query($sql);
         }
+    }
+    public function getposter($args) {
+        $allows = array('type', 'id', 'width', 'height');
+        foreach ($args as $key => $value) {
+            if (in_array($key, $allows)) {
+                $$key = $value;
+            }
+        }
+        foreach ($allows as $value) {
+            if (!isset($args[$value])) {
+                $$value = 0;
+            }
+        }
+        $id = intval($id);
+        $type = intval($type);
+        if (!in_array($type, array(1, 2))) return FALSE;
+        $sql = "SELECT * FROM poster_signup WHERE id=$id ";
+        $result = $this->db->query($sql);
+        if (!$result) {
+            errorPage('空集');
+        }
+        $row = $result->fetch_array();
+        if (in_array($row['pictype' . $type], array(1, 2, 3, 6))) {
+            $suffix = '.jpg';
+        } else {
+            $suffix = $row['suffix' . $type];
+        }
+        $mimetype = image_type_to_mime_type($row['pictype' . $type]);
+        $filename = $this->upload_dir . '/img' . $type . '_' . $id . $suffix;
+        if (!file_exists($filename)) {
+            errorPage('文件不存在');
+        }
+        header("Content-Type: $mimetype");
+        $org = imagecreatefromjpeg($filename);
+        if ($width == 0) {
+            imagejpeg($org);
+            return TRUE;
+        }
+        $img = imagecreate($width, $height);
+        $size = getimagesize($filename);
+        $org_width = $size[1];
+        $org_height = $size[2];
+        imagecopyresized($img, $org, 1, 1, 1, 1, $width, $height, $org_width, $org_height);
+        imagejpeg($img);
+        return TRUE;
     }
 }
