@@ -6,6 +6,7 @@
  * 
  */
 define('SEN_DIR', __DIR__);
+require "bmpparse.php";
 require "film_config.php";
 require "film_common.php";
 require "dispatch.php";
