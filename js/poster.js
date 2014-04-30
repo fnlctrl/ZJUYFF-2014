@@ -36,8 +36,7 @@ function View(data) {
 		this.sw = (this.containerHeight / 3 * 2);
 		this.mainInfoPosition = $('#main-info-container').position().left;
 
-
-		// $('#container').height(this.containerHeight);
+		$('#container').height(this.containerHeight);
 		$('#submit-container').width(this.mainInfoPosition);
 		$('#submit-poster').width(this.posterW).height(this.posterH).css('left', (this.mainInfoPosition - this.posterW).toString() + 'px');
 		$('#submit-origin-poster').width(this.posterW).height(this.posterH);
