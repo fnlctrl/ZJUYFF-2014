@@ -31,6 +31,7 @@ try {
             'myadmin',
             'posterParse',
             'getposter',
+            'uploadany',
         ),
         'ajax_type' => array(
             'json',
