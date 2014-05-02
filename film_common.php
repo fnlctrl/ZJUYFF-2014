@@ -36,7 +36,7 @@ function view_handler($type, $file = null, $view_obj = null, $callback = 'cb') {
         echo $callback;
         echo '(' . json_encode($view_obj) . ');';
     } else if ($type === FALSE) {
-        header("Content-Type: text/html; charset=utf-8");
+        // header("Content-Type: text/html; charset=utf-8");
         // refers to 'html' view
         $view_obj->global_cfg = array(
             'random_token' => getToken()

@@ -116,13 +116,20 @@ class Dispatch {
         $result = $this->db->query($sql);
         $rows = array();
         while ($row = $result->fetch_object()) {
-            $dub_rows = array();
-            $dub_sql = "SELECT * FROM poster_member WHERE sid=" . $row->id;
-            $dub_result = $this->db->query($dub_sql);
-            while ($dub_row = $dub_result->fetch_object()) {
-                array_push($dub_rows, $dub_row);
+            $m_rows = array();
+            $m_sql = "SELECT * FROM poster_member WHERE sid=" . $row->id;
+            $m_result = $this->db->query($m_sql);
+            while ($m_row = $m_result->fetch_object()) {
+                array_push($m_rows, $m_row);
             }
-            $row->teammate = $dub_rows;
+            $scores = '';
+            $score_sql = "SELECT * FROM poster_vote WHERE pid=$row->id ";
+            $score_result = $this->db->query($score_sql);
+            while ($score_row = $score_result->fetch_object()) {
+                $scores .= $score_row->name . ':' . (sprintf("%.2f", $score_row->score / ($score_row->votes == 0 ? 1 : $score_row->votes))) . '(' . $score_row->score . ',' . $score_row->votes . ') ';
+            }
+            $row->scores = $scores;
+            $row->teammate = $m_rows;
             array_push($rows, $row);
         }
         return $rows;
@@ -499,22 +506,18 @@ class Dispatch {
             $suffix = $row['suffix' . $type];
         }
         $mimetype = image_type_to_mime_type($row['pictype' . $type]);
-        $filename = $this->upload_dir . '/img' . $type . '_' . $id . $suffix;
+        $filename = $this->upload_dir . 'img' . $type . '_' . $id . $suffix;
         if (!file_exists($filename)) {
             errorPage('文件不存在');
         }
         header("Content-Type: $mimetype");
         $org = imagecreatefromjpeg($filename);
         if ($width == 0) {
-            imagejpeg($org);
+            imagejpeg($org, null, 100);
             return TRUE;
         }
-        $img = imagecreate($width, $height);
-        $size = getimagesize($filename);
-        $org_width = $size[1];
-        $org_height = $size[2];
-        imagecopyresized($img, $org, 1, 1, 1, 1, $width, $height, $org_width, $org_height);
-        imagejpeg($img);
+        new resizeimage($org, $width, $height, 0, $this->upload_dir . 'img' . $type . '_' . $id . $suffix);
+        echo file_get_contents($this->upload_dir . 'img' . $type . '_' . $id . $suffix);
         return TRUE;
     }
 }
