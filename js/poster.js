@@ -123,7 +123,7 @@ function View(data) {
 		$(currentHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover');
 		$(currentPoster).prepend(currentHover);
 
-		$(currentTitle).text('<' + data.posterData[pid]. + '>').addClass('poster-hover-title');
+		$(currentTitle).text('<' + data.posterData[pid].name + '>').addClass('poster-hover-title');
 		$(currentHover).prepend(currentTitle);
 		$(currentPoster).bind('mouseenter', currentHover, that.posterOver);
 		$(currentPoster).bind('mouseleave', currentHover, that.posterOut);
@@ -132,18 +132,25 @@ function View(data) {
 	}
 
 	this.createTopPosters = function(position, dir) {
+		if (data.posterData.length <= pid) {
+			showNotice("已经没有海报啦T T");
+			return;
+		}
+		
 		var posterTop = document.createElement('div'),
 				posterTopImg = document.createElement('img'),
 				posterTopHover = document.createElement('div'),
-				posterTopTitle = document.createElement('div');
+				posterTopTitle = document.createElement('div'),
+				poster = $(posterTop);
+		poster.data('data', data.posterData[pid]);
 	// main div
-		$(posterTop).width(that.posterW).height(that.posterH);
-		$(posterTop).css({
+		poster.width(that.posterW).height(that.posterH);
+		poster.css({
 			position: 'absolute',
 			left: position.toString() + 'px',
 			top: 0
 		});
-		$(posterTop).attr({
+		poster.attr({
 			class: 'posters'
 		});
 
@@ -153,32 +160,40 @@ function View(data) {
 			$('#poster-container').prepend(posterTop);
 	// img div
 		$(posterTopImg).attr('src', 'upload/img1_' + pid + '.jpg').width('100%').height('100%');
-		$(posterTop).append(posterTopImg);
+		poster.append(posterTopImg);
 	// hover div
 		$(posterTopHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover');
-		$(posterTop).prepend(posterTopHover);
+		poster.prepend(posterTopHover);
 	// hover title div
-		$(posterTopTitle).text('<' + 'Film Name' + '>').addClass('poster-hover-title');
+		$(posterTopTitle).text('<' + data.posterData[pid].name + '>').addClass('poster-hover-title');
 		$(posterTopHover).prepend(posterTopTitle);
 
-		$(posterTop).bind('mouseenter', posterTopHover, that.posterOver);
-		$(posterTop).bind('mouseleave', posterTopHover, that.posterOut);
-		$(posterTop).bind('click', that.posterClick);
+		poster.bind('mouseenter', posterTopHover, that.posterOver);
+		poster.bind('mouseleave', posterTopHover, that.posterOut);
+		poster.bind('click', that.posterClick);
+		pid++
 	}
 
-	this.createBottomPosters = function() {
+	this.createBottomPosters = function(position, dir) {
+		if (data.posterData.length <= pid) {
+			showNotice("已经没有海报啦T T");
+			return;
+		}
+
 		var	posterBottom = document.createElement('div'),
 				posterBottomImg = document.createElement('img'),
 				posterBottomHover = document.createElement('div'),
-				posterBottomTitle = document.createElement('div');
-		$(posterBottom).width(that.posterW).height(that.posterH);
-
-		$(posterBottom).css({
+				posterBottomTitle = document.createElement('div'),
+				poster = $(posterBottom);
+		poster.data('data', data.posterData[pid]);
+	// main part
+		poster.width(that.posterW).height(that.posterH);
+		poster.css({
 			position: 'absolute',
 			left: position.toString() + 'px',
 			top: that.posterH.toString() + 'px'
 		});
-		$(posterBottom).attr({
+		poster.attr({
 			class: 'posters'
 		});
 
@@ -188,18 +203,21 @@ function View(data) {
 			$('#poster-container').prepend(posterBottom);
 	// img div
 		$(posterBottomImg).attr('src', 'upload/img1_' + pid + '.jpg').width('100%').height('100%');
-		$(posterBottom).append(posterBottomImg);
+		poster.append(posterBottomImg);
 	// hover div
 		$(posterBottomHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover');
-		$(posterBottom).prepend(posterBottomHover);
+		poster.prepend(posterBottomHover);
 	// hover title div
-		$(posterBottomTitle).text('<' + 'Film Name' + '>').addClass('poster-hover-title');
+		$(posterBottomTitle).text('<' + data.posterData[pid].name + '>').addClass('poster-hover-title');
 		$(posterBottomHover).prepend(posterBottomTitle);
 
-		$(posterBottom).bind('mouseenter', posterBottomHover, that.posterOver);
-		$(posterBottom).bind('mouseleave', posterBottomHover, that.posterOut);
-		$(posterBottom).bind('click', that.posterClick);
+		poster.bind('mouseenter', posterBottomHover, that.posterOver);
+		poster.bind('mouseleave', posterBottomHover, that.posterOut);
+		poster.bind('click', that.posterClick);
+		pid++;
 	}
+
+	
 
 	this.posterOver = function(e) {
 		if ($(this).height() <= that.posterH + 1)
@@ -276,13 +294,13 @@ function Data() {
 
 	// Ramdomize posters
 	(function() {
-		var i = page_cfg.length, 
+		var i = page_cfg.poster.length, 
 		    n;
 
 		while (--i >= 0) {
 			n = Math.floor(Math.random() * i);
-			that.posterData[that.posterData.length] = page_cfg[n];
-			page_cfg.splice(n, 1);
+			that.posterData[that.posterData.length] = page_cfg.poster[n];
+			page_cfg.poster.splice(n, 1);
 		}
 	})();
 
