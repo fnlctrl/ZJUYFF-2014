@@ -21,7 +21,7 @@ $(document).ready(function() {
 function View(data) {
 // set element width and height
 	var that = this;
-	var speed = 400;
+	var speed = 200;
 	var clock = 0;
 	var star = new Array;
 	var submitPartFlag = false;
@@ -117,7 +117,7 @@ function View(data) {
 		});
 		$('#poster-container').prepend(currentPoster);
 
-		$(currentImg).attr('src', 'upload/img1_' + pid + '.jpg').width('100%').height('100%');
+		$(currentImg).attr('src', 'upload/img1_' + data.posterData[pid].id + '.jpg').width('100%').height('100%');
 		$(currentPoster).append(currentImg);
 
 		$(currentHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover');
@@ -132,11 +132,8 @@ function View(data) {
 	}
 
 	this.createTopPosters = function(position, dir) {
-		if (data.posterData.length <= pid) {
-			showNotice("已经没有海报啦T T");
+		if (data.posterData.length <= pid) 
 			return;
-		}
-		
 		var posterTop = document.createElement('div'),
 				posterTopImg = document.createElement('img'),
 				posterTopHover = document.createElement('div'),
@@ -159,7 +156,7 @@ function View(data) {
 		else 
 			$('#poster-container').prepend(posterTop);
 	// img div
-		$(posterTopImg).attr('src', 'upload/img1_' + pid + '.jpg').width('100%').height('100%');
+		$(posterTopImg).attr('src', 'upload/img1_' + data.posterData[pid].id + '.jpg').width('100%').height('100%');
 		poster.append(posterTopImg);
 	// hover div
 		$(posterTopHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover');
@@ -175,11 +172,8 @@ function View(data) {
 	}
 
 	this.createBottomPosters = function(position, dir) {
-		if (data.posterData.length <= pid) {
-			showNotice("已经没有海报啦T T");
+		if (data.posterData.length <= pid) 
 			return;
-		}
-
 		var	posterBottom = document.createElement('div'),
 				posterBottomImg = document.createElement('img'),
 				posterBottomHover = document.createElement('div'),
@@ -202,7 +196,7 @@ function View(data) {
 		else 
 			$('#poster-container').prepend(posterBottom);
 	// img div
-		$(posterBottomImg).attr('src', 'upload/img1_' + pid + '.jpg').width('100%').height('100%');
+		$(posterBottomImg).attr('src', 'upload/img1_' + data.posterData[pid].id + '.jpg').width('100%').height('100%');
 		poster.append(posterBottomImg);
 	// hover div
 		$(posterBottomHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover');
@@ -215,10 +209,6 @@ function View(data) {
 		poster.bind('mouseleave', posterBottomHover, that.posterOut);
 		poster.bind('click', that.posterClick);
 		pid++;
-	}
-
-	this.slide = function() {
-		that.hideMainInfo();
 	}
 
 	this.hideMainInfo = function() {
@@ -247,8 +237,52 @@ function View(data) {
 		});
 	}
 
+	this.slide = function() {
+		if (this.id == 'left-button')
+			var delta = -400;
+		else
+			var delta = 400;
+
+		if (delta < 0) {
+			var left = $('.posters:last').position().left;
+			if (left < that.w) {
+				if (data.posterData.length <= pid) {
+					showNotice("已经没有海报啦T T");
+					return;
+				}
+				else {
+					left += that.posterW;
+					that.createTopPosters(left, "right");
+					that.createBottomPosters(left, "right");
+					that.createTopPosters(left, "right");
+					that.createBottomPosters(left, "right");
+				}
+			}
+		} 
+		else {
+			var left = $('.posters:first').position().left;
+			if (left + that.posterW > 0) {
+				if (data.posterData.length <= pid) {
+					showNotice("已经没有海报啦T T");
+					return;
+				}
+				else {
+					that.createTopPosters(left, "left");
+					that.createBottomPosters(left, "left");
+					that.createTopPosters(left, "left");
+					that.createBottomPosters(left, "left");
+				}
+			}
+		}
+		that.hideMainInfo();
+		$('.posters').each(function(index, el) {
+			var left = $(this).position().left + delta;
+			$(this).css('left', left + 'px');
+		});
+	}
+
 	this.slideProperPosition = function() {
-		
+
 	}
 
 	this.posterOver = function(e) {
