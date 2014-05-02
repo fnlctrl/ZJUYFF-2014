@@ -217,7 +217,39 @@ function View(data) {
 		pid++;
 	}
 
-	
+	this.slide = function() {
+		that.hideMainInfo();
+	}
+
+	this.hideMainInfo = function() {
+		$('.posters').each(function(index, el) {
+			var left = $(this).position().left;
+			if (left > that.mainInfoPosition) {
+				left -= 400;
+				$(this).css('left', left + 'px');
+			}
+			setTimeout(function() {
+				$('#main-info-container').css('display', 'none');
+			}, speed);
+		});
+	}
+
+	this.showMainInfo = function() {
+		$('.posters').each(function(index, el) {
+			var left = $(this).position().left;
+			if (left >= that.mainInfoPosition) {
+				left += 400;
+				$(this).css('left', left + 'px');
+			}
+			setTimeout(function() {
+				$('#main-info-container').css('display', 'block');
+			}, speed);
+		});
+	}
+
+	this.slideProperPosition = function() {
+		
+	}
 
 	this.posterOver = function(e) {
 		if ($(this).height() <= that.posterH + 1)
