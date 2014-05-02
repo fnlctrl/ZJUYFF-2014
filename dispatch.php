@@ -382,6 +382,66 @@ class Dispatch {
         }
         imagejpeg($gdimg, $destfile, 100);
     }
+    public function postervote($args) {
+        if (!get('id')) return array('code' => 1, 'msg' => '未指定poster_id');
+        $id = intval(get('id'));
+        $sql = "SELECT * FROM poster_signup WHERE id=$id ";
+        $result = $this->db->query($sql);
+        if (!$result || !($row = $result->fetch_object())) {
+            return array('code' => 2, 'msg' => 'poster_id有误');
+        }
+        if (!get('slug')) {
+            return array('code' => 3, 'msg' => 'slug找不到');
+        }
+        if (!($userobj = checkQSCToken())) {
+            return array('code' => 4, 'msg' => '请登录求是潮通行证');
+        }
+        $q_slug = $this->db->escape_string(get('slug'));
+        $q_uid = intval($userobj->uid);
+        $q_pid = $id;
+        $sql = "SELECT * FROM poster_vote_log WHERE pid=$id AND uid=$q_uid ";
+        $result = $this->db->query($sql);
+        if ($result->num_rows > 0) {
+            return array('code' => 5, 'msg' => '你已经投过票了');
+        }
+        if (!is_array(get('slug')) || count(get('slug')) > 5) {
+            return array('code' => 6, 'msg' => 'slug超出范围');
+        }
+        $allow_slugs = array();
+        $slugs = get('slug');
+        foreach ($slugs as $value) {
+            if (!in_array($value, $allow_slugs)) {
+                return array('code' => 7, 'msg' => 'slug错误');
+            }
+        }
+        $scores = get('score');
+        if (!is_array($scores) || count($scores) != count($slugs)) {
+            return array('code' => 8, 'msg' => 'score错误');
+        }
+        foreach ($votes as $key => &$value) {
+            $value = intval($value);
+            if ($value < 0 || $value > 5) {
+                return array('code' => 9, 'msg' => 'score错误2');
+            }
+            if (!in_array($key, $slugs)) {
+                return array('code' => 10, 'msg' => 'score错误3');
+            }
+        }
+        $q_ip = $this->db->escape_string(getip());
+        $q_username = $this->db->escape_string($userobj->username);
+        $q_email = $this->db->escape_string($userobj->email);
+        $q_stuid = $this->db->escape_string($userobj->stuid);
+        $q_act = $this->db->escape_string(json_encode($scores));
+        $sql = "INSERT INTO poster_vote_log (pid,uid,username,email,stuid,act,ip) VALUES ($q_pid, $q_uid, '$q_stuid', '$q_username', '$q_email', '$q_stuid', '$q_act', '$q_ip')";
+        $this->db->query($sql);
+        $sql = "";
+        foreach ($votes as $key => $value) {
+            $q_key = $this->db->escape_string($key);
+            $sql = "UPDATE poster_vote SET votes=votes+1,score=score+$value WHERE pid=$q_pid AND slug='$q_key' ";
+            $this->db->query($sql);
+        }
+        return array('code' => 0, 'msg' => '投票成功啦，感谢支持！');
+    }
     public function posterParse() {
         $sql = "SELECT * FROM poster_signup WHERE pictype1=0 or pictype2=0 ";
         $result = $this->db->query($sql);

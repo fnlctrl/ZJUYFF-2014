@@ -185,4 +185,10 @@ function isunknown($type) {
         return FALSE;
     }
 }
-
+function req($key) {
+    if (isset($args[$key])) {
+        return $args[$key];
+    } else {
+        return null;
+    }
+}
