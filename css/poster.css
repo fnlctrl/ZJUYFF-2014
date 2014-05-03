@@ -241,10 +241,8 @@ input:focus,textarea:focus {
 }
 /******poster part*****/
 .posters {
-  -webkit-transition: 0.2s;
-  transition: 0.2s;
-  -webkit-transition-timing-function: linear;
-  transition-timing-funciton: linear;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
   z-index: 2;
 }
 #current-poster {
