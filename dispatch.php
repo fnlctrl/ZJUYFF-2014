@@ -102,7 +102,7 @@ class Dispatch {
         $rows = array();
         while ($row = $result->fetch_object()) {
             $dub_rows = array();
-            $dub_sql = "SELECT * FROM dub_teammate WHERE tid=" . $row->id;
+            $dub_sql = "SELECT * FROM dub_teammate WHERE tid=" . $row->id . " ORDER BY id ";
             $dub_result = $this->db->query($dub_sql);
             while ($dub_row = $dub_result->fetch_object()) {
                 array_push($dub_rows, $dub_row);
@@ -118,7 +118,7 @@ class Dispatch {
         $rows = array();
         while ($row = $result->fetch_object()) {
             $m_rows = array();
-            $m_sql = "SELECT * FROM poster_member WHERE sid=" . $row->id;
+            $m_sql = "SELECT * FROM poster_member WHERE sid=" . $row->id . " ORDER BY id ";
             $m_result = $this->db->query($m_sql);
             while ($m_row = $m_result->fetch_object()) {
                 array_push($m_rows, $m_row);
@@ -345,12 +345,23 @@ class Dispatch {
             $pictype1 = 0;
             $pictype2 = 0;
         }
-        $sql = "INSERT INTO poster_signup (name, members, pictype1, pictype2, suffix1, suffix2, introduction, time, ip) VALUES ('$name', $cnt_members, $pictype1, $pictype2, '$suffix1', '$suffix2', '$introduction', NOW(), '$ip') ";
-        $this->db->query($sql);
-        if ($this->db->errno) {
-            return array('code' => 100, 'msg' => '处理poster_signup时遇到数据库插入错误，非常抱歉！请联系 sen@senorsen.com，谢谢啦～');
+        $hash = md5(implode('|', array($name, $introduction)));
+        $sql = "SELECT * FROM poster_signup WHERE hash='$hash' ";
+        $result = $this->db->query($sql);
+        if ($result->num_rows == 0) {
+            $sql = "INSERT INTO poster_signup (name, members, pictype1, pictype2, suffix1, suffix2, introduction, time, ip, hash) VALUES ('$name', $cnt_members, $pictype1, $pictype2, '$suffix1', '$suffix2', '$introduction', NOW(), '$ip', '$hash') ";
+            $this->db->query($sql);
+            if ($this->db->errno) {
+                return array('code' => 100, 'msg' => '处理poster_signup时遇到数据库插入错误，非常抱歉！请联系 sen@senorsen.com，谢谢啦～');
+            }
+            $sid = $this->db->insert_id;
+        } else {
+            $sid = $result->fetch_object()->id;
+            $sql = "UPDATE poster_signup SET name='$name', members=$cnt_members, pictype1=$pictype1, pictype2=$pictype2, suffix1='$suffix1', suffix2='$suffix2', introduction='$introduction', time=NOW(), ip='$ip', hash='$hash' WHERE id=$sid ";
+            $this->db->query($sql);
+            $sql = "DELETE FROM poster_member WHERE sid=$sid ";
+            $this->db->query($sql);
         }
-        $sid = $this->db->insert_id;
         $pic1filename = $this->upload_dir . 'img1_' . $sid . $suffix1;
         $pic2filename = $this->upload_dir . 'img2_' . $sid . $suffix2;
         $pic1jpg = $this->upload_dir . 'img1_' . $sid . '.jpg';
@@ -368,7 +379,7 @@ class Dispatch {
             }
         }
         // hotfix for poster vote
-        $this->posterVoteParse($args, $sid);
+        $this->posterVoteParse($args, null, 0);
         return array('code' => 0, 'sid' => $sid, 'msg' => '报名成功，感谢参与～');
     }
     public function getsuffix($typeno) {
@@ -394,6 +405,7 @@ class Dispatch {
     }
     public function postervote($args) {
         if (!get('id')) return array('code' => 1, 'msg' => '未指定poster_id');
+        $this->posterVoteParse($args, null, 0);
         $id = intval(get('id'));
         $sql = "SELECT * FROM poster_signup WHERE id=$id ";
         $result = $this->db->query($sql);
@@ -471,7 +483,7 @@ class Dispatch {
         }
         return array('code' => 0, 'msg' => '投票成功啦，感谢支持！', 'vote_result' => $vote_result);
     }
-    public function posterVoteParse($args = null, $arg_id = null) {
+    public function posterVoteParse($args = null, $arg_id = null, $disp = 0) {
         $ids = array();
         if (is_null($arg_id)) {
             $sql = "SELECT * FROM poster_signup WHERE id NOT IN (SELECT pid FROM poster_vote) ";
@@ -490,18 +502,22 @@ class Dispatch {
             array('vote4', '艺术维度'),
             array('vote5', '出位维度'),
         );
+        if (is_null($arg_id)) header("Content-Type: text/plain; charset=utf-8");
         foreach ($ids as $id) {
-            if (!is_null($arg_id)) {
-                header("Content-Type: text/plain; charset=utf-8");
+            if (is_null($arg_id) && $disp) {
                 echo "Parse for $id: ";
             }
             foreach ($names as $namearr) {
-                echo $namearr[0] . ' ' . $namearr[1] . ' ';
+                if (is_null($arg_id) && $disp) {
+                    echo $namearr[0] . ' ' . $namearr[1] . ' ';
+                }
                 $slug = $this->db->escape_string($namearr[0]);
                 $name = $this->db->escape_string($namearr[1]);
-                $sql = "INSERT INTO poster_vote (pid,slug,name,votes,score) VALUES ($id,'$slug','$name',0,0)";
+                $sql = "INSERT INTO poster_vote (pid,slug,name,votes,score) SELECT $id,'$slug','$name',0,0 FROM dual WHERE NOT EXISTS (SELECT * FROM poster_vote WHERE poster_vote.pid=$id AND slug='$slug')";
                 $this->db->query($sql);
-                echo $this->db->affected_rows . "<br>\n";
+                if (is_null($arg_id) && $disp) {
+                   echo $this->db->affected_rows . "<br>\n";
+                }
             }
         }
     }
