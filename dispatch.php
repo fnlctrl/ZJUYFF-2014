@@ -470,7 +470,7 @@ class Dispatch {
             $sql = "UPDATE poster_vote SET votes=votes+1,score=score+$value WHERE pid=$q_pid AND slug='$q_key' ";
             $this->db->query($sql);
         }
-        $sql = "SELECT * FROM poster_vote WHERE pid=$q_pid ";
+        $sql = "SELECT * FROM poster_vote WHERE pid=$q_pid ORDER BY id ";
         $result = $this->db->query($sql);
         $vote_result = array();
         while ($row = $result->fetch_object()) {
