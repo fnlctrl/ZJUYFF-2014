@@ -38,9 +38,7 @@ function view_handler($type, $file = null, $view_obj = null, $callback = 'cb') {
     } else if ($type === FALSE) {
         // header("Content-Type: text/html; charset=utf-8");
         // refers to 'html' view
-        $view_obj->global_cfg = array(
-            'random_token' => getToken()
-        );
+        $view_obj->global_cfg = buildGlobalConfig();
         if (!isset($view_obj->page_cfg)) {
             $view_obj->page_cfg = array();
         }
@@ -50,7 +48,20 @@ function view_handler($type, $file = null, $view_obj = null, $callback = 'cb') {
             return;
         }
         include $path;
-    }    
+    }
+}
+function buildGlobalConfig() {
+    $userobj = checkQSCToken();
+    if (!$userobj) {
+        $userobj = 0;
+    } else {
+        unset($userobj->password);
+    }
+    $global_cfg = array(
+        'random_token' => getToken(),
+        'userobj' => $userobj,
+    );
+    return $global_cfg;
 }
 function checkQSCToken($token = null) {
     $check_url = 'http://passport.myqsc.com/api/get_member_by_token?token=';

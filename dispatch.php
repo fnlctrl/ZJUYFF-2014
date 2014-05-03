@@ -149,7 +149,10 @@ class Dispatch {
             }
             array_push($s_rows, $s_row);
         }
-        return array('page_cfg' => array('poster' => $s_rows));
+        $page_cfg = array(
+            'poster' => $s_rows,
+        );
+        return array($page_cfg);
     }
     public function get_intro($args) {
         if (!isset($args['id'])) {
