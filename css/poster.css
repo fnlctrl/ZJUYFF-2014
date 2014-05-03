@@ -241,8 +241,9 @@ input:focus,textarea:focus {
 }
 /******poster part*****/
 .posters {
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
+  -webkit-transition: 0.8s;
+  transition: 0.8s;
+  position: absolute;
   z-index: 2;
 }
 #current-poster {

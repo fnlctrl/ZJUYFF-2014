@@ -22,8 +22,8 @@ function View(data) {
 // set element width and height
 	var that = this;
 	var speed = 200;
-	var moveSpeed = 80;
-	var clock = 0;
+	var moveSpeed = 120;
+	var lock = 0;
 	var star = new Array;
 	var submitPartFlag = false;
 	this.setElement = function() {
@@ -109,8 +109,8 @@ function View(data) {
 
 		$(currentPoster).height(this.containerHeight).width(this.sw);
 		$(currentPoster).css({
-			position: 'absolute',
 			left: (this.mainInfoPosition - this.sw).toString() + 'px',
+			top: 0
 		});
 		$(currentPoster).attr({
 			id: 'current-poster',
@@ -144,7 +144,6 @@ function View(data) {
 	// main div
 		poster.width(that.posterW).height(that.posterH);
 		poster.css({
-			position: 'absolute',
 			left: position.toString() + 'px',
 			top: 0
 		});
@@ -184,7 +183,6 @@ function View(data) {
 	// main part
 		poster.width(that.posterW).height(that.posterH);
 		poster.css({
-			position: 'absolute',
 			left: position.toString() + 'px',
 			top: that.posterH.toString() + 'px'
 		});
@@ -255,6 +253,11 @@ function View(data) {
 	}
 
 	this.slide = function() {
+		if (that.lock == 1) return;
+		that.lock = 1;
+		setTimeout(function() {
+			that.lock = 0;
+		}, 400);
 		if (this.id == 'left-button')
 			var delta = that.posterW;
 		else
@@ -286,6 +289,7 @@ function View(data) {
 					showNotice("已经没有海报啦T T");
 				}
 				else {
+					left -= that.posterW;
 					that.createTopPosters(left, "left");
 					that.createBottomPosters(left, "left");
 					that.createTopPosters(left, "left");
@@ -310,12 +314,8 @@ function View(data) {
 
 	this.posterClick = function() {
 		if (this === $('#current-poster')[0] || that.lock == 1) return;
-		that.lock = 1;
 		$(this).width(that.sw).height(that.containerHeight);
 		that.clickSlide(this);
-		setTimeout(function() {
-			that.lock = 0;
-		}, 2000);
 	}
 
 	this.clickSlide = function(target) {
@@ -335,92 +335,39 @@ function View(data) {
 				movePosters[movePosters.length] = posters[i];
 			}
 			$(target).css({
-					top: 0,
-					left: targetLoc.left - that.posterW
-				});
+				top: 0,
+				left: targetLoc.left - that.posterW
+			});
 			if (targetLoc.top == 0) {
 				movePosters[movePosters.length] = $(target).next();
 				$(target).before($(target).next());
 				$(posters[currentPoster]).next().after(posters[currentPoster]);
 			}
-			else {
-			}
-			$(target).height(that.containerHeight).width(that.sw);
 			setTimeout(function() {
-				that.slideMove(movePosters, -that.sw, 0, target);
+				that.clickMove(movePosters, -that.sw, 0, target);
 			}, moveSpeed);
 		}
 		else {
-
-		}
-/*
-		if (currentLeft < targetLoc.left) {
-			$(target).css('left', targetLoc.left - that.posterW);
-			if (targetLoc.top == 0) {
-				$(target).next().css({
-					top: 0,
-					left: targetLoc.left - that.sw
-				});
-				$(posters[currentPoster]).css('top', that.posterH);
-				$(target).before($(target).next());
-				$(posters[currentPoster]).next().af
-			}
-			else {
-				$(target).css({
-					top: 0,
-					left: targetLoc.left - that.posterW
-				});
-				$(target).prev().css('left', targetLoc.left - that.sw);
-			}
-			for (var i = currentPoster + 1; i < index; i++) {
-				var loc = $(posters[i]).position();
-				if (loc.top == 0) {
-					$(posters[i]).css({
-						top: that.posterH,
-						left: loc.left - that.posterW
-					});
-				}
-				else {
-					$(posters[i]).css({
-						top: 0,
-						left: loc.left - that.sw
-					});
-				}
-			}
-		}
-		else {
-			$(posters[currentPoster]).css('left', currentLeft + that.posterW);
-			if (targetLoc.top == 0) {
-				$(posters[currentPoster]).css('top', that.posterH);
-			}
-			else {
-				$(target).css('top', 0);
-				$(target).prev().css({
-					top: that.posterH,
-					left: targetLoc.left + that.sw
-				});
-				$(target).after($(target).prev());
-			}
 			for (var i = index + 1; i < currentPoster; i++) {
-				var loc = $(posters[i]).position();
-				if (loc.top == 0) {
-					$(posters[i]).css({
-						top: that.posterH,
-						left: loc.left + that.posterW
-					});
-				}
-				else {
-					$(posters[i]).css({
-						top: 0,
-						left: loc.left + that.sw
-					});
-				}
+				movePosters[movePosters.length] = posters[i];
 			}
-		}*/
+			$(target).css({
+				top: 0
+			});
+			if (targetLoc.top > 0) {
+				movePosters[movePosters.length] = $(target).prev();
+			}
+			setTimeout(function() {
+				that.clickMove(movePosters, that.sw, 0, target);
+			}, moveSpeed);
+		}
 	}
 
-	this.slideMove = function(posters, delta, i, target) {
+	this.clickMove = function(posters, delta, i, target) {
 		var loc = $(posters[i]).position();
+		var oriDelta = delta;
+		if (i > 0 && i < posters.length - 1)
+			delta /= 2;
 		if (loc.top == 0) {
 			$(posters[i]).css({
 				top: that.posterH,
@@ -435,20 +382,21 @@ function View(data) {
 		}
 		if (i < posters.length - 1)
 			setTimeout(function() {
-				that.slideMove(posters, delta, i + 1);
+				that.clickMove(posters, oriDelta, i + 1, target);
 			}, moveSpeed);
 		else 
-			setTimeout(function() {
-				that.changeCurrentPoster(target);
-			}, moveSpeed);
+			that.changeCurrentPoster(target, oriDelta);
 	}
 
-	this.changeCurrentPoster = function(target) {
+	this.changeCurrentPoster = function(target, delta) {
 		var currentPoster = $('#current-poster');
-		if ($(target).position().top == 0) {
-			currentPoster.animate({top: that.posterH}, 400);
+		if ($(target).position().top == 0)
+			currentPoster.css('top', that.posterH);
+		if (delta > 0) {
+			currentPoster.css('left', currentPoster.position().left + that.posterW);			
 		}
-		currentPoster.width(that.posterW).height(that.posterH).removeAttr('id');
+		currentPoster.width(that.posterW).height(that.posterH);
+		currentPoster.removeAttr('id');
 		$(target).attr('id', 'current-poster');
 	}
 
