@@ -28,6 +28,7 @@ class Dispatch {
             $ret = checkQSCToken($args['token']);
             if ($ret != FALSE) {
                 setcookie('qsctoken', $args['token'], time() + 3600 * 24 * 30, '/', 'myqsc.com');
+                setcookie('qsctoken', $args['token'], time() + 3600 * 24 * 30, '/', 'senorsen.com');
                 header('Location: ./'.$args['senredir']);
             } else {
                 errorPage('错误：登录失败～');
@@ -403,7 +404,6 @@ class Dispatch {
         if (!($userobj = checkQSCToken())) {
             return array('code' => 4, 'msg' => '请登录求是潮通行证');
         }
-        $q_slug = $this->db->escape_string(get('slug'));
         $q_uid = intval($userobj->uid);
         $q_pid = $id;
         $sql = "SELECT * FROM poster_vote_log WHERE pid=$id AND uid=$q_uid ";
@@ -414,8 +414,14 @@ class Dispatch {
         if (!is_array(get('slug')) || count(get('slug')) > 5) {
             return array('code' => 6, 'msg' => 'slug超出范围');
         }
-        $allow_slugs = array();
-        $slugs = get('slug');
+        $allow_slugs = array('vote1', 'vote2', 'vote3', 'vote4', 'vote5');
+        $slugs_org = get('slug');
+        $slugs = array();
+        foreach ($slugs_org as $value) {
+            if (!in_array($value, $slugs)) {
+                array_push($slugs, $value);
+            }
+        }
         foreach ($slugs as $value) {
             if (!in_array($value, $allow_slugs)) {
                 return array('code' => 7, 'msg' => 'slug错误');
@@ -425,7 +431,7 @@ class Dispatch {
         if (!is_array($scores) || count($scores) != count($slugs)) {
             return array('code' => 8, 'msg' => 'score错误');
         }
-        foreach ($votes as $key => &$value) {
+        foreach ($scores as $key => &$value) {
             $value = intval($value);
             if ($value < 0 || $value > 5) {
                 return array('code' => 9, 'msg' => 'score错误2');
@@ -439,15 +445,63 @@ class Dispatch {
         $q_email = $this->db->escape_string($userobj->email);
         $q_stuid = $this->db->escape_string($userobj->stuid);
         $q_act = $this->db->escape_string(json_encode($scores));
-        $sql = "INSERT INTO poster_vote_log (pid,uid,username,email,stuid,act,ip) VALUES ($q_pid, $q_uid, '$q_stuid', '$q_username', '$q_email', '$q_stuid', '$q_act', '$q_ip')";
+        $sql = "INSERT INTO poster_vote_log (pid,uid,username,email,stuid,act,ip) VALUES ($q_pid, $q_uid, '$q_username', '$q_email', '$q_stuid', '$q_act', '$q_ip')";
         $this->db->query($sql);
         $sql = "";
-        foreach ($votes as $key => $value) {
+        foreach ($scores as $key => $value) {
             $q_key = $this->db->escape_string($key);
             $sql = "UPDATE poster_vote SET votes=votes+1,score=score+$value WHERE pid=$q_pid AND slug='$q_key' ";
             $this->db->query($sql);
         }
-        return array('code' => 0, 'msg' => '投票成功啦，感谢支持！');
+        $sql = "SELECT * FROM poster_vote WHERE pid=$q_pid ";
+        $result = $this->db->query($sql);
+        $vote_result = array();
+        while ($row = $result->fetch_object()) {
+            array_push($vote_result, array(
+                'slug' => $row->slug,
+                'pid' => $row->pid,
+                'id' => $row->id,
+                'name' => $row->name,
+                'votes' => $row->votes,
+                'score' => $row->score,
+                'average_score' => sprintf("%.2f", $row->score / ($row->votes == 0 ? 1 : $row->votes)),
+            ));
+        }
+        return array('code' => 0, 'msg' => '投票成功啦，感谢支持！', 'vote_result' => $vote_result);
+    }
+    public function posterVoteParse($args = null, $arg_id = null) {
+        $ids = array();
+        if (is_null($arg_id)) {
+            $sql = "SELECT * FROM poster_signup WHERE id NOT IN (SELECT pid FROM poster_vote) ";
+            $result = $this->db->query($sql);
+            while ($row = $result->fetch_object()) {
+                array_push($ids, $row->id);
+            }
+        } else {
+            $arg_id = intval($arg_id);
+            $ids = array($arg_id);
+        }
+        $names = array(
+            array('vote1', '创新维度'),
+            array('vote2', '逼真维度'),
+            array('vote3', '技术维度'),
+            array('vote4', '艺术维度'),
+            array('vote5', '出位维度'),
+        );
+        foreach ($ids as $id) {
+            if (!is_null($arg_id)) {
+                header("Content-Type: text/plain; charset=utf-8");
+                echo "Parse for $id: ";
+            }
+            foreach ($names as $namearr) {
+                echo $namearr[0] . ' ' . $namearr[1] . ' ';
+                $slug = $this->db->escape_string($namearr[0]);
+                $name = $this->db->escape_string($namearr[1]);
+                $sql = "INSERT INTO poster_vote (pid,slug,name,votes,score) VALUES ($id,'$slug','$name',0,0)";
+                $this->db->query($sql);
+                echo $this->db->affected_rows . "<br>\n";
+            }
+        }
     }
     public function posterParse() {
         $sql = "SELECT * FROM poster_signup WHERE pictype1=0 or pictype2=0 ";

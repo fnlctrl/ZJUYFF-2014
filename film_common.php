@@ -76,7 +76,7 @@ function checkQSCToken($token = null) {
 }       
 function curlFetch($url, $data = null, $timeout = 5) {
     $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HEADER, false);
     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
     if (!is_null($data)) {
@@ -185,7 +185,8 @@ function isunknown($type) {
         return FALSE;
     }
 }
-function req($key) {
+function get($key) {
+    global $args;
     if (isset($args[$key])) {
         return $args[$key];
     } else {
