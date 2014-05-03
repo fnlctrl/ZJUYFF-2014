@@ -47,6 +47,8 @@ class Dispatch {
         $redir = '';
         if (isset($args['redir'])) {
             $redir = $args['redir'];
+        } else if (isset($_SERVER['HTTP_REFERER'])) {
+            $redir = $_SERVER['HTTP_REFERER'];
         }
         $go_url = $passport_login_dir . urlencode($my_url . '?senredir=' . $redir);
         header('Location: ' . $go_url);
