@@ -367,6 +367,8 @@ class Dispatch {
                 return array('code' => 100, 'msg' => '处理poster_member时遇到数据库插入错误，非常抱歉！请联系 sen@senorsen.com，谢谢啦～');
             }
         }
+        // hotfix for poster vote
+        $this->posterVoteParse($args, $sid);
         return array('code' => 0, 'sid' => $sid, 'msg' => '报名成功，感谢参与～');
     }
     public function getsuffix($typeno) {
