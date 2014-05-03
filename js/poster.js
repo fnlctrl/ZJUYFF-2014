@@ -127,7 +127,7 @@ function View(data) {
 		$(currentHover).prepend(currentTitle);
 		$(currentPoster).bind('mouseenter', currentHover, that.posterOver);
 		$(currentPoster).bind('mouseleave', currentHover, that.posterOut);
-		// $(currentPoster).bind('click', that.posterClick);
+		$(currentPoster).bind('click', that.posterClick);
 		pid++;
 	}
 
@@ -211,23 +211,10 @@ function View(data) {
 		pid++;
 	}
 
-	this.hideMainInfo = function() {
+	this.showMainInfo = function(delta) {
 		$('.posters').each(function(index, el) {
 			var left = $(this).position().left;
 			if (left > that.mainInfoPosition) {
-				left -= 400;
-				$(this).css('left', left + 'px');
-			}
-			setTimeout(function() {
-				$('#main-info-container').css('display', 'none');
-			}, speed);
-		});
-	}
-
-	this.showMainInfo = function() {
-		$('.posters').each(function(index, el) {
-			var left = $(this).position().left;
-			if (left >= that.mainInfoPosition) {
 				left += 400;
 				$(this).css('left', left + 'px');
 			}
@@ -237,18 +224,48 @@ function View(data) {
 		});
 	}
 
+	this.hideMainInfo = function(delta) {
+		if (delta > 0) {
+			delta = 400;
+			$('.posters').each(function(index, el) {
+				var left = $(this).position().left;
+				if (left < that.mainInfoPosition) {
+					left += delta;
+					$(this).css('left', left + 'px');
+				}
+				setTimeout(function() {
+					$('#main-info-container').css('display', 'none');
+				}, speed);
+			});
+		}
+		else {
+			delta = -400; 
+			$('.posters').each(function(index, el) {
+				var left = $(this).position().left;
+				if (left >= that.mainInfoPosition) {
+					left += delta;
+					$(this).css('left', left + 'px');
+				}
+				setTimeout(function() {
+					$('#main-info-container').css('display', 'none');
+				}, speed);
+			});
+		}
+	}
+
 	this.slide = function() {
 		if (this.id == 'left-button')
-			var delta = -400;
+			var delta = that.posterW;
 		else
-			var delta = 400;
+			var delta = -that.posterW;
 
 		if (delta < 0) {
 			var left = $('.posters:last').position().left;
+			if (left + that.posterW <= that.w)
+				return;
 			if (left < that.w) {
 				if (data.posterData.length <= pid) {
 					showNotice("已经没有海报啦T T");
-					return;
 				}
 				else {
 					left += that.posterW;
@@ -261,10 +278,11 @@ function View(data) {
 		} 
 		else {
 			var left = $('.posters:first').position().left;
+			if (left >= 0) 
+				return;
 			if (left + that.posterW > 0) {
 				if (data.posterData.length <= pid) {
 					showNotice("已经没有海报啦T T");
-					return;
 				}
 				else {
 					that.createTopPosters(left, "left");
@@ -274,15 +292,106 @@ function View(data) {
 				}
 			}
 		}
-		that.hideMainInfo();
-		$('.posters').each(function(index, el) {
-			var left = $(this).position().left + delta;
-			$(this).css('left', left + 'px');
-		});
+		if ($('#main-info-container').css('display') != 'none') {
+			that.hideMainInfo(delta);
+		}
+		else {
+			$('.posters').each(function(index, el) {
+				var left = $(this).position().left + delta;
+				$(this).css('left', left + 'px');
+			});
+		}
 	}
 
 	this.slideProperPosition = function() {
 
+	}
+
+	this.posterClick = function() {
+		if (this === $('#current-poster')[0] || that.lock == 1) return;
+		that.lock = 1;
+		that.clickSlide(this);
+		$('#current-poster').width(that.posterW).height(that.posterH).removeAttr('id');
+		$(this).width(that.sw).height(that.containerHeight).attr('id', 'current-poster');
+		setTimeout(function() {
+			that.lock = 0;
+		}, 2000);
+	}
+
+	this.clickSlide = function(target) {
+		var targetLoc = $(target).position(),
+		    currentLeft = $('#current-poster').position().left,
+		    posters = $('.posters');
+		for (var i = 0; i < posters.length; i++) {
+			if (posters[i] === target)
+				var index = i;
+			if (posters[i] === $('#current-poster')[0])
+				var currentPoster = i;
+		}
+
+		if (currentLeft < targetLoc.left) {
+			$(target).css('left', targetLoc.left - that.posterW);
+			if (targetLoc.top == 0) {
+				$(target).next().css({
+					top: 0,
+					left: targetLoc.left - that.sw
+				});
+				$(posters[currentPoster]).css('top', that.posterH);
+				$(target).before($(target).next());
+				$(posters[currentPoster]).next().af
+			}
+			else {
+				$(target).css({
+					top: 0,
+					left: targetLoc.left - that.posterW
+				});
+				$(target).prev().css('left', targetLoc.left - that.sw);
+			}
+			for (var i = currentPoster + 1; i < index; i++) {
+				var loc = $(posters[i]).position();
+				if (loc.top == 0) {
+					$(posters[i]).css({
+						top: that.posterH,
+						left: loc.left - that.posterW
+					});
+				}
+				else {
+					$(posters[i]).css({
+						top: 0,
+						left: loc.left - that.sw
+					});
+				}
+			}
+		}
+		else {
+			$(posters[currentPoster]).css('left', currentLeft + that.posterW);
+			if (targetLoc.top == 0) {
+				$(posters[currentPoster]).css('top', that.posterH);
+			}
+			else {
+				$(target).css('top', 0);
+				$(target).prev().css({
+					top: that.posterH,
+					left: targetLoc.left + that.sw
+				});
+				$(target).after($(target).prev());
+			}
+			for (var i = index + 1; i < currentPoster; i++) {
+				var loc = $(posters[i]).position();
+				if (loc.top == 0) {
+					$(posters[i]).css({
+						top: that.posterH,
+						left: loc.left + that.posterW
+					});
+				}
+				else {
+					$(posters[i]).css({
+						top: 0,
+						left: loc.left + that.sw
+					});
+				}
+			}
+		}
 	}
 
 	this.posterOver = function(e) {
