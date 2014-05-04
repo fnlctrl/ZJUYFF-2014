@@ -316,7 +316,10 @@ function View(data) {
 		var targetLoc = $(target).position(),
 		    currentLeft = $('#current-poster').position().left,
 		    posters = $('.posters');
-		var delta = (that.mainInfoPosition - that.sw) - targetLoc.left;
+		if (targetLoc.left < currentLeft)
+			var delta = (that.mainInfoPosition - that.sw) - targetLoc.left;
+		else
+			var delta = (that.mainInfoPosition - that.posterW) - targetLoc.left;
 		if (delta == 0) return;
 
 		if ($('#main-info-container').css('display') == 'none') {
@@ -351,6 +354,7 @@ function View(data) {
 		setTimeout(function() {
 			that.clickSlide(target);
 		}, 400);
+		data.vote.id = $(target).data('id');
 	}
 
 	this.clickSlide = function(target) {
@@ -519,9 +523,21 @@ Vote part
 	
 	this.postVote = function() {
 		var id = $('#vote-id').val();
-		if (id.length != 10)
-			showNotice("请填写正确的学号");
-		else data.postVote();
+		if (!window.global_cfg.userobj) {
+			showNotice("请先登录求是潮通行证");
+			setTimeout(function() {
+				window.location.href = 'http://site.mqysc.com/zjuff/goLogin?redir=poster';
+			}, 2000);
+		}
+		else 
+			data.postVote(that.voteAverage);
+	}
+
+	this.voteAverage = function(voteData) {
+		var div = $('.vote-average');
+		for (var i = 0; i < 5; i++) {
+			$(div[i]).text(voteData.vote_result[i].average_score);
+		}
 	}
 }
 
@@ -529,7 +545,6 @@ function Data() {
 	var that = this;
 	this.posterData = [];
 	this.vote = [0, 0, 0, 0, 0];
-	this.vote.id = 2;
 
 	// Ramdomize posters
 	(function() {
@@ -569,7 +584,7 @@ function Data() {
 		$('#submit-container button').attr('disabled', 'true');
 	}
 
-	this.postVote = function() {
+	this.postVote = function(voteAverage) {
 		var settings = {
 			type: 'POST',
 			url: baseUrl + 'postervote?ajax=json',
@@ -578,13 +593,25 @@ function Data() {
 				id: that.vote['id'],
 				slug: ["vote1", "vote2", "vote3", "vote4", "vote5"],
 				score: {
-					s1: that.vote[0],
-					s2: that.vote[1],
-					s3: that.vote[2],
-					s4: that.vote[3],
-					s5: that.vote[4],
+					vote1: that.vote[0],
+					vote2: that.vote[1],
+					vote3: that.vote[2],
+					vote4: that.vote[3],
+					vote5: that.vote[4],
 				},
 				random_token: window.global_cfg.random_token
+			},
+			success: function(data) {
+				if (data.code == 0) {
+					showNotice(data.msg);
+					voteAverage(data);
+				}
+				else {
+					showNotice("错误：" + data.msg);
+				}
+			},
+			error: function(data) {
+				showNotice("错误：" + data.msg);
 			}
 		};
 		$.ajax(settings);
