@@ -23,34 +23,48 @@ if (! @$db->set_charset("utf8")) {
 if ($con_err != 0) {
     errorPage('发生了一个错误：「数据库无法访问，' . $con_ok . '」，<br>望能将错误反馈至 <a href="mailto:sen@senorsen.com?subject=[film_db_bug]bug%20report_' . $con_ok .'&body=bug_id_' . $con_ok . '" target="_blank">sen@senorsen.com</a>，谢谢啦～～<br></body></html>');
 }
-function view_handler($type, $file = null, $view_obj = null, $callback = 'cb') {
-    $view_obj = (object)$view_obj;
+function view_handler($type, $file = null, $page_cfg = null, $callback = 'cb') {
+    $view_obj = arraY();
     if ($type == 'json') {
         header("Content-Type: application/json; charset=utf-8");
-        echo json_encode($view_obj);
+        echo json_encode($page_cfg);
     } else if ($type == 'jsonp') {
         if (!preg_match('/^\w+$/', $callback)) {
             $callback = 'cb';
         }
         header("Content-Type: application/javascript; charset=utf-8");
         echo $callback;
-        echo '(' . json_encode($view_obj) . ');';
+        echo '(' . json_encode($page_Cfg) . ');';
     } else if ($type === FALSE) {
         // header("Content-Type: text/html; charset=utf-8");
         // refers to 'html' view
-        $view_obj->global_cfg = array(
-            'random_token' => getToken()
-        );
-        if (!isset($view_obj->page_cfg)) {
-            $view_obj->page_cfg = array();
+        $view_obj['global_cfg'] = buildGlobalConfig();
+        if (is_null($page_cfg)) {
+            $view_obj['page_cfg'] = array();
+        } else {
+            $view_obj['page_cfg'] = $page_cfg;
         }
+        $view_obj = (object)$view_obj;
         $path = 'view/' . $file . '.php';
         if (!file_exists($path)) {
             //errorPage('似乎并木有这只视图喵～');
             return;
         }
         include $path;
-    }    
+    }
+}
+function buildGlobalConfig() {
+    $userobj = checkQSCToken();
+    if (!$userobj) {
+        $userobj = 0;
+    } else {
+        unset($userobj->password);
+    }
+    $global_cfg = array(
+        'random_token' => getToken(),
+        'userobj' => $userobj,
+    );
+    return $global_cfg;
 }
 function checkQSCToken($token = null) {
     $check_url = 'http://passport.myqsc.com/api/get_member_by_token?token=';
@@ -76,7 +90,7 @@ function checkQSCToken($token = null) {
 }       
 function curlFetch($url, $data = null, $timeout = 5) {
     $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HEADER, false);
     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
     if (!is_null($data)) {
@@ -185,7 +199,8 @@ function isunknown($type) {
         return FALSE;
     }
 }
-function req($key) {
+function get($key) {
+    global $args;
     if (isset($args[$key])) {
         return $args[$key];
     } else {

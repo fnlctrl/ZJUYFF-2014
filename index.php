@@ -19,7 +19,8 @@ try {
     $actions = array(
         'ajax' => array(
             'submit_signup',
-            'submit_poster'
+            'submit_poster',
+            'postervote',
         ),
         'common' => array('', 
             'setQSCToken',
@@ -33,6 +34,7 @@ try {
             'posterParse',
             'getposter',
             'uploadany',
+            'posterVoteParse',
         ),
         'ajax_type' => array(
             'json',

@@ -46,7 +46,7 @@ foreach ($view_obj->retarr as $value) {
 foreach ($view_obj->retarr as $value) {
 ?>
     <table id="obj-v<?php echo $value->id;?>">
-        <tr class="name"><td><a href="#obj-v<?php echo $value->id;?>">电影名称</a></td><td><?php echo $value->name;?> || <font color="green">得分：<?php echo $value->scores;?></font></td></tr>
+        <tr class="name"><td><a href="#obj-v<?php echo $value->id;?>">电影名称</a></td><td><?php echo $value->name;?> || <font color="green" style="font-size: 14px">得分：<?php echo $value->scores;?></font></td></tr>
         <tr class="members"><td>团队人数</td><td><?php echo $value->members;?></td></tr>
         <tr class="time"><td>报名时间</td><td><?php echo $value->time;?></td></tr>
         <tr class="ip"><td>报名地址</td><td><?php echo $value->ip;?></td></tr>
