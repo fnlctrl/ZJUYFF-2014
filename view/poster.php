@@ -206,5 +206,12 @@
 		<div id="right-button" class="poster-button"></div>
 		<div id="scale-button"></div>
 	</div>
+	<div id="full-screen">
+		<div id="full-screen-container">
+			<img id="full-screen-poster">
+			<img id="full-screen-origin">
+		</div>
+	</div>
+	<div id="current-poster-info"></div>
 </body>
 </html>

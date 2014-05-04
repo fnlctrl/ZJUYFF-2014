@@ -52,6 +52,15 @@ input:focus,textarea:focus {
   background-image: url('../img/poster-right-button.svg');
   right: 60px;
 }
+#full-screen {
+  background-color: #000;
+  display: none;
+  height: 100vh;
+  width: 100vh;
+}
+#full-screen-container {
+  height: 100%;
+}
 
 /******main-info part******/
 
