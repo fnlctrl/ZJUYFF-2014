@@ -210,16 +210,16 @@ function View(data) {
 		pid++;
 	}
 
-	this.showMainInfo = function(delta) {
+	this.showMainInfo = function() {
 		$('.posters').each(function(index, el) {
 			var left = $(this).position().left;
-			if (left > that.mainInfoPosition) {
+			if (left + 1 >= that.mainInfoPosition) {
 				left += 400;
 				$(this).css('left', left + 'px');
 			}
 			setTimeout(function() {
 				$('#main-info-container').css('display', 'block');
-			}, speed);
+			}, 400);
 		});
 	}
 
@@ -234,7 +234,7 @@ function View(data) {
 				}
 				setTimeout(function() {
 					$('#main-info-container').css('display', 'none');
-				}, speed);
+				}, 400);
 			});
 		}
 		else {
@@ -247,7 +247,7 @@ function View(data) {
 				}
 				setTimeout(function() {
 					$('#main-info-container').css('display', 'none');
-				}, speed);
+				}, 400);
 			});
 		}
 	}
@@ -312,14 +312,45 @@ function View(data) {
 		}
 	}
 
-	this.slideProperPosition = function() {
+	this.slideProperPosition = function(target) {
+		var targetLoc = $(target).position(),
+		    currentLeft = $('#current-poster').position().left,
+		    posters = $('.posters');
+		var delta = (that.mainInfoPosition - that.sw) - targetLoc.left;
+		if (delta == 0) return;
 
+		if ($('#main-info-container').css('display') == 'none') {
+			for (var i = 0; i < posters.length; i++) {
+				var left = $(posters[i]).position().left;
+				$(posters[i]).css('left', left + delta);
+			}
+		}
+		else {
+			for (var i = 0; i < posters.length; i++) {
+				var left = $(posters[i]).position().left;
+				if (delta > 0) {
+					if (left < that.mainInfoPosition)
+						$(posters[i]).css('left', left + delta);
+					else
+						$(posters[i]).css('left', left + delta - 400);
+				}
+				else {
+					if (left > that.mainInfoPosition)
+						$(posters[i]).css('left', left + delta);
+					else 
+						$(posters[i]).css('left', left + delta + 400);
+				}
+			}
+		}
 	}
 
 	this.posterClick = function() {
 		if (this === $('#current-poster')[0] || that.lock == 1) return;
-		$(this).width(that.sw).height(that.containerHeight);
-		that.clickSlide(this);
+		var target = this;
+		that.slideProperPosition(target);
+		setTimeout(function() {
+			that.clickSlide(target);
+		}, 400);
 	}
 
 	this.clickSlide = function(target) {
@@ -360,6 +391,7 @@ function View(data) {
 			}
 		}
 
+		$(target).width(that.sw).height(that.containerHeight);
 		if (currentLeft < targetLoc.left) {
 			$(target).css({
 				top: 0,
@@ -420,6 +452,9 @@ function View(data) {
 		currentPoster.width(that.posterW).height(that.posterH);
 		currentPoster.removeAttr('id');
 		$(target).attr('id', 'current-poster');
+		setTimeout(function() {
+			that.showMainInfo();
+		}, 400);
 	}
 
 	this.posterOver = function(e) {
