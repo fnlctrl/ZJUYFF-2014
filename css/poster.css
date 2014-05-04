@@ -243,6 +243,7 @@ input:focus,textarea:focus {
 .posters {
   -webkit-transition: 0.4s;
   transition: 0.4s;
+  position: absolute;
   z-index: 2;
 }
 #current-poster {
