@@ -1,4 +1,4 @@
-﻿var pid = 0;
+var pid = 0;
 var baseUrl = '';
 
 $(document).ready(function() {
@@ -323,47 +323,59 @@ function View(data) {
 		    currentLeft = $('#current-poster').position().left,
 		    posters = $('.posters');
 		var movePosters = [];
+
 		for (var i = 0; i < posters.length; i++) {
-			if (posters[i] === target)
-				var index = i;
-			if (posters[i] === $('#current-poster')[0])
-				var currentPoster = i;
+			if (posters[i] === target || posters[i] === $('#current-poster')[0])
+				continue;
+			var loc = $(posters[i]).position();
+			if (currentLeft < targetLoc.left) {
+				var delta = Math.round((targetLoc.left - loc.left) / that.posterW);
+				if (loc.left > targetLoc.left + 1 || loc.left + 1 < currentLeft)
+					continue;
+			}
+			else {
+				var delta = Math.round((loc.left - targetLoc.left) / that.posterW);
+				if (loc.left + 1 < targetLoc.left || loc.left > currentLeft + 1)
+					continue;
+			}
+			if (delta == 0) 
+				movePosters[0] = posters[i];
+			else {
+				if (targetLoc.top == 0) {
+					if (loc.top == 0)
+						movePosters[delta * 2 - 1] = posters[i];
+					else 
+						movePosters[delta * 2] = posters[i];
+				}
+				else {
+					if (loc.top == 0)
+						movePosters[delta * 2] = posters[i];
+					else 
+						movePosters[delta * 2 - 1] = posters[i];
+				}
+			}
 		}
 
 		if (currentLeft < targetLoc.left) {
-			for (var i = currentPoster + 1; i < index; i++) {
-				movePosters[movePosters.length] = posters[i];
-			}
 			$(target).css({
 				top: 0,
 				left: targetLoc.left - that.posterW
 			});
-			if (targetLoc.top == 0) {
-				movePosters[movePosters.length] = $(target).next();
-				$(target).before($(target).next());
-				$(posters[currentPoster]).next().after(posters[currentPoster]);
-			}
 			setTimeout(function() {
-				that.clickMove(movePosters, -that.sw, 0, target);
+				that.clickMove(movePosters, -that.sw, 0, target, targetLoc.top);
 			}, moveSpeed);
 		}
 		else {
-			for (var i = index + 1; i < currentPoster; i++) {
-				movePosters[movePosters.length] = posters[i];
-			}
 			$(target).css({
 				top: 0
 			});
-			if (targetLoc.top > 0) {
-				movePosters[movePosters.length] = $(target).prev();
-			}
 			setTimeout(function() {
-				that.clickMove(movePosters, that.sw, 0, target);
+				that.clickMove(movePosters, that.sw, 0, target, targetLoc.top);
 			}, moveSpeed);
 		}
 	}
 
-	this.clickMove = function(posters, delta, i, target) {
+	this.clickMove = function(posters, delta, i, target, top) {
 		var loc = $(posters[i]).position();
 		var oriDelta = delta;
 		if (i > 0 && i < posters.length - 1)
@@ -382,15 +394,17 @@ function View(data) {
 		}
 		if (i < posters.length - 1)
 			setTimeout(function() {
-				that.clickMove(posters, oriDelta, i + 1, target);
+				that.clickMove(posters, oriDelta, i + 1, target, top);
 			}, moveSpeed);
 		else 
-			that.changeCurrentPoster(target, oriDelta);
+			setTimeout(function() {
+				that.changeCurrentPoster(target, oriDelta, top);
+			}, moveSpeed / 2);
 	}
 
-	this.changeCurrentPoster = function(target, delta) {
+	this.changeCurrentPoster = function(target, delta, top) {
 		var currentPoster = $('#current-poster');
-		if ($(target).position().top == 0)
+		if (top == 0)
 			currentPoster.css('top', that.posterH);
 		if (delta > 0) {
 			currentPoster.css('left', currentPoster.position().left + that.posterW);			
