@@ -138,13 +138,13 @@ class Dispatch {
         return $rows;
     }
     public function poster($args) {
-        $sql = "SELECT id,name,members,time FROM poster_signup ";
+        $sql = "SELECT id,name,members,time,suffix1,suffix2,pictype1,pictype2 FROM poster_signup ";
         $result = $this->db->query($sql);
         $s_rows = array();
         $id2vid = array();
         while ($s_row = $result->fetch_object()) {
             $s_row->m = array();
-            $sql = "SELECT id,sid,name,leader FROM poster_member WHERE sid=$s_row->id ";
+            $sql = "SELECT id,sid,name,leader FROM poster_member WHERE sid=$s_row->id ORDER BY id ";
             $m_res = $this->db->query($sql);
             while ($m_row = $m_res->fetch_object()) {
                 array_push($s_row->m, $m_row);
@@ -154,7 +154,7 @@ class Dispatch {
         $page_cfg = array(
             'poster' => $s_rows,
         );
-        return array($page_cfg);
+        return $page_cfg;
     }
     public function get_intro($args) {
         if (!isset($args['id'])) {
