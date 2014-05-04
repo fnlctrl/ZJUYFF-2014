@@ -247,7 +247,7 @@ input:focus,textarea:focus {
   z-index: 2;
 }
 #current-poster {
-  z-index: 3;
+  z-index: 1;
 }
 .poster-hover {
   background: #000;

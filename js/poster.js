@@ -265,8 +265,10 @@ function View(data) {
 
 		if (delta < 0) {
 			var left = $('.posters:last').position().left;
-			if (left + that.posterW <= that.w)
+			if (left + that.posterW <= that.w) {
+				showNotice("已经没有海报啦T T");
 				return;
+			}
 			if (left < that.w) {
 				if (data.posterData.length <= pid) {
 					showNotice("已经没有海报啦T T");
@@ -282,8 +284,10 @@ function View(data) {
 		} 
 		else {
 			var left = $('.posters:first').position().left;
-			if (left >= 0) 
+			if (left >= 0) {
+				showNotice("已经没有海报啦T T");
 				return;
+			}
 			if (left + that.posterW > 0) {
 				if (data.posterData.length <= pid) {
 					showNotice("已经没有海报啦T T");
@@ -376,6 +380,10 @@ function View(data) {
 	}
 
 	this.clickMove = function(posters, delta, i, target, top) {
+		if (posters.length == 0)
+			setTimeout(function() {
+				that.changeCurrentPoster(target, oriDelta, top);
+			}, moveSpeed / 2);
 		var loc = $(posters[i]).position();
 		var oriDelta = delta;
 		if (i > 0 && i < posters.length - 1)
@@ -423,7 +431,8 @@ function View(data) {
 		$(e.data).animate({opacity: 0}, 200);
 	}
 
-/*Vote part
+/*
+Vote part
 */
 	this.vote = function() {
 		$('.poster-button').fadeIn(400);
@@ -528,16 +537,19 @@ function Data() {
 	this.postVote = function() {
 		var settings = {
 			type: 'POST',
-			url: baseUrl + 'score.php',
+			url: baseUrl + 'postervote?ajax=json',
 			dataType: 'json',
 			data: {
 				id: that.vote['id'],
-				s1: that.vote[0],
-				s2: that.vote[1],
-				s3: that.vote[2],
-				s4: that.vote[3],
-				s5: that.vote[4],
-				stuid: $('#vote-id').val()
+				slug: ["vote1", "vote2", "vote3", "vote4", "vote5"],
+				score: {
+					s1: that.vote[0],
+					s2: that.vote[1],
+					s3: that.vote[2],
+					s4: that.vote[3],
+					s5: that.vote[4],
+				},
+				random_token: window.global_cfg.random_token
 			}
 		};
 		$.ajax(settings);
