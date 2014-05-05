@@ -207,3 +207,29 @@ function get($key) {
         return null;
     }
 }
+function judgeifmod($file) {
+    $lastmodtime = isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) ? $_SERVER['HTTP_IF_MODIFIED_SINCE'] : '';
+    if ($lastmodtime == '') {
+        $lastmodtime = 0;
+    } else {
+        $lastmodtime = strtotime($lastmodtime);
+    }
+    if (!file_exists($file)) {
+        return TRUE;
+    }
+    $filemtime = filemtime($file);
+    if ($lastmodtime < $filemtime) {
+        $maxage = 3600 * 24 * 30;
+        $expire = strftime("%a, %d %b %G %H:%M:%S GMT+8", time() + $maxage);
+        header("Cache-Control: max-age=$maxage");
+        $lastmodify = strftime("%a, %d %b %G %H:%M:%S GMT+8", $filemtime);
+        header("Last-Modified: $lastmodify");
+        return TRUE;
+    } else {
+        $lastmodify = strftime("%a, %d %b %G %H:%M:%S GMT+8", $filemtime);
+        header("Last-Modified: $lastmodify");
+        header("HTTP/1.1 304 Not Modified");
+        return FALSE;
+    }
+}
+
