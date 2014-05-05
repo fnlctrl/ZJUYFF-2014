@@ -388,7 +388,7 @@ class Dispatch {
         }
         // hotfix for poster vote
         $this->posterVoteParse($args, null, 0);
-        return array('code' => 0, 'sid' => $sid, 'msg' => '报名成功，感谢参与～');
+        return array('code' => 0, 'sid' => $sid, 'msg' => '作品提交成功，感谢参与～');
     }
     public function getsuffix($typeno) {
         $typenp = intval($typeno);
