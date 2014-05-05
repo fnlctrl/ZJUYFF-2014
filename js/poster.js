@@ -145,7 +145,7 @@ function View(data) {
 		});
 		$('#poster-container').prepend(currentPoster);
 
-		$(currentImg).attr('src', 'upload/img1_' + data.posterData[pid].id + '.jpg').width('100%').height('100%');
+		$(currentImg).attr('src', getImageUrl(1, data.posterData[pid].id)).width('100%').height('100%');
 		$(currentPoster).append(currentImg);
 
 		$(currentHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover');
