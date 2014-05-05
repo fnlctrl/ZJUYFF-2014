@@ -9,6 +9,7 @@ define('SEN_DIR', __DIR__);
 require "bmpparse.php";
 require "film_config.php";
 require "film_common.php";
+require "resizeimage.php";
 require "dispatch.php";
 set_error_handler("customError");
 try {
@@ -18,7 +19,8 @@ try {
     $actions = array(
         'ajax' => array(
             'submit_signup',
-            'submit_poster'
+            'submit_poster',
+            'postervote',
         ),
         'common' => array('', 
             'setQSCToken',
@@ -32,6 +34,7 @@ try {
             'posterParse',
             'getposter',
             'uploadany',
+            'posterVoteParse',
         ),
         'ajax_type' => array(
             'json',

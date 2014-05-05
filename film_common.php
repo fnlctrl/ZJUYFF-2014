@@ -23,34 +23,48 @@ if (! @$db->set_charset("utf8")) {
 if ($con_err != 0) {
     errorPage('发生了一个错误：「数据库无法访问，' . $con_ok . '」，<br>望能将错误反馈至 <a href="mailto:sen@senorsen.com?subject=[film_db_bug]bug%20report_' . $con_ok .'&body=bug_id_' . $con_ok . '" target="_blank">sen@senorsen.com</a>，谢谢啦～～<br></body></html>');
 }
-function view_handler($type, $file = null, $view_obj = null, $callback = 'cb') {
-    $view_obj = (object)$view_obj;
+function view_handler($type, $file = null, $page_cfg = null, $callback = 'cb') {
+    $view_obj = arraY();
     if ($type == 'json') {
         header("Content-Type: application/json; charset=utf-8");
-        echo json_encode($view_obj);
+        echo json_encode($page_cfg);
     } else if ($type == 'jsonp') {
         if (!preg_match('/^\w+$/', $callback)) {
             $callback = 'cb';
         }
         header("Content-Type: application/javascript; charset=utf-8");
         echo $callback;
-        echo '(' . json_encode($view_obj) . ');';
+        echo '(' . json_encode($page_Cfg) . ');';
     } else if ($type === FALSE) {
-        header("Content-Type: text/html; charset=utf-8");
+        // header("Content-Type: text/html; charset=utf-8");
         // refers to 'html' view
-        $view_obj->global_cfg = array(
-            'random_token' => getToken()
-        );
-        if (!isset($view_obj->page_cfg)) {
-            $view_obj->page_cfg = array();
+        $view_obj['global_cfg'] = buildGlobalConfig();
+        if (is_null($page_cfg)) {
+            $view_obj['page_cfg'] = array();
+        } else {
+            $view_obj['page_cfg'] = $page_cfg;
         }
+        $view_obj = (object)$view_obj;
         $path = 'view/' . $file . '.php';
         if (!file_exists($path)) {
             //errorPage('似乎并木有这只视图喵～');
             return;
         }
         include $path;
-    }    
+    }
+}
+function buildGlobalConfig() {
+    $userobj = checkQSCToken();
+    if (!$userobj) {
+        $userobj = 0;
+    } else {
+        unset($userobj->password);
+    }
+    $global_cfg = array(
+        'random_token' => getToken(),
+        'userobj' => $userobj,
+    );
+    return $global_cfg;
 }
 function checkQSCToken($token = null) {
     $check_url = 'http://passport.myqsc.com/api/get_member_by_token?token=';
@@ -76,7 +90,7 @@ function checkQSCToken($token = null) {
 }       
 function curlFetch($url, $data = null, $timeout = 5) {
     $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HEADER, false);
     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
     if (!is_null($data)) {
@@ -182,6 +196,39 @@ function isunknown($type) {
     if (!in_array(intval($type), array(1, 2, 3, 6))) {
         return TRUE;
     } else {
+        return FALSE;
+    }
+}
+function get($key) {
+    global $args;
+    if (isset($args[$key])) {
+        return $args[$key];
+    } else {
+        return null;
+    }
+}
+function judgeifmod($file) {
+    $lastmodtime = isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) ? $_SERVER['HTTP_IF_MODIFIED_SINCE'] : '';
+    if ($lastmodtime == '') {
+        $lastmodtime = 0;
+    } else {
+        $lastmodtime = strtotime($lastmodtime);
+    }
+    if (!file_exists($file)) {
+        return TRUE;
+    }
+    $filemtime = filemtime($file);
+    if ($lastmodtime < $filemtime) {
+        $maxage = 3600 * 24 * 30;
+        $expire = strftime("%a, %d %b %G %H:%M:%S GMT+8", time() + $maxage);
+        header("Cache-Control: max-age=$maxage");
+        $lastmodify = strftime("%a, %d %b %G %H:%M:%S GMT+8", $filemtime);
+        header("Last-Modified: $lastmodify");
+        return TRUE;
+    } else {
+        $lastmodify = strftime("%a, %d %b %G %H:%M:%S GMT+8", $filemtime);
+        header("Last-Modified: $lastmodify");
+        header("HTTP/1.1 304 Not Modified");
         return FALSE;
     }
 }

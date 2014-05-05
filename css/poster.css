@@ -23,6 +23,7 @@ input:focus,textarea:focus {
 .button:active {
   background-color: #008cce;
 }
+
 /******Container Part*******/
 #container {
   background-color: #252525;
@@ -51,7 +52,6 @@ input:focus,textarea:focus {
   background-image: url('../img/poster-right-button.svg');
   right: 60px;
 }
-
 /******main-info part******/
 
 #main-info-container {
@@ -240,8 +240,60 @@ input:focus,textarea:focus {
 }
 /******poster part*****/
 .posters {
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  position: absolute;
   z-index: 2;
 }
 #current-poster {
-  z-index: 3;
+  z-index: 2;
+}
+.poster-hover {
+  background: #000;
+  opacity: 0;
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+}
+.poster-hover-title {
+  font-size: 20px;
+  font-weight: bold;
+  position: absolute;
+  top: 40%;
+  text-align: center;
+  width: 100%;
+}
+#current-poster-info {
+  background-color: #000;
+  bottom: 0;
+  display: none;
+  height: 30%;
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+}
+#current-poster-hover-title {
+  font-size: 24px;
+  font-weight: bold;
+  left: 15%;
+  position: absolute;
+  top: 10%;
+  width: 100%;
+}
+#current-poster-hover-content {
+  font-size: 20px;
+  left: 15%;
+  position: absolute;
+  top: 25%;
+  width: 100%;
+}
+#full-screen {
+  background-color: #000;
+  display: none;
+  height: 100vh;
+  width: 100vh;
+}
+#full-screen-container {
+  height: 100%;
 }

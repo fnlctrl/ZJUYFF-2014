@@ -131,7 +131,7 @@
 					<p>5月5日晚23:59分</p>
 				</span>
 				<div id="main-info-submit" class="button">我要参加</div>
-				<div id="main-info-vote" class="button" disabled>我要投票</div>
+				<div id="main-info-vote" class="button">我要投票</div>
 			</div>
 			<div id="vote-container">
 				<div id="vote-content">
@@ -148,7 +148,7 @@
 							<img class="svg star" src="./img/star.svg">
 							<img class="svg star" src="./img/star.svg">
 						</div>
-						<p class="vote-average"></p>
+						<span class="vote-average"></span>
 					</div>
 					<div class="vote-box" id="vote-s2">
 						<p>逼真维度</p>
@@ -159,7 +159,7 @@
 							<img class="svg star" src="./img/star.svg">
 							<img class="svg star" src="./img/star.svg">
 						</div>
-						<p class="vote-average"></p>
+						<span class="vote-average"></span>
 					</div>
 					<div class="vote-box" id="vote-s3">
 						<p>技术维度</p>
@@ -170,7 +170,7 @@
 							<img class="svg star" src="./img/star.svg">
 							<img class="svg star" src="./img/star.svg">
 						</div>
-						<p class="vote-average"></p>
+						<span class="vote-average"></span>
 					</div>
 					<div class="vote-box" id="vote-s4">
 						<p>艺术维度</p>
@@ -181,7 +181,7 @@
 							<img class="svg star" src="./img/star.svg">
 							<img class="svg star" src="./img/star.svg">
 						</div>
-						<p class="vote-average"></p>
+						<span class="vote-average"></span>
 					</div>
 					<div class="vote-box" id="vote-s5">
 						<p>出位维度</p>
@@ -192,13 +192,11 @@
 							<img class="svg star" src="./img/star.svg">
 							<img class="svg star" src="./img/star.svg">
 						</div>
-						<p class="vote-average"></p>
+						<span class="vote-average"></span>
 					</div>
 				</div>
-				<div id="vote-id-container">学号
-					<input id="vote-id" type="text" name="vote-id">
-				</div>
-				<div class="button vote-submit-button">提交</div>
+				<div id="vote-id-container">投票前请先登录求是潮通行证</div>
+				<div id="vote-submit" class="button vote-submit-button">提交</div>
 				<div id="vote-submit-back" class="button vote-submit-button">返回</div>
 			</div>
 		</div>
@@ -207,6 +205,16 @@
 		<div id="left-button" class="poster-button"></div>
 		<div id="right-button" class="poster-button"></div>
 		<div id="scale-button"></div>
+		<div id="current-poster-info">
+			<div id="current-poster-hover-title">小组成员</div>
+			<div id="current-poster-hover-content"></div>
+		</div>
+	</div>
+	<div id="full-screen">
+		<div id="full-screen-container">
+			<img id="full-screen-poster">
+			<img id="full-screen-origin">
+		</div>
 	</div>
 </body>
 </html>
