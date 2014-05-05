@@ -12,6 +12,7 @@
 
 if (!defined('SEN_DIR')) die('No direct script access. Senorsen.');
 date_default_timezone_set('PRC');
+ini_set("memory_limit","1024M");
 $db = new mysqli($global_config->db['hostname'], $global_config->db['username'], $global_config->db['password'], $global_config->db['database']);
 $con_err = 0;
 if ($db->errno) {

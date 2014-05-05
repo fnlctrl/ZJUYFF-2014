@@ -41,3 +41,16 @@ function switchAll() {
     }
 }
 
+function deleteWork(type, id, name) {
+    if (confirm('确定删除 ' + name + ' 吗？\n（如有误删请联系技术部门小森森sen@senorsen,com）')) {
+        $.get('myadmin?ajax=json&delete=1&id=' + id + '&deltype=' + type + '&random_token=' + window.global_cfg.random_token, {}, function(data) {
+            if (data.code == 0) {
+                alert("删除 " + name + " 成功");
+            } else {
+                alert("删除失败：" + data.msg);
+            }
+            window.location.reload();
+        }, "json");
+    }
+}
+

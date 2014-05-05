@@ -21,6 +21,7 @@ try {
             'submit_signup',
             'submit_poster',
             'postervote',
+            'myadmin',
         ),
         'common' => array('', 
             'setQSCToken',
