@@ -39,6 +39,10 @@ function View(data) {
 		$('#submit-container').width(this.mainInfoPosition);
 		$('#submit-poster').width(this.posterW).height(this.posterH).css('left', (this.mainInfoPosition - this.posterW).toString() + 'px');
 		$('#submit-origin-poster').width(this.posterW).height(this.posterH);
+		if (window.global_cfg.userobj)
+			$('#vote-submit').text('提交');
+		else
+			$('#vote-submit').text('登录');
 	}
 
 	this.clickSubmit = function() {
@@ -351,6 +355,7 @@ function View(data) {
 	this.posterClick = function() {
 		if (this === $('#current-poster')[0] || that.lock == 1) return;
 		var target = this;
+		that.lock = 1;
 		that.slideProperPosition(target);
 		setTimeout(function() {
 			that.clickSlide(target);
@@ -461,6 +466,7 @@ function View(data) {
 		$(target).attr('id', 'current-poster');
 		setTimeout(function() {
 			that.showMainInfo();
+			that.lock = 0;
 		}, 400);
 	}
 
@@ -477,12 +483,12 @@ function View(data) {
 	}
 
 	this.insertCurrentInfo = function(data) {
-		var text;
-		$('#current-poster-hover-content p').remove();
+		var text = '';
+		$('#current-poster-hover-content').text();
 		for (var i = 0; i < data.members; i++) {
 			text += " <" + data.m[i].name + "> ";
-			$('#current-poster-hover-content').text(text);
 		}
+		$('#current-poster-hover-content').text(text);
 	}
 /*
 Vote part
@@ -539,12 +545,17 @@ Vote part
 		var id = $('#vote-id').val();
 		if (!window.global_cfg.userobj) {
 			showNotice("请先登录求是潮通行证");
-			setTimeout(function() {
-				window.location.href = 'goLogin?redir=poster';
-			}, 2000);
+			window.location.href = 'goLogin?redir=poster';
 		}
-		else 
+		else {
+			for (var i = 0; i < 5; i++) {
+				if (data.vote[i] == 0) {
+					showNotice("评分不能为0");
+					return;
+				}
+			}
 			data.postVote(that.voteAverage);
+		}
 	}
 
 	this.voteAverage = function(voteData) {

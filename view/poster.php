@@ -135,7 +135,7 @@
 			</div>
 			<div id="vote-container">
 				<div id="vote-content">
-					<p>每个学号只有一次投票机会，</p>
+					<p>每个求是潮通行证只有一次投票机会，</p>
 					<p>提交后无法更改</p>
 				</div>
 				<div id="vote-box">
@@ -196,7 +196,7 @@
 					</div>
 				</div>
 				<div id="vote-id-container">投票前请先登录求是潮通行证</div>
-				<div id="vote-submit" class="button vote-submit-button">提交</div>
+				<div id="vote-submit" class="button vote-submit-button"></div>
 				<div id="vote-submit-back" class="button vote-submit-button">返回</div>
 			</div>
 		</div>
