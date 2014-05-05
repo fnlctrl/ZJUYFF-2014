@@ -81,6 +81,18 @@ class Dispatch {
             header('HTTP/1.1 401 Unauthorized');
             errorPage('噗，看看吧。');
         }
+        if (isset($args['delete'])) {
+            $id = intval($args['id']);
+            $type = $args['deltype'];
+            if (!in_array($type, $wl_view)) {
+                return array('code' => 1, 'msg' => 'Type not found');
+            }
+            $type_dbs = array('dub' => 'dub_team', 'poster' => 'poster_signup');
+            $type_db = $type_dbs[$type];
+            $sql = "UPDATE $type_db SET valid=0 WHERE id=$id ";
+            $this->db->query($sql);
+            return array('code' => 0, 'msg' => 'Set valid okay');
+        }
         $retarr = $this->{$view . 'Admin'}();
         foreach ($retarr as &$value) {
             foreach ($value as &$vvalue) {
@@ -99,12 +111,12 @@ class Dispatch {
         );
     }
     private function dubAdmin() {
-        $sql = "SELECT * FROM dub_team ";
+        $sql = "SELECT * FROM dub_team WHERE valid=1 ";
         $result = $this->db->query($sql);
         $rows = array();
         while ($row = $result->fetch_object()) {
             $dub_rows = array();
-            $dub_sql = "SELECT * FROM dub_teammate WHERE tid=" . $row->id . " ORDER BY id ";
+            $dub_sql = "SELECT * FROM dub_teammate WHERE tid=$row->id ORDER BY id ";
             $dub_result = $this->db->query($dub_sql);
             while ($dub_row = $dub_result->fetch_object()) {
                 array_push($dub_rows, $dub_row);
@@ -115,7 +127,7 @@ class Dispatch {
         return $rows;
     }
     private function posterAdmin() {
-        $sql = "SELECT * FROM poster_signup ";
+        $sql = "SELECT * FROM poster_signup WHERE valid=1 ";
         $result = $this->db->query($sql);
         $rows = array();
         while ($row = $result->fetch_object()) {
@@ -138,7 +150,7 @@ class Dispatch {
         return $rows;
     }
     public function poster($args) {
-        $sql = "SELECT id,name,members,time,suffix1,suffix2,pictype1,pictype2 FROM poster_signup ";
+        $sql = "SELECT id,valid,name,members,time,suffix1,suffix2,pictype1,pictype2 FROM poster_signup WHERE valid=1 ";
         $result = $this->db->query($sql);
         $s_rows = array();
         $id2vid = array();
