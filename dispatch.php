@@ -339,6 +339,9 @@ class Dispatch {
             }
             $$key = $value;
         }
+        if (!isset($introduction)) {
+            $introduction = '';
+        }
         $ip = $this->db->escape_string(getip());
         if (function_exists('exif_imagetype')) {
             $pictype1 = intval(exif_imagetype($_FILES['img1']['tmp_name']));
