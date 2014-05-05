@@ -671,7 +671,7 @@ function Data() {
 
 	this.getImageUrl = function(type, id) {
 		var height = jQuery(document).height(),
-		    ratio = 0.75;
+		    ratio = 2 / 3;
 		// parse special height
 		height = parseInt(height / 100) * 100 + 100;
 		var width = height * ratio;
