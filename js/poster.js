@@ -13,7 +13,7 @@ $(document).ready(function() {
 	$('#main-info-submit').bind('click', view.clickSubmit);
 	$('#main-info-vote').bind('click',view.vote)
 	$('#vote-submit-back').bind('click', view.voteBack);
-	$('#vote-submit-button').bind('click', view.postVote);
+	$('#vote-submit').bind('click', view.postVote);
 	$('#left-button, #right-button').bind('click', view.slide);
 	$('.file').bind('change', view.showSubmitImg);
 });
@@ -107,6 +107,8 @@ function View(data) {
 				currentHover = document.createElement('div'),
 				currentTitle = document.createElement('div');
 		$(currentPoster).data('data', data.posterData[pid]);
+		that.insertCurrentInfo(data.posterData[pid]);
+		$(currentPoster).append($('#current-poster-info'));
 
 		$(currentPoster).height(this.containerHeight).width(this.sw);
 		$(currentPoster).css({
@@ -218,9 +220,7 @@ function View(data) {
 				left += 400;
 				$(this).css('left', left + 'px');
 			}
-			setTimeout(function() {
-				$('#main-info-container').css('display', 'block');
-			}, 400);
+			$('#main-info-container').css('display', 'block');
 		});
 	}
 
@@ -356,6 +356,8 @@ function View(data) {
 			that.clickSlide(target);
 		}, 400);
 		data.vote.id = $(target).data('id');
+		that.insertCurrentInfo($(target).data('data'));
+		$(target).append($('#current-poster-info'));
 	}
 
 	this.clickSlide = function(target) {
@@ -465,12 +467,23 @@ function View(data) {
 	this.posterOver = function(e) {
 		if ($(this).height() <= that.posterH + 1)
 			$(e.data).animate({opacity: '0.6'}, 200);
+		else 
+			$('#current-poster-info').css('display', 'block').stop().animate({opacity: '0.6'}, 200);
 	}
 
 	this.posterOut = function(e) {
 		$(e.data).animate({opacity: 0}, 200);
+		$('#current-poster-info').css('display', 'none').stop().animate({opacity: '0'}, 200);
 	}
 
+	this.insertCurrentInfo = function(data) {
+		var text;
+		$('#current-poster-hover-content p').remove();
+		for (var i = 0; i < data.members; i++) {
+			text = " <" + data.m[i].name + "> ";
+			$('#current-poster-hover-content').text(text);
+		}
+	}
 /*
 Vote part
 */

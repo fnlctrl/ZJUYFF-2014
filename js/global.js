@@ -27,6 +27,10 @@ $(document).ready(function() {
 			$img.replaceWith($svg);
 		}, 'xml');
 	});
+	$(document).click(function() {
+		if ($('.message-bar'))
+			$('.message-bar').remove();
+	});
 })
 var showNotice = function(string) {
     var $this_notice = $("<div id='message-bar" + Math.random() + "' class='message-bar'></div>").append($("<div class='message-content'></div>").text(string));
