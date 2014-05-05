@@ -1,16 +1,6 @@
 ﻿var pid = 0;
 var baseUrl = '';
 
-var getImageUrl = function(type, id) {
-    var height = jQuery(document).height(),
-        ratio = 0.75;
-    // parse special height
-    height = parseInt(height / 100) * 100 + 100;
-    var width = height * ratio;
-    var url = 'getposter?id=' + id + '&type=' + type + '&width=' + width + '&height=' + height;
-    return url;
-};
-
 $(document).ready(function() {
 	var data = new Data(),
 	    view = new View(data);
@@ -63,6 +53,7 @@ function View(data) {
 			$('#vote-id-container').text('请先登录求是潮通行证');
 			$('#vote-submit').text('登录');
 		}
+		that.voteStar();
 	}
 
 	this.clickSubmit = function() {
@@ -145,7 +136,7 @@ function View(data) {
 		});
 		$('#poster-container').prepend(currentPoster);
 
-		$(currentImg).attr('src', getImageUrl(1, data.posterData[pid].id)).width('100%').height('100%');
+		$(currentImg).attr('src', data.getImageUrl(1, data.posterData[pid].id)).width('100%').height('100%');
 		$(currentPoster).append(currentImg);
 
 		$(currentHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover');
@@ -183,7 +174,7 @@ function View(data) {
 		else 
 			$('#poster-container').prepend(posterTop);
 	// img div
-		$(posterTopImg).attr('src', getImageUrl(1, data.posterData[pid].id)).width('100%').height('100%');
+		$(posterTopImg).attr('src', data.getImageUrl(1, data.posterData[pid].id)).width('100%').height('100%');
 		poster.append(posterTopImg);
 	// hover div
 		$(posterTopHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover');
@@ -222,7 +213,7 @@ function View(data) {
 		else 
 			$('#poster-container').prepend(posterBottom);
 	// img div
-		$(posterBottomImg).attr('src', getImageUrl(1, data.posterData[pid].id)).width('100%').height('100%');
+		$(posterBottomImg).attr('src', data.getImageUrl(1, data.posterData[pid].id)).width('100%').height('100%');
 		poster.append(posterBottomImg);
 	// hover div
 		$(posterBottomHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover');
@@ -280,8 +271,8 @@ function View(data) {
 
 	this.magnify = function() {
 		$('#full-screen').fadeIn('400');
-		$('#full-screen-poster').attr('src', getImageUrl(1, $('#current-poster').data('data').id));
-		$('#full-screen-origin').attr('src', getImageUrl(2, $('#current-poster').data('data').id));
+		$('#full-screen-poster').attr('src', data.getImageUrl(1, $('#current-poster').data('data').id));
+		$('#full-screen-origin').attr('src', data.getImageUrl(2, $('#current-poster').data('data').id));
 	}
 
 	this.exitMagnify = function() {
@@ -462,7 +453,7 @@ function View(data) {
 			}, moveSpeed / 2);
 		var loc = $(posters[i]).position();
 		var oriDelta = delta;
-		if (i > 0 && i < posters.length - 1)
+		if (i > 0 && i < posters.length - 1 && i % 2 != 0)
 			delta /= 2;
 		if (loc.top == 0) {
 			$(posters[i]).css({
@@ -529,7 +520,6 @@ Vote part
 		$('.poster-button').fadeIn(400);
 		$('#main-info').fadeOut(400);
 		$('#vote-container').animate({left: 0}, 400);
-		that.voteStar();
 		that.refreshVote($('#current-poster').data('data').id);
 	}
 
@@ -560,6 +550,7 @@ Vote part
 		}
 		function click(e) {
 			data.vote[e.data.i - 1] = e.data.j + 1;
+			hover(e);
 		}
 	}
 
@@ -673,4 +664,14 @@ function Data() {
 		};
 		$.ajax(settings);
 	}
+
+	this.getImageUrl = function(type, id) {
+		var height = jQuery(document).height(),
+		    ratio = 0.75;
+		// parse special height
+		height = parseInt(height / 100) * 100 + 100;
+		var width = height * ratio;
+		var url = 'getposter?id=' + id + '&type=' + type + '&width=' + width + '&height=' + height;
+		return url;
+	};
 }

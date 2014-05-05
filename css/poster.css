@@ -64,7 +64,7 @@ input:focus,textarea:focus {
 /******main-info part******/
 
 #main-info-container {
-  background: #222;
+  background: rgba(0, 0, 0, 0.5);
   height: 100%;
   left: 60%;
   position: absolute;
@@ -73,6 +73,9 @@ input:focus,textarea:focus {
   width: 400px;
   z-index: 5;
   width: 400px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
 }
 #main-info {
   height: 400px;
