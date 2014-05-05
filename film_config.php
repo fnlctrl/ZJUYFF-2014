@@ -7,6 +7,6 @@ $global_config = (object)array(
         'database' => 'film'
     ),
     'upload_dir' => SEN_DIR . '/upload/',
-    'my_url_wrap' => 'http://pub.qsc.senorsen.com/film/'
+    'my_url_wrap' => ''
 );
 
