@@ -204,7 +204,7 @@
 		</div>
 		<div id="left-button" class="poster-button"></div>
 		<div id="right-button" class="poster-button"></div>
-		<div id="scale-button"></div>
+		<img id="scale-button" src="img/scale-button.svg"/>
 		<div id="current-poster-info">
 			<div id="current-poster-hover-title">小组成员</div>
 			<div id="current-poster-hover-content"></div>

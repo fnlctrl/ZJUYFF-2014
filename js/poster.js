@@ -15,6 +15,7 @@ $(document).ready(function() {
 	$('#vote-submit-back').bind('click', view.voteBack);
 	$('#vote-submit').bind('click', view.postVote);
 	$('#left-button, #right-button').bind('click', view.slide);
+	$('#scale-button').bind('click', view.scale);
 	$('.file').bind('change', view.showSubmitImg);
 });
 
@@ -35,7 +36,9 @@ function View(data) {
 		this.sw = (this.containerHeight / 3 * 2);
 		this.mainInfoPosition = $('#main-info-container').position().left;
 
+		
 		$('#full-screen-container').width(2 * that.sw + 20);
+		$('#scale-button').css('left', that.mainInfoPosition - 90);
 		$('#submit-container').width(this.mainInfoPosition);
 		$('#submit-poster').width(this.posterW).height(this.posterH).css('left', (this.mainInfoPosition - this.posterW).toString() + 'px');
 		$('#submit-origin-poster').width(this.posterW).height(this.posterH);
@@ -257,6 +260,10 @@ function View(data) {
 		}
 	}
 
+	this.scale = function() {
+		$('#full-screen-poster').attr('src', );
+	}
+
 	this.slide = function() {
 		if (that.lock == 1) return;
 		that.lock = 1;
@@ -356,6 +363,7 @@ function View(data) {
 		if (this === $('#current-poster')[0] || that.lock == 1) return;
 		var target = this;
 		that.lock = 1;
+		$('#scale-button').css('display', 'none');
 		that.slideProperPosition(target);
 		setTimeout(function() {
 			that.clickSlide(target);
@@ -464,6 +472,7 @@ function View(data) {
 		currentPoster.width(that.posterW).height(that.posterH);
 		currentPoster.removeAttr('id');
 		$(target).attr('id', 'current-poster');
+		$('#scale-button').css('display', 'block');
 		setTimeout(function() {
 			that.showMainInfo();
 			that.lock = 0;

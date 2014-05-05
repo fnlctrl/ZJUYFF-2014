@@ -52,6 +52,15 @@ input:focus,textarea:focus {
   background-image: url('../img/poster-right-button.svg');
   right: 60px;
 }
+#scale-button {
+  cursor: pointer;
+  height: 40px;
+  top: 40px;
+  position: absolute;
+  width: 40px;
+  z-index: 5;
+}
+
 /******main-info part******/
 
 #main-info-container {
@@ -289,10 +298,11 @@ input:focus,textarea:focus {
   width: 100%;
 }
 #full-screen {
-  background-color: #000;
-  display: none;
+  background-color: #252525;
   height: 100vh;
-  width: 100vh;
+  width: 100vw;
+  position: absolute;
+  z-index: 99;
 }
 #full-screen-container {
   height: 100%;
