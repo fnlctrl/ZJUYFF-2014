@@ -52,7 +52,7 @@
 		</div>
 		<div class='menu-item comingsoon' id='menu-map'>
 			<img id='menu-map-icon' class='svg left' src='./img/menu-map.svg'/>
-			<a class='left' href='' onclick='return false'><span>地图</span><div class='comingsoon-text'>COMING<br>SOON</div></a>
+			<a class='left' href='map'><span>地图</span></a>
 		</div>
 		<div class='menu-item comingsoon' id='menu-filmguide'>
 			<img id='menu-filmguide-icon' class='svg left' src='./img/menu-filmguide.svg'/>
