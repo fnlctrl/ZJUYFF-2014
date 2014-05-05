@@ -71,7 +71,7 @@ input:focus,textarea:focus {
   top: 0;
   overflow: hidden;
   width: 400px;
-  z-index: 2;
+  z-index: 5;
   width: 400px;
 }
 #main-info {

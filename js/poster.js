@@ -375,8 +375,8 @@ function View(data) {
 		setTimeout(function() {
 			that.clickSlide(target);
 		}, 400);
-		data.vote.id = $(target).data('id');
 		that.insertCurrentInfo($(target).data('data'));
+		that.refreshVote($(target).data('data').id);
 		$(target).append($('#current-poster-info'));
 	}
 
@@ -513,7 +513,7 @@ Vote part
 		$('#main-info').fadeOut(400);
 		$('#vote-container').animate({left: 0}, 400);
 		that.voteStar();
-		that.refreshVote($('#current-poster').data('id'));
+		that.refreshVote($('#current-poster').data('data').id);
 	}
 
 	this.voteBack = function() {
