@@ -11,11 +11,12 @@ $(document).ready(function() {
 	});
 	$('#submit-container').submit(data.postPoster);
 	$('#main-info-submit').bind('click', view.clickSubmit);
-	$('#main-info-vote').bind('click',view.vote)
+	$('#main-info-vote').bind('click',view.vote);
 	$('#vote-submit-back').bind('click', view.voteBack);
 	$('#vote-submit').bind('click', view.postVote);
 	$('#left-button, #right-button').bind('click', view.slide);
 	$('#scale-button').bind('click', view.scale);
+	$('#full-screen').bind('click', view.exitScale);
 	$('.file').bind('change', view.showSubmitImg);
 });
 
@@ -35,9 +36,11 @@ function View(data) {
 		this.posterW = (this.containerHeight / 6 * 2),
 		this.sw = (this.containerHeight / 3 * 2);
 		this.mainInfoPosition = $('#main-info-container').position().left;
-
-		
-		$('#full-screen-container').width(2 * that.sw + 20);
+	
+		$('#full-screen').height(that.containerHeight);
+		$('#full-screen-container').width(2 * that.sw + 60);
+		$('#full-screen-poster').height(that.containerHeight).width(that.sw);
+		$('#full-screen-origin').height(that.containerHeight).width(that.sw);
 		$('#scale-button').css('left', that.mainInfoPosition - 90);
 		$('#submit-container').width(this.mainInfoPosition);
 		$('#submit-poster').width(this.posterW).height(this.posterH).css('left', (this.mainInfoPosition - this.posterW).toString() + 'px');
@@ -266,10 +269,16 @@ function View(data) {
 			});
 		}
 	}
-/*
+
 	this.scale = function() {
-		$('#full-screen-poster').attr('src', 'upload/img1_' + $('#current-poster').data('data') + '.jpg');
-	}*/
+		$('#full-screen').fadeIn('400');
+		$('#full-screen-poster').attr('src', 'upload/img1_' + $('#current-poster').data('data').id + '.jpg');
+		$('#full-screen-origin').attr('src', 'upload/img2_' + $('#current-poster').data('data').id + '.jpg');
+	}
+
+	this.exitScale = function() {
+		$('#full-screen').fadeOut('400');
+	}
 
 	this.slide = function() {
 		if (that.lock == 1) return;
@@ -576,7 +585,7 @@ Vote part
 	this.voteAverage = function(voteData) {
 		var div = $('.vote-average');
 		for (var i = 0; i < 5; i++) {
-			$(div[i]).text(voteData.vote_result[i].average_score);
+			$(div[i]).text(" " + voteData.vote_result[i].average_score);
 		}
 	}
 }
@@ -608,7 +617,7 @@ function Data() {
 			success: function(data) {
 				$('#submit-container button').removeAttr('disabled');
 				if (data.code == 0) {
-					showNotice("恭喜你！提交成功！");
+					showNotice(data.msg);
 				}
 				else {
 					showNotice("错误：" + data.msg);

@@ -62,6 +62,12 @@
 		</div>
 	</div>
 	<div id="container">
+		<div id="full-screen">
+			<div id="full-screen-container">
+				<img id="full-screen-poster">
+				<img id="full-screen-origin">
+			</div>
+		</div>
 		<form id="submit-container" action="upload.php">
 			<div id="submit-info">
 				<p class='submit-info-title'>参赛信息</p>
@@ -204,16 +210,10 @@
 		</div>
 		<div id="left-button" class="poster-button"></div>
 		<div id="right-button" class="poster-button"></div>
-		<img id="scale-button" src="img/scale-button.svg"/>
+		<img id="scale-button" src="img/poster-zoomin.svg"/>
 		<div id="current-poster-info">
 			<div id="current-poster-hover-title">小组成员</div>
 			<div id="current-poster-hover-content"></div>
-		</div>
-	</div>
-	<div id="full-screen">
-		<div id="full-screen-container">
-			<img id="full-screen-poster">
-			<img id="full-screen-origin">
 		</div>
 	</div>
 </body>
