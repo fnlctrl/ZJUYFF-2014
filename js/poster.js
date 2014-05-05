@@ -15,8 +15,8 @@ $(document).ready(function() {
 	$('#vote-submit-back').bind('click', view.voteBack);
 	$('#vote-submit').bind('click', view.postVote);
 	$('#left-button, #right-button').bind('click', view.slide);
-	$('#scale-button').bind('click', view.scale);
-	$('#full-screen').bind('click', view.exitScale);
+	$('#scale-button').bind('click', view.magnify);
+	$('#full-screen').bind('click', view.exitMagnify);
 	$('.file').bind('change', view.showSubmitImg);
 });
 
@@ -46,7 +46,7 @@ function View(data) {
 		$('#submit-poster').width(this.posterW).height(this.posterH).css('left', (this.mainInfoPosition - this.posterW).toString() + 'px');
 		$('#submit-origin-poster').width(this.posterW).height(this.posterH);
 		if (window.global_cfg.userobj) {
-			$('#vote-id-container').text(window.global_cfg.userobj.username);
+			$('#vote-id-container').text("你好，" + window.global_cfg.userobj.username);
 			$('#vote-submit').text('提交');
 		}
 		else {
@@ -135,7 +135,7 @@ function View(data) {
 		});
 		$('#poster-container').prepend(currentPoster);
 
-		$(currentImg).attr('src', 'upload/img1_' + data.posterData[pid].id + '.jpg').width('100%').height('100%');
+		$(currentImg).attr('src', "getposter?id=" + data.posterData[pid].id + "&type=1&width=" + that.sw + "&height=" + that.containerHeight).width('100%').height('100%');
 		$(currentPoster).append(currentImg);
 
 		$(currentHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover');
@@ -268,13 +268,13 @@ function View(data) {
 		}
 	}
 
-	this.scale = function() {
+	this.magnify = function() {
 		$('#full-screen').fadeIn('400');
 		$('#full-screen-poster').attr('src', 'upload/img1_' + $('#current-poster').data('data').id + '.jpg');
 		$('#full-screen-origin').attr('src', 'upload/img2_' + $('#current-poster').data('data').id + '.jpg');
 	}
 
-	this.exitScale = function() {
+	this.exitMagnify = function() {
 		$('#full-screen').fadeOut('400');
 	}
 
