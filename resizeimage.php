@@ -41,10 +41,11 @@ class resizeimage
         ImageDestroy ($this->im);
     }
     function newimg() {
+        
         $newimg = imagecreatetruecolor($this->resize_width,$this->resize_height);
         imagecopyresampled($newimg, $this->im, 0, 0, 0, 0, $this->resize_width, $this->resize_height, $this->width, $this->height);
         ImageJpeg ($newimg,$this->dstimg, 100);
-        return;
+        return TRUE;
 
         //改变后的图象的比例
         $resize_ratio = ($this->resize_width)/($this->resize_height);

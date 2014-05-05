@@ -277,7 +277,7 @@ class Dispatch {
             unset($value['name_key']);
         }
         $r_ip = $this->db->escape_string(getip());
-        $sql = "INSERT INTO dub_team (team_name, slogan, method, members, time, ip) VALUES ('$team_name', '$slogan', '$method', '$members', NOW(), '$r_ip') ";
+        $sql = "INSERT INTO dub_team (valid, team_name, slogan, method, members, time, ip) VALUES (1, '$team_name', '$slogan', '$method', '$members', NOW(), '$r_ip') ";
         $this->db->query($sql);
         if ($this->db->errno) {
             return array('code' => 100, 'msg' => '噗，数据库插入_team_操作出错！太可怕啦，请联系我～～ sen@senorsen.com');
@@ -369,7 +369,7 @@ class Dispatch {
         $sql = "SELECT * FROM poster_signup WHERE hash='$hash' ";
         $result = $this->db->query($sql);
         if ($result->num_rows == 0) {
-            $sql = "INSERT INTO poster_signup (name, members, pictype1, pictype2, suffix1, suffix2, introduction, time, ip, hash) VALUES ('$name', $cnt_members, $pictype1, $pictype2, '$suffix1', '$suffix2', '$introduction', NOW(), '$ip', '$hash') ";
+            $sql = "INSERT INTO poster_signup (valid, name, members, pictype1, pictype2, suffix1, suffix2, introduction, time, ip, hash) VALUES (1, '$name', $cnt_members, $pictype1, $pictype2, '$suffix1', '$suffix2', '$introduction', NOW(), '$ip', '$hash') ";
             $this->db->query($sql);
             if ($this->db->errno) {
                 return array('code' => 100, 'msg' => '处理poster_signup时遇到数据库插入错误，非常抱歉！请联系 sen@senorsen.com，谢谢啦～');
@@ -377,7 +377,7 @@ class Dispatch {
             $sid = $this->db->insert_id;
         } else {
             $sid = $result->fetch_object()->id;
-            $sql = "UPDATE poster_signup SET name='$name', members=$cnt_members, pictype1=$pictype1, pictype2=$pictype2, suffix1='$suffix1', suffix2='$suffix2', introduction='$introduction', time=NOW(), ip='$ip', hash='$hash' WHERE id=$sid ";
+            $sql = "UPDATE poster_signup SET valid=1, name='$name', members=$cnt_members, pictype1=$pictype1, pictype2=$pictype2, suffix1='$suffix1', suffix2='$suffix2', introduction='$introduction', time=NOW(), ip='$ip', hash='$hash' WHERE id=$sid ";
             $this->db->query($sql);
             $sql = "DELETE FROM poster_member WHERE sid=$sid ";
             $this->db->query($sql);
@@ -607,7 +607,7 @@ class Dispatch {
         }
         header("Content-Type: image/jpeg");
         $org = imagecreatefromjpeg($filename);
-        if ($width == 0) {
+        if ($width == 0 || imagesx($org) >= $width) {
             if (judgeifmod($filename)) {
                 imagejpeg($org, null, 100);
             }
