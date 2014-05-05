@@ -263,9 +263,7 @@ function View(data) {
 					left += delta;
 					$(this).css('left', left + 'px');
 				}
-				setTimeout(function() {
-					$('#main-info-container').css('display', 'none');
-				}, 400);
+				$('#main-info-container').css('display', 'none');
 			});
 		}
 	}
