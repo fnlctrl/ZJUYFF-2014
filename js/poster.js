@@ -42,10 +42,14 @@ function View(data) {
 		$('#submit-container').width(this.mainInfoPosition);
 		$('#submit-poster').width(this.posterW).height(this.posterH).css('left', (this.mainInfoPosition - this.posterW).toString() + 'px');
 		$('#submit-origin-poster').width(this.posterW).height(this.posterH);
-		if (window.global_cfg.userobj)
+		if (window.global_cfg.userobj) {
+			$('#vote-id-container').text(window.global_cfg.userobj.username);
 			$('#vote-submit').text('提交');
-		else
+		}
+		else {
+			$('#vote-id-container').text('请先登录求是潮通行证');
 			$('#vote-submit').text('登录');
+		}
 	}
 
 	this.clickSubmit = function() {
@@ -229,6 +233,9 @@ function View(data) {
 			}
 			$('#main-info-container').css('display', 'block');
 		});
+		setTimeout(function() {
+			that.lock = 0;
+		}, 500);
 	}
 
 	this.hideMainInfo = function(delta) {
@@ -475,7 +482,6 @@ function View(data) {
 		$('#scale-button').css('display', 'block');
 		setTimeout(function() {
 			that.showMainInfo();
-			that.lock = 0;
 		}, 400);
 	}
 
@@ -624,7 +630,7 @@ function Data() {
 			url: baseUrl + 'postervote?ajax=json',
 			dataType: 'json',
 			data: {
-				id: that.vote['id'],
+				id: that.vote.id,
 				slug: ["vote1", "vote2", "vote3", "vote4", "vote5"],
 				score: {
 					vote1: that.vote[0],

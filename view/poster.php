@@ -195,7 +195,7 @@
 						<span class="vote-average"></span>
 					</div>
 				</div>
-				<div id="vote-id-container">投票前请先登录求是潮通行证</div>
+				<div id="vote-id-container"></div>
 				<div id="vote-submit" class="button vote-submit-button"></div>
 				<div id="vote-submit-back" class="button vote-submit-button">返回</div>
 			</div>
