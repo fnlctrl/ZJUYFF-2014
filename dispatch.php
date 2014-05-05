@@ -595,14 +595,21 @@ class Dispatch {
         header("Content-Type: image/jpeg");
         $org = imagecreatefromjpeg($filename);
         if ($width == 0) {
-            imagejpeg($org, null, 100);
+            if (judgeifmod($filename)) {
+                imagejpeg($org, null, 100);
+            }
             return TRUE;
         }
         $cache_file = $this->upload_dir . 'img' . $type . '_' . $id . '_' . $width . '_' . $height . '.jpg';
+        if (!judgeifmod($cache_file)) {
+            return TRUE;
+        }
         if (file_exists($cache_file)) {
             echo file_get_contents($cache_file);
+            return TRUE;
         }
         new resizeimage($org, $width, $height, 0, $cache_file);
+        judgeifmod($cache_file);
         echo file_get_contents($cache_file);
         return TRUE;
     }
