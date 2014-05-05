@@ -480,7 +480,7 @@ function View(data) {
 		var text;
 		$('#current-poster-hover-content p').remove();
 		for (var i = 0; i < data.members; i++) {
-			text = " <" + data.m[i].name + "> ";
+			text += " <" + data.m[i].name + "> ";
 			$('#current-poster-hover-content').text(text);
 		}
 	}
@@ -540,7 +540,7 @@ Vote part
 		if (!window.global_cfg.userobj) {
 			showNotice("请先登录求是潮通行证");
 			setTimeout(function() {
-				window.location.href = 'http://site.mqysc.com/zjuff/goLogin?redir=poster';
+				window.location.href = 'goLogin?redir=poster';
 			}, 2000);
 		}
 		else 
