@@ -259,10 +259,10 @@ function View(data) {
 			});
 		}
 	}
-
+/*
 	this.scale = function() {
-		$('#full-screen-poster').attr('src', );
-	}
+		$('#full-screen-poster').attr('src', 'upload/img1_' + $('#current-poster').data('data') + '.jpg');
+	}*/
 
 	this.slide = function() {
 		if (that.lock == 1) return;
