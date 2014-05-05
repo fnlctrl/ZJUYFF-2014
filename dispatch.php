@@ -353,7 +353,7 @@ class Dispatch {
             $pictype1 = 0;
             $pictype2 = 0;
         }
-        $hash = md5(implode('|', array($name, $introduction, $members[0]->name)));
+        $hash = md5(implode('|', array($name, $introduction, $members[0]['name'])));
         $sql = "SELECT * FROM poster_signup WHERE hash='$hash' ";
         $result = $this->db->query($sql);
         if ($result->num_rows == 0) {
