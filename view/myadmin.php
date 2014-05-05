@@ -12,6 +12,7 @@
 </head>
 <body class="overview">
 <?php
+$view_obj = $view_obj->page_cfg;
 echo '<h1 style="margin-left: 20px; font-weight: normal">';
 echo $view_obj->view == 'dub' ? '配音大赛' : '海报扮演';
 echo '</h1>';
