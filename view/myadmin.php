@@ -9,6 +9,10 @@
   <script src="js/moment.fn.js"></script>
   <script src="js/underscore-min.js"></script>
   <script src="js/myadmin.js"></script>
+    <script>
+        var global_cfg = <?php echo json_encode($view_obj->global_cfg);?>;
+        var page_cfg = <?php echo json_encode($view_obj->page_cfg);?>;
+    </script>
 </head>
 <body class="overview">
 <?php
@@ -26,7 +30,7 @@ foreach ($view_obj->retarr as $value) {
 ?>
     <table id="obj-v<?php echo $value->id;?>">
         <tr class="name"><td><a href="#obj-v<?php echo $value->id;?>">队名</a></td><td><?php echo $value->team_name;?></td></tr>
-        <tr class="method"><td>参赛方式</td><td><?php echo $value->method == 'online' ? '上传视频' : '现场演出';?></td></tr>
+        <tr class="method"><td>参赛方式 <a href="javascript:;" onclick="deleteWork('dub', <?php echo $value->id;?>, '<?php echo $value->team_name;?>')">删除</a></td><td><?php echo $value->method == 'online' ? '上传视频' : '现场演出';?></td></tr>
         <tr class="slogan"><td>参赛口号</td><td><?php echo $value->slogan;?></td></tr>
         <tr class="members"><td>团队人数</td><td><?php echo $value->members;?></td></tr>
         <tr class="time"><td>报名时间</td><td><?php echo $value->time;?></td></tr>
@@ -48,7 +52,7 @@ foreach ($view_obj->retarr as $value) {
 ?>
     <table id="obj-v<?php echo $value->id;?>">
         <tr class="name"><td><a href="#obj-v<?php echo $value->id;?>">电影名称</a></td><td><?php echo $value->name;?> || <font color="green" style="font-size: 14px">得分：<?php echo $value->scores;?></font></td></tr>
-        <tr class="members"><td>团队人数</td><td><?php echo $value->members;?></td></tr>
+        <tr class="members"><td>团队人数 <a href="javascript:;" onclick="deleteWork('poster', <?php echo $value->id;?>, '<?php echo $value->name;?>')">删除</a></td><td><?php echo $value->members;?></td></tr>
         <tr class="time"><td>报名时间</td><td><?php echo $value->time;?></td></tr>
         <tr class="ip"><td>报名地址</td><td><?php echo $value->ip;?></td></tr>
         <tr class="introduction"><td>作品介绍</td><td><?php echo $value->introduction;?></td></tr>
