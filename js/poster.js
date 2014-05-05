@@ -11,10 +11,12 @@ $(document).ready(function() {
 	});
 	$('#submit-container').submit(data.postPoster);
 	$('#main-info-submit').bind('click', view.clickSubmit);
-	$('#main-info-vote').bind('click',view.vote)
+	$('#main-info-vote').bind('click',view.vote);
 	$('#vote-submit-back').bind('click', view.voteBack);
 	$('#vote-submit').bind('click', view.postVote);
 	$('#left-button, #right-button').bind('click', view.slide);
+	$('#scale-button').bind('click', view.scale);
+	$('#full-screen').bind('click', view.exitScale);
 	$('.file').bind('change', view.showSubmitImg);
 });
 
@@ -34,15 +36,23 @@ function View(data) {
 		this.posterW = (this.containerHeight / 6 * 2),
 		this.sw = (this.containerHeight / 3 * 2);
 		this.mainInfoPosition = $('#main-info-container').position().left;
-
-		$('#full-screen-container').width(2 * that.sw + 20);
+	
+		$('#full-screen').height(that.containerHeight);
+		$('#full-screen-container').width(2 * that.sw + 60);
+		$('#full-screen-poster').height(that.containerHeight).width(that.sw);
+		$('#full-screen-origin').height(that.containerHeight).width(that.sw);
+		$('#scale-button').css('left', that.mainInfoPosition - 90);
 		$('#submit-container').width(this.mainInfoPosition);
 		$('#submit-poster').width(this.posterW).height(this.posterH).css('left', (this.mainInfoPosition - this.posterW).toString() + 'px');
 		$('#submit-origin-poster').width(this.posterW).height(this.posterH);
-		if (window.global_cfg.userobj)
+		if (window.global_cfg.userobj) {
+			$('#vote-id-container').text(window.global_cfg.userobj.username);
 			$('#vote-submit').text('提交');
-		else
+		}
+		else {
+			$('#vote-id-container').text('请先登录求是潮通行证');
 			$('#vote-submit').text('登录');
+		}
 	}
 
 	this.clickSubmit = function() {
@@ -226,6 +236,9 @@ function View(data) {
 			}
 			$('#main-info-container').css('display', 'block');
 		});
+		setTimeout(function() {
+			that.lock = 0;
+		}, 500);
 	}
 
 	this.hideMainInfo = function(delta) {
@@ -255,6 +268,16 @@ function View(data) {
 				}, 400);
 			});
 		}
+	}
+
+	this.scale = function() {
+		$('#full-screen').fadeIn('400');
+		$('#full-screen-poster').attr('src', 'upload/img1_' + $('#current-poster').data('data').id + '.jpg');
+		$('#full-screen-origin').attr('src', 'upload/img2_' + $('#current-poster').data('data').id + '.jpg');
+	}
+
+	this.exitScale = function() {
+		$('#full-screen').fadeOut('400');
 	}
 
 	this.slide = function() {
@@ -356,12 +379,13 @@ function View(data) {
 		if (this === $('#current-poster')[0] || that.lock == 1) return;
 		var target = this;
 		that.lock = 1;
+		$('#scale-button').css('display', 'none');
 		that.slideProperPosition(target);
 		setTimeout(function() {
 			that.clickSlide(target);
 		}, 400);
-		data.vote.id = $(target).data('id');
 		that.insertCurrentInfo($(target).data('data'));
+		that.refreshVote($(target).data('data').id);
 		$(target).append($('#current-poster-info'));
 	}
 
@@ -464,9 +488,9 @@ function View(data) {
 		currentPoster.width(that.posterW).height(that.posterH);
 		currentPoster.removeAttr('id');
 		$(target).attr('id', 'current-poster');
+		$('#scale-button').css('display', 'block');
 		setTimeout(function() {
 			that.showMainInfo();
-			that.lock = 0;
 		}, 400);
 	}
 
@@ -498,7 +522,7 @@ Vote part
 		$('#main-info').fadeOut(400);
 		$('#vote-container').animate({left: 0}, 400);
 		that.voteStar();
-		that.refreshVote($('#current-poster').data('id'));
+		that.refreshVote($('#current-poster').data('data').id);
 	}
 
 	this.voteBack = function() {
@@ -561,7 +585,7 @@ Vote part
 	this.voteAverage = function(voteData) {
 		var div = $('.vote-average');
 		for (var i = 0; i < 5; i++) {
-			$(div[i]).text(voteData.vote_result[i].average_score);
+			$(div[i]).text(" " + voteData.vote_result[i].average_score);
 		}
 	}
 }
@@ -593,7 +617,7 @@ function Data() {
 			success: function(data) {
 				$('#submit-container button').removeAttr('disabled');
 				if (data.code == 0) {
-					showNotice("恭喜你！提交成功！");
+					showNotice(data.msg);
 				}
 				else {
 					showNotice("错误：" + data.msg);
@@ -615,7 +639,7 @@ function Data() {
 			url: baseUrl + 'postervote?ajax=json',
 			dataType: 'json',
 			data: {
-				id: that.vote['id'],
+				id: that.vote.id,
 				slug: ["vote1", "vote2", "vote3", "vote4", "vote5"],
 				score: {
 					vote1: that.vote[0],

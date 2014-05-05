@@ -52,6 +52,15 @@ input:focus,textarea:focus {
   background-image: url('../img/poster-right-button.svg');
   right: 60px;
 }
+#scale-button {
+  cursor: pointer;
+  height: 40px;
+  top: 40px;
+  position: absolute;
+  width: 40px;
+  z-index: 5;
+}
+
 /******main-info part******/
 
 #main-info-container {
@@ -62,7 +71,7 @@ input:focus,textarea:focus {
   top: 0;
   overflow: hidden;
   width: 400px;
-  z-index: 2;
+  z-index: 5;
   width: 400px;
 }
 #main-info {
@@ -291,9 +300,21 @@ input:focus,textarea:focus {
 #full-screen {
   background-color: #000;
   display: none;
-  height: 100vh;
-  width: 100vh;
+  left: 0;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  z-index: 99;
 }
 #full-screen-container {
   height: 100%;
+  margin: 0 auto;
+}
+#full-screen-poster {
+  left: 0;
+  float: left;
+}
+#full-screen-origin {
+  float: left;
+  margin-left: 60px;
 }

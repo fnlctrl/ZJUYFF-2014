@@ -388,7 +388,7 @@ class Dispatch {
         }
         // hotfix for poster vote
         $this->posterVoteParse($args, null, 0);
-        return array('code' => 0, 'sid' => $sid, 'msg' => '报名成功，感谢参与～');
+        return array('code' => 0, 'sid' => $sid, 'msg' => '作品提交成功，感谢参与～');
     }
     public function getsuffix($typeno) {
         $typenp = intval($typeno);
@@ -453,7 +453,7 @@ class Dispatch {
         if (!is_array($scores) || count($scores) != count($slugs)) {
             return array('code' => 8, 'msg' => 'score错误');
         }
-        foreach ($scores as $key => &$value) {
+        foreach ($scores as $key => $value) {
             $value = intval($value);
             if ($value < 0 || $value > 5) {
                 return array('code' => 9, 'msg' => 'score错误2');
@@ -471,6 +471,7 @@ class Dispatch {
         $this->db->query($sql);
         $sql = "";
         foreach ($scores as $key => $value) {
+            $value = intval($value);
             $q_key = $this->db->escape_string($key);
             $sql = "UPDATE poster_vote SET votes=votes+1,score=score+$value WHERE pid=$q_pid AND slug='$q_key' ";
             $this->db->query($sql);

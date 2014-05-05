@@ -62,6 +62,12 @@
 		</div>
 	</div>
 	<div id="container">
+		<div id="full-screen">
+			<div id="full-screen-container">
+				<img id="full-screen-poster">
+				<img id="full-screen-origin">
+			</div>
+		</div>
 		<form id="submit-container" action="upload.php">
 			<div id="submit-info">
 				<p class='submit-info-title'>参赛信息</p>
@@ -128,7 +134,7 @@
 					<p>电影节精美纪念品+第二课堂加分</p>
 					<br>
 					<p>截止时间:</p>
-					<p>5月5日晚23:59分</p>
+					<p>5月8日晚23:59分</p>
 				</span>
 				<div id="main-info-submit" class="button">我要参加</div>
 				<div id="main-info-vote" class="button">我要投票</div>
@@ -195,7 +201,7 @@
 						<span class="vote-average"></span>
 					</div>
 				</div>
-				<div id="vote-id-container">投票前请先登录求是潮通行证</div>
+				<div id="vote-id-container"></div>
 				<div id="vote-submit" class="button vote-submit-button"></div>
 				<div id="vote-submit-back" class="button vote-submit-button">返回</div>
 			</div>
@@ -204,16 +210,10 @@
 		</div>
 		<div id="left-button" class="poster-button"></div>
 		<div id="right-button" class="poster-button"></div>
-		<div id="scale-button"></div>
+		<img id="scale-button" src="img/poster-zoomin.svg"/>
 		<div id="current-poster-info">
 			<div id="current-poster-hover-title">小组成员</div>
 			<div id="current-poster-hover-content"></div>
-		</div>
-	</div>
-	<div id="full-screen">
-		<div id="full-screen-container">
-			<img id="full-screen-poster">
-			<img id="full-screen-origin">
 		</div>
 	</div>
 </body>
