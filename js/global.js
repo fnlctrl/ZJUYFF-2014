@@ -29,10 +29,10 @@ $(document).ready(function() {
 	});
 })
 var showNotice = function(string) {
-    var $this_notice = $("<div id='message-bar"+Math.random()+"' class='message-bar'></div>").append($("<div class='message-content'></div>").text(string));
+    var $this_notice = $("<div id='message-bar" + Math.random() + "' class='message-bar'></div>").append($("<div class='message-content'></div>").text(string));
 	$('body').append($this_notice);
 	$this_notice.animate({opacity:1},{duration:500});
-	setTimeout(clearNotice($this_notice), 2000);
+	setTimeout(clearNotice($this_notice), 4000);
 }
 var clearNotice = function($obj) {
     return function() {
