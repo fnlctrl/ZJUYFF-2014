@@ -136,7 +136,7 @@ function View(data) {
 		});
 		$('#poster-container').prepend(currentPoster);
 
-		$(currentImg).attr('src', data.getImageUrl(1, data.posterData[pid].id)).width('100%').height('100%');
+		$(currentImg).attr('src', data.getImageUrl(1, data.posterData[pid].id, that.containerHeight, 60)).width('100%').height('100%');
 		$(currentPoster).append(currentImg);
 
 		$(currentHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover');
@@ -174,7 +174,7 @@ function View(data) {
 		else 
 			$('#poster-container').prepend(posterTop);
 	// img div
-		$(posterTopImg).attr('src', data.getImageUrl(1, data.posterData[pid].id)).width('100%').height('100%');
+		$(posterTopImg).attr('src', data.getImageUrl(1, data.posterData[pid].id, that.posterH, 60)).width('100%').height('100%');
 		poster.append(posterTopImg);
 	// hover div
 		$(posterTopHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover');
@@ -213,7 +213,7 @@ function View(data) {
 		else 
 			$('#poster-container').prepend(posterBottom);
 	// img div
-		$(posterBottomImg).attr('src', data.getImageUrl(1, data.posterData[pid].id)).width('100%').height('100%');
+		$(posterBottomImg).attr('src', data.getImageUrl(1, data.posterData[pid].id, that.posterH, 60)).width('100%').height('100%');
 		poster.append(posterBottomImg);
 	// hover div
 		$(posterBottomHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover');
@@ -271,8 +271,8 @@ function View(data) {
 
 	this.magnify = function() {
 		$('#full-screen').fadeIn('400');
-		$('#full-screen-poster').attr('src', data.getImageUrl(1, $('#current-poster').data('data').id));
-		$('#full-screen-origin').attr('src', data.getImageUrl(2, $('#current-poster').data('data').id));
+		$('#full-screen-poster').attr('src', data.getImageUrl(1, $('#current-poster').data('data').id, that.containerHeight, 100));
+		$('#full-screen-origin').attr('src', data.getImageUrl(2, $('#current-poster').data('data').id, that.containerHeight, 100));
 	}
 
 	this.exitMagnify = function() {
@@ -495,20 +495,20 @@ function View(data) {
 
 	this.posterOver = function(e) {
 		if ($(this).height() <= that.posterH + 1)
-			$(e.data).animate({opacity: '0.6'}, 200);
+			$(e.data).stop(true).delay(80).animate({opacity: '0.6'}, 200);
 		else 
-			$('#current-poster-info').css('display', 'block').stop().animate({opacity: '0.6'}, 200);
+			$('#current-poster-info').css('display', 'block').stop(true).animate({opacity: '0.6'}, 200);
 	}
 
 	this.posterOut = function(e) {
-		$(e.data).animate({opacity: 0}, 200);
-		$('#current-poster-info').css('display', 'none').stop().animate({opacity: '0'}, 200);
+		$(e.data).stop(true).delay(80).animate({opacity: 0}, 200);
+		$('#current-poster-info').css('display', 'none').stop(true).animate({opacity: '0'}, 200);
 	}
 
 	this.insertCurrentInfo = function(data) {
 		var text = [];
-        $('#current-poster-hover-title').text(data.name);
-		$('#current-poster-hover-content').text();
+    $('#current-poster-hover-title').text(data.name);
+		$('#current-poster-hover-content').empty();
 		for (var i = 0; i < data.members; i++) {
 			text.push($('<span></span>').text(" <" + data.m[i].name + "> "));
 		}
@@ -669,13 +669,12 @@ function Data() {
 		$.ajax(settings);
 	}
 
-	this.getImageUrl = function(type, id) {
-		var height = jQuery(document).height(),
-		    ratio = 2 / 3;
+	this.getImageUrl = function(type, id, height, quality) {
+		var ratio = 2 / 3;
 		// parse special height
 		height = parseInt(height / 100) * 100 + 100;
 		var width = height * ratio;
-		var url = 'getposter?id=' + id + '&type=' + type + '&width=' + width + '&height=' + height;
+		var url = 'getposter?id=' + id + '&type=' + type + '&width=' + width + '&height=' + height + "&quality=" + quality;
 		return url;
 	};
 }

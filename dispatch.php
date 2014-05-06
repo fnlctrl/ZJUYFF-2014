@@ -570,7 +570,7 @@ class Dispatch {
         echo "Maybe succeed, check by yourself...\n";
     }
     public function getposter($args) {
-        $allows = array('type', 'id', 'width', 'height');
+        $allows = array('type', 'id', 'width', 'height', 'quality');
         foreach ($args as $key => $value) {
             if (in_array($key, $allows)) {
                 $$key = $value;
@@ -581,8 +581,12 @@ class Dispatch {
                 $$value = 0;
             }
         }
+        if ($quality == 0) {
+            $quality = 60;
+        }
         $width = intval($width);
         $height = intval($height);
+        $quality = intval($quality);
         $id = intval($id);
         $type = intval($type);
         if (!in_array($type, array(1, 2))) return FALSE;
@@ -604,21 +608,23 @@ class Dispatch {
         }
         header("Content-Type: image/jpeg");
         $org = imagecreatefromjpeg($filename);
-        if ($width == 0 || imagesx($org) <= $width) {
+        $processed = intval($this->db->query("SELECT processed FROM poster_signup WHERE id=$id ")->fetch_object()->processed);
+        if ($width == 0 || imagesx($org) <= $width || imagesy($org) <= $height) {
             if (judgeifmod($filename)) {
                 imagejpeg($org, null, 100);
             }
             return TRUE;
         }
-        $cache_file = $this->upload_dir . 'img' . $type . '_' . $id . '_' . $width . '_' . $height . '.jpg';
+        $cache_file = $this->upload_dir . 'img' . $type . '_' . $id . '_' . $width . '_' . $height . '_' . $quality . '.jpg';
         if (!judgeifmod($cache_file)) {
             return TRUE;
         }
-        if (file_exists($cache_file)) {
+        if (file_exists($cache_file) && $processed) {
             echo file_get_contents($cache_file);
             return TRUE;
         }
-        new resizeimage($org, $width, $height, 0, $cache_file);
+        $this->db->query("UPDATE poster_signup SET processed=1 WHERE id=$id ");
+        new resizeimage($org, $width, $height, 0, $cache_file, $quality);
         judgeifmod($cache_file);
         echo file_get_contents($cache_file);
         return TRUE;
