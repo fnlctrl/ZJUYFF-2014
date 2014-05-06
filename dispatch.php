@@ -604,7 +604,7 @@ class Dispatch {
         }
         header("Content-Type: image/jpeg");
         $org = imagecreatefromjpeg($filename);
-        if ($width == 0 || imagesx($org) <= $width) {
+        if ($width == 0 || imagesx($org) <= $width || imagesy($org) <= $height) {
             if (judgeifmod($filename)) {
                 imagejpeg($org, null, 100);
             }
