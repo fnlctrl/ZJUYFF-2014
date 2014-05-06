@@ -19,9 +19,12 @@ class resizeimage
     var $dstimg;
     //临时创建的图象
     var $im;
+    
+    var $quality;
 
-    function resizeimage($img, $wid, $hei,$c,$dstimg)
+    function __construct($img, $wid, $hei, $c, $dstimg, $quality)
     {
+        $this->quality = $quality;
         $this->srcimg = $img;
         $this->resize_width = $wid;
         $this->resize_height = $hei;
@@ -44,7 +47,7 @@ class resizeimage
         
         $newimg = imagecreatetruecolor($this->resize_width,$this->resize_height);
         imagecopyresampled($newimg, $this->im, 0, 0, 0, 0, $this->resize_width, $this->resize_height, $this->width, $this->height);
-        ImageJpeg ($newimg,$this->dstimg, 100);
+        ImageJpeg ($newimg,$this->dstimg, $this->quality);
         return TRUE;
 
         //改变后的图象的比例

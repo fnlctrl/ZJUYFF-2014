@@ -570,7 +570,7 @@ class Dispatch {
         echo "Maybe succeed, check by yourself...\n";
     }
     public function getposter($args) {
-        $allows = array('type', 'id', 'width', 'height');
+        $allows = array('type', 'id', 'width', 'height', 'quality');
         foreach ($args as $key => $value) {
             if (in_array($key, $allows)) {
                 $$key = $value;
@@ -580,6 +580,9 @@ class Dispatch {
             if (!isset($args[$value])) {
                 $$value = 0;
             }
+        }
+        if ($quality == 0) {
+            $quality = 60;
         }
         $width = intval($width);
         $height = intval($height);
@@ -604,7 +607,7 @@ class Dispatch {
         }
         header("Content-Type: image/jpeg");
         $org = imagecreatefromjpeg($filename);
-        if ($width == 0 || imagesx($org) <= $width) {
+        if ($width == 0 || imagesx($org) <= $width || imagesy($org) <= $height) {
             if (judgeifmod($filename)) {
                 imagejpeg($org, null, 100);
             }
@@ -618,7 +621,7 @@ class Dispatch {
             echo file_get_contents($cache_file);
             return TRUE;
         }
-        new resizeimage($org, $width, $height, 0, $cache_file);
+        new resizeimage($org, $width, $height, 0, $cache_file, $quality);
         judgeifmod($cache_file);
         echo file_get_contents($cache_file);
         return TRUE;
