@@ -506,12 +506,16 @@ function View(data) {
 	}
 
 	this.insertCurrentInfo = function(data) {
-		var text = '';
+		var text = [];
+        $('#current-poster-hover-title').text(data.name);
 		$('#current-poster-hover-content').text();
 		for (var i = 0; i < data.members; i++) {
-			text += " <" + data.m[i].name + "> ";
+			text.push($('<span></span>').text(" <" + data.m[i].name + "> "));
 		}
-		$('#current-poster-hover-content').text(text);
+        for (var i in text) {
+            $('#current-poster-hover-content').append(text[i]);
+            if (i == 3) $('#current-poster-hover-content').append("<br>");
+        }
 	}
 /*
 Vote part
@@ -666,8 +670,8 @@ function Data() {
 	}
 
 	this.getImageUrl = function(type, id) {
-		var height = jQuery(document).height() - 60,
-		    ratio = 0.75;
+		var height = jQuery(document).height(),
+		    ratio = 2 / 3;
 		// parse special height
 		height = parseInt(height / 100) * 100 + 100;
 		var width = height * ratio;
