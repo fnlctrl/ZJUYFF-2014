@@ -46,6 +46,13 @@ try {
             'pjax'
         )
     );
+    // Automatically add views to common type
+    $views_add = getdir(SEN_DIR . '/view');
+    foreach ($views_add as $value) {
+        if (!in_array($value, $actions['common'])) {
+            array_push($actions['common'], $value);
+        }
+    }
     if (!isset($callback)) {
         $callback = 'callback';
     }
