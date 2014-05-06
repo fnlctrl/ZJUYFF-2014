@@ -586,6 +586,7 @@ class Dispatch {
         }
         $width = intval($width);
         $height = intval($height);
+        $quality = intval($quality);
         $id = intval($id);
         $type = intval($type);
         if (!in_array($type, array(1, 2))) return FALSE;
@@ -613,7 +614,7 @@ class Dispatch {
             }
             return TRUE;
         }
-        $cache_file = $this->upload_dir . 'img' . $type . '_' . $id . '_' . $width . '_' . $height . '.jpg';
+        $cache_file = $this->upload_dir . 'img' . $type . '_' . $id . '_' . $width . '_' . $height . '_' . $quality . '.jpg';
         if (!judgeifmod($cache_file)) {
             return TRUE;
         }
