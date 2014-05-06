@@ -495,19 +495,19 @@ function View(data) {
 
 	this.posterOver = function(e) {
 		if ($(this).height() <= that.posterH + 1)
-			$(e.data).animate({opacity: '0.6'}, 200);
+			$(e.data).stop(true).delay(80).animate({opacity: '0.6'}, 200);
 		else 
-			$('#current-poster-info').css('display', 'block').stop().animate({opacity: '0.6'}, 200);
+			$('#current-poster-info').css('display', 'block').stop(true).animate({opacity: '0.6'}, 200);
 	}
 
 	this.posterOut = function(e) {
-		$(e.data).animate({opacity: 0}, 200);
-		$('#current-poster-info').css('display', 'none').stop().animate({opacity: '0'}, 200);
+		$(e.data).stop(true).delay(80).animate({opacity: 0}, 200);
+		$('#current-poster-info').css('display', 'none').stop(true).animate({opacity: '0'}, 200);
 	}
 
 	this.insertCurrentInfo = function(data) {
 		var text = [];
-        $('#current-poster-hover-title').text(data.name);
+    $('#current-poster-hover-title').text(data.name);
 		$('#current-poster-hover-content').text();
 		for (var i = 0; i < data.members; i++) {
 			text.push($('<span></span>').text(" <" + data.m[i].name + "> "));
