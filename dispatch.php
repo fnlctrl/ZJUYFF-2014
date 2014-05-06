@@ -608,6 +608,7 @@ class Dispatch {
         }
         header("Content-Type: image/jpeg");
         $org = imagecreatefromjpeg($filename);
+        $processed = intval($this->db->query("SELECT processed FROM poster_signup WHERE id=$id ")->fetch_object()->processed);
         if ($width == 0 || imagesx($org) <= $width || imagesy($org) <= $height) {
             if (judgeifmod($filename)) {
                 imagejpeg($org, null, 100);
@@ -618,10 +619,11 @@ class Dispatch {
         if (!judgeifmod($cache_file)) {
             return TRUE;
         }
-        if (file_exists($cache_file)) {
+        if (file_exists($cache_file) && $processed) {
             echo file_get_contents($cache_file);
             return TRUE;
         }
+        $this->db->query("UPDATE poster_signup SET processed=1 WHERE id=$id ");
         new resizeimage($org, $width, $height, 0, $cache_file, $quality);
         judgeifmod($cache_file);
         echo file_get_contents($cache_file);

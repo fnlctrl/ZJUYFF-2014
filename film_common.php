@@ -24,8 +24,14 @@ if (! @$db->set_charset("utf8")) {
 if ($con_err != 0) {
     errorPage('发生了一个错误：「数据库无法访问，' . $con_ok . '」，<br>望能将错误反馈至 <a href="mailto:sen@senorsen.com?subject=[film_db_bug]bug%20report_' . $con_ok .'&body=bug_id_' . $con_ok . '" target="_blank">sen@senorsen.com</a>，谢谢啦～～<br></body></html>');
 }
+db_init();
+function db_init() {
+    global $db;
+    $sql = "ALTER TABLE `poster_signup` ADD `processed` BOOLEAN NOT NULL DEFAULT FALSE AFTER `suffix2`, ADD INDEX (`processed`) ";
+    @$db->query($sql);
+}
 function view_handler($type, $file = null, $page_cfg = null, $callback = 'cb') {
-    $view_obj = arraY();
+    $view_obj = array();
     if ($type == 'json') {
         header("Content-Type: application/json; charset=utf-8");
         echo json_encode($page_cfg);
