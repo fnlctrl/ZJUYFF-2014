@@ -233,4 +233,16 @@ function judgeifmod($file) {
         return FALSE;
     }
 }
-
+function getdir($path) {
+    $handler = opendir('./');
+    $fds = array();
+    $filename = readdir($handler);
+    while ($filename !== false) {
+        if (preg_match('/^(.+?)\.php$/', $filename, $matches)) {
+            array_push($fds, $matches[1]);
+        }
+        $filename = readdir($handler);
+    }
+    closedir($handler);
+    return $fds;
+}

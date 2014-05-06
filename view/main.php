@@ -50,7 +50,7 @@
 			<img id='menu-timeline-icon' class='svg left' src='./img/menu-timeline.svg'/>
 			<a class='left' href='' onclick='return false'><span>时间轴</span><div class='comingsoon-text'>COMING<br>SOON</div></a>
 		</div>
-		<div class='menu-item comingsoon' id='menu-map'>
+		<div class='menu-item' id='menu-map'>
 			<img id='menu-map-icon' class='svg left' src='./img/menu-map.svg'/>
 			<a class='left' href='map'><span>地图</span></a>
 		</div>
