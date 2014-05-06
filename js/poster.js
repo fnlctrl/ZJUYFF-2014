@@ -1,5 +1,4 @@
-﻿var pid = 0;
-var baseUrl = '';
+﻿var baseUrl = '';
 
 $(document).ready(function() {
 	var data = new Data(),
@@ -228,6 +227,43 @@ function View(data) {
 		pid++;
 	}
 
+	this.createPosters = function(posters, delta, min, max) {
+		if (delta > 0) {
+			if (min + that.posterW > 0) {
+				if (data.posterData.length <= pid) {
+					showNotice("已经没有海报啦T T");
+					return 0;
+				}
+				else {
+					var count = parseInt((min + that.posterW) / that.posterW) + 1;
+					for (var i = 0; i < count; i++) {
+						min -= that.posterW;
+						that.createBottomPosters(min, 'left');
+						that.createTopPosters(min, 'left');
+					}
+				}
+			}
+		}
+		else {
+			if (max < that.w) {
+				if (data.posterData.length <= pid) {
+					showNotice("已经没有海报啦T T");
+					return 0;
+				}
+				else {
+					max += that.posterW;
+					var count = parseInt((that.w - max) / that.posterW) + 2;
+					for (var i = 0; i < count; i++) {
+						that.createTopPosters(max, 'right');
+						that.createBottomPosters(max, 'right');
+						max += that.posterW;
+					}
+				}
+			}
+		}
+		return 1;
+	}
+
 	this.showMainInfo = function() {
 		$('.posters').each(function(index, el) {
 			var left = $(this).position().left;
@@ -289,53 +325,35 @@ function View(data) {
 			var delta = that.posterW;
 		else
 			var delta = -that.posterW;
+		var posters = $('.posters');
 
-		if (delta < 0) {
-			var left = $('.posters:last').position().left;
-			if (left + that.posterW <= that.w) {
-				showNotice("已经没有海报啦T T");
-				return;
-			}
-			if (left < that.w) {
-				if (data.posterData.length <= pid) {
-					showNotice("已经没有海报啦T T");
-				}
-				else {
-					left += that.posterW;
-					that.createTopPosters(left, "right");
-					that.createBottomPosters(left, "right");
-					that.createTopPosters(left, "right");
-					that.createBottomPosters(left, "right");
-				}
-			}
-		} 
-		else {
-			var left = $('.posters:first').position().left;
-			if (left >= 0) {
-				showNotice("已经没有海报啦T T");
-				return;
-			}
-			if (left + that.posterW > 0) {
-				if (data.posterData.length <= pid) {
-					showNotice("已经没有海报啦T T");
-				}
-				else {
-					left -= that.posterW;
-					that.createTopPosters(left, "left");
-					that.createBottomPosters(left, "left");
-					that.createTopPosters(left, "left");
-					that.createBottomPosters(left, "left");
-				}
+		if (delta > 0) {
+			var min = that.w;
+			for (var i = 0; i < posters.length; i++) {
+				var left = $(posters[i]).position().left;
+				if (min > left)
+					min = left;
 			}
 		}
+		else {
+			var max = 0;
+			for (var i = 0; i < posters.length; i++) {
+				var left = $(posters[i]).position().left;
+				if (max < left)
+					max = left;
+			}
+		}
+		var hasPoster = that.createPosters(posters, delta, min, max);
 		if ($('#main-info-container').css('display') != 'none') {
 			that.hideMainInfo(delta);
 		}
 		else {
-			$('.posters').each(function(index, el) {
-				var left = $(this).position().left + delta;
-				$(this).css('left', left + 'px');
-			});
+			max += that.posterW;
+			if (min < 0 || max > that.w || hasPoster != 0)
+				$('.posters').each(function(index, el) {
+					var left = $(this).position().left + delta;
+					$(this).css('left', left + 'px');
+				});
 		}
 	}
 
