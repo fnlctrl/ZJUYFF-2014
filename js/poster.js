@@ -508,7 +508,7 @@ function View(data) {
 	this.insertCurrentInfo = function(data) {
 		var text = [];
     $('#current-poster-hover-title').text(data.name);
-		$('#current-poster-hover-content').text();
+		$('#current-poster-hover-content').empty();
 		for (var i = 0; i < data.members; i++) {
 			text.push($('<span></span>').text(" <" + data.m[i].name + "> "));
 		}
