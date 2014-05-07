@@ -35,12 +35,7 @@
 						<div class='comingsoon-text'>COMING<br>SOON</div>
 					</a>
 				</li>
-				<li>
-					<a href='show' id='nav-show' class='comingsoon' onclick='return false'>
-						<span>放映单元</span>
-						<div class='comingsoon-text'>COMING<br>SOON</div>
-					</a>
-				</li>
+				<li><a href='show' id='nav-show'>放映单元</a></li>
 			</ul>
 		</div>
 		<img id='nav-menu-icon' class='svg' src='img/menu.svg'/>
