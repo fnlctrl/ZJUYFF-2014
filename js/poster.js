@@ -135,7 +135,8 @@ function View(data) {
 		});
 		$('#poster-container').prepend(currentPoster);
 
-		$(currentImg).attr('src', data.getImageUrl(1, data.posterData[pid].id, that.containerHeight, 60)).width('100%').height('100%');
+		$(currentImg).width('100%').height('100%').addClass('img-loading');
+		data.loadImg(currentImg ,1, data.posterData[pid].id, that.containerHeight, 60);
 		$(currentPoster).append(currentImg);
 
 		$(currentHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover');
@@ -530,10 +531,10 @@ function View(data) {
 		for (var i = 0; i < data.members; i++) {
 			text.push($('<span></span>').text(" <" + data.m[i].name + "> "));
 		}
-        for (var i in text) {
-            $('#current-poster-hover-content').append(text[i]);
-            if (i == 3) $('#current-poster-hover-content').append("<br>");
-        }
+		for (var i in text) {
+			$('#current-poster-hover-content').append(text[i]);
+			if (i == 3) $('#current-poster-hover-content').append("<br>");
+		}
 	}
 /*
 Vote part
@@ -695,4 +696,15 @@ function Data() {
 		var url = 'getposter?id=' + id + '&type=' + type + '&width=' + width + '&height=' + height + "&quality=" + quality;
 		return url;
 	};
+
+	this.loadImg = function(img, type, id, height, quality) {
+		var poster = new Image();
+		var url = this.getImageUrl(type, id, height, quality);
+		poster.src = url;
+		poster.onload = function() {
+			img.src = url;
+			$(img).removeClass('img-loading');
+			poster = null;
+		}
+	}
 }
