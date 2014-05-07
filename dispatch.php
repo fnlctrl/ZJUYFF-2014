@@ -150,7 +150,7 @@ class Dispatch {
         return $rows;
     }
     public function poster($args) {
-        $sql = "SELECT id,valid,name,members,time,suffix1,suffix2,pictype1,pictype2 FROM poster_signup WHERE valid=1 ";
+        $sql = "SELECT id,valid,name,introduction,members,time,suffix1,suffix2,pictype1,pictype2 FROM poster_signup WHERE valid=1 ";
         $result = $this->db->query($sql);
         $s_rows = array();
         $id2vid = array();
