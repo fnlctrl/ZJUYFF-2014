@@ -137,9 +137,10 @@ function View(data) {
 		});
 		$('#poster-container').prepend(currentPoster);
 
-		$(currentImg).attr('src', data.getImageUrl(1, data.posterData[pid].id, undefined, 60)).width('100%').height('100%');
         $(currentImg).attr('data-id', data.posterData[pid].id).attr('data-pid', pid);
         $preloader.eq(0).attr('src', data.getImageUrl(1, data.posterData[pid].id, undefined, 100)).end().eq(1).attr('src', data.getImageUrl(2, data.posterData[pid].id, undefined, 100));
+		$(currentImg).width('100%').height('100%').addClass('img-loading');
+		data.loadImg(currentImg, 1, data.posterData[pid].id, that.containerHeight, 60);
 		$(currentPoster).append(currentImg);
 
 		$(currentHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover');
@@ -177,8 +178,9 @@ function View(data) {
 		else 
 			$('#poster-container').prepend(posterTop);
 	// img div
-		$(posterTopImg).attr('src', data.getImageUrl(1, data.posterData[pid].id, undefined, 60)).width('100%').height('100%');
         $(posterTopImg).attr('data-id', data.posterData[pid].id).attr('data-pid', pid);
+		$(posterTopImg).width('100%').height('100%').addClass('img-loading');
+		data.loadImg(posterTopImg, 1, data.posterData[pid].id, that.posterH, 60);
 		poster.append(posterTopImg);
 	// hover div
 		$(posterTopHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover');
@@ -217,9 +219,9 @@ function View(data) {
 		else 
 			$('#poster-container').prepend(posterBottom);
 	// img div
-		$(posterBottomImg).attr('src', data.getImageUrl(1, data.posterData[pid].id, that.posterH, 60)).width('100%').height('100%');
         $(posterBottomImg).attr('data-id', data.posterData[pid].id).attr('data-pid', pid);
-        
+		$(posterBottomImg).width('100%').height('100%').addClass('img-loading');
+		data.loadImg(posterBottomImg, 1, data.posterData[pid].id, that.posterH, 60);
 		poster.append(posterBottomImg);
 	// hover div
 		$(posterBottomHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover');
@@ -539,10 +541,10 @@ function View(data) {
 		for (var i = 0; i < data.members; i++) {
 			text.push($('<span></span>').text(" <" + data.m[i].name + "> "));
 		}
-        for (var i in text) {
-            $('#current-poster-hover-content').append(text[i]);
-            if (i == 3) $('#current-poster-hover-content').append("<br>");
-        }
+		for (var i in text) {
+			$('#current-poster-hover-content').append(text[i]);
+			if (i == 3) $('#current-poster-hover-content').append("<br>");
+		}
 	}
 /*
 Vote part
@@ -706,4 +708,15 @@ function Data() {
 		var url = 'getposter?id=' + id + '&type=' + type + '&width=' + width + '&height=' + height + "&quality=" + quality;
 		return url;
 	};
+
+	this.loadImg = function(img, type, id, height, quality) {
+		var poster = new Image();
+		var url = this.getImageUrl(type, id, height, quality);
+		poster.src = url;
+		poster.onload = function() {
+			img.src = url;
+			$(img).removeClass('img-loading');
+			poster = null;
+		}
+	}
 }

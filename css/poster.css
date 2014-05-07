@@ -260,6 +260,11 @@ input:focus,textarea:focus {
 #current-poster {
   z-index: 2;
 }
+.img-loading {
+  background: url("../img/loading.gif");
+  background-repeat: no-repeat;
+  background-position: 50%;
+}
 .poster-hover {
   background: #000;
   opacity: 0;
