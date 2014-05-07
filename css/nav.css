@@ -86,7 +86,7 @@
 }
 #nav-menu {
   width: 0;
-  height: 160px;
+  height: 110px;
   top: 60px;
   left: 0;
   background: #fff;
@@ -110,21 +110,22 @@
   border-top: 1px solid #ddd;
   position: relative;
 }
-.menu-item a {
+.menu-item span {
   font-size: 16px;
   line-height: 16px;
   height: 20px;
-  top: 50%;
+  top: 30%;
   overflow: hidden;
   position: relative;
   margin: -8px 0 0 0;
   width: 80px;
   transition: all 0.5s ease-in-out;
+  color: #333;
 }
 .menu-item:hover {
   background-color: #eee;
 }
-.menu-item:hover a{
+.menu-item:hover span{
   color: #ef821e;
 }
 .comingsoon-text {
@@ -136,9 +137,6 @@
   top: 20px;
   left: 0;
   font-weight: normal;
-}
-.menu-item span {
-  position: absolute;
 }
 /* Change color of svgs on hover */
 #nav-menu-icon:hover path {

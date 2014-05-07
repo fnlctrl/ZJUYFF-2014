@@ -86,7 +86,7 @@ function View(data) {
 		if (this.files.length === 0) { return; }
 		var oFile = this.files[0];
 		if (!oFile.type.match('image')) { 
-			showNotice("请选择JPG格式图片"); 
+			showNotice("请提交图片哦"); 
 			oFile = {};
 			this.value = null;
 			return; 
@@ -273,7 +273,7 @@ function View(data) {
 		return 1;
 	}
 
-	this.showMainInfo = function() {
+	this.showMainInfo = function(delta) {
 		$('.posters').each(function(index, el) {
 			var left = $(this).position().left;
 			if (left + 1 >= that.mainInfoPosition) {
@@ -283,8 +283,11 @@ function View(data) {
 			$('#main-info-container').css('display', 'block');
 		});
 		setTimeout(function() {
+			var posters = $('.posters');
+			var last = that.findLastPoster(posters, delta);
+			that.createPosters(posters, delta, last.min, last.max);
 			that.lock = 0;
-		}, 500);
+		}, 420);
 	}
 
 	this.hideMainInfo = function(delta) {
@@ -296,9 +299,6 @@ function View(data) {
 					left += delta;
 					$(this).css('left', left + 'px');
 				}
-				setTimeout(function() {
-					$('#main-info-container').css('display', 'none');
-				}, 400);
 			});
 		}
 		else {
@@ -309,33 +309,31 @@ function View(data) {
 					left += delta;
 					$(this).css('left', left + 'px');
 				}
-				$('#main-info-container').css('display', 'none');
 			});
 		}
+		$('#main-info-container').css('display', 'none');
+		setTimeout(function() {
+			var posters = $('.posters');
+			var last = that.findLastPoster(posters, delta);
+			that.createPosters(posters, delta, last.min, last.max);
+		}, 420);
 	}
 
 	this.magnify = function() {
 		$('#full-screen').fadeIn('400');
-		$('#full-screen-poster').attr('src', data.getImageUrl(1, $('#current-poster').data('data').id, undefined, 100));
-		$('#full-screen-origin').attr('src', data.getImageUrl(2, $('#current-poster').data('data').id, undefined, 100));
+		var poster = $('#full-screen-poster').addClass('magnify-img-loading')[0];
+		var origin = $('#full-screen-origin').addClass('magnify-img-loading')[0];
+		poster.src = "";
+		data.loadImg(poster, 1, $('#current-poster').data('data').id, undefined, 100);
+		origin.src = "";
+		data.loadImg(origin, 2, $('#current-poster').data('data').id, undefined, 100);
 	}
 
 	this.exitMagnify = function() {
 		$('#full-screen').fadeOut('400');
 	}
 
-	this.slide = function() {
-		if (that.lock == 1) return;
-		that.lock = 1;
-		setTimeout(function() {
-			that.lock = 0;
-		}, 400);
-		if (this.id == 'left-button')
-			var delta = that.posterW;
-		else
-			var delta = -that.posterW;
-		var posters = $('.posters');
-
+	this.findLastPoster = function(posters, delta) {
 		if (delta > 0) {
 			var min = that.w;
 			for (var i = 0; i < posters.length; i++) {
@@ -352,13 +350,31 @@ function View(data) {
 					max = left;
 			}
 		}
-		var hasPoster = that.createPosters(posters, delta, min, max);
+		return {
+			min: min,
+			max: max
+		};
+	}
+
+	this.slide = function() {
+		if (that.lock == 1) return;
+		that.lock = 1;
+		setTimeout(function() {
+			that.lock = 0;
+		}, 400);
+		if (this.id == 'left-button')
+			var delta = that.posterW;
+		else
+			var delta = -that.posterW;
+		var posters = $('.posters');
+		var last = that.findLastPoster(posters, delta);
+		var hasPoster = that.createPosters(posters, delta, last.min, last.max);
 		if ($('#main-info-container').css('display') != 'none') {
 			that.hideMainInfo(delta);
 		}
 		else {
-			max += that.posterW;
-			if (min < 0 || max > that.w || hasPoster != 0)
+			last.max += that.posterW;
+			if (last.min < 0 || last.max > that.w || hasPoster != 0)
 				$('.posters').each(function(index, el) {
 					var left = $(this).position().left + delta;
 					$(this).css('left', left + 'px');
@@ -518,7 +534,7 @@ function View(data) {
 		$(target).attr('id', 'current-poster');
 		$('#scale-button').css('display', 'block');
 		setTimeout(function() {
-			that.showMainInfo();
+			that.showMainInfo(delta);
 		}, 400);
 	}
 
@@ -543,7 +559,7 @@ function View(data) {
 		}
 		for (var i in text) {
 			$('#current-poster-hover-content').append(text[i]);
-			if (i == 3) $('#current-poster-hover-content').append("<br>");
+			if (i == 2) $('#current-poster-hover-content').append("<br>");
 		}
 	}
 /*
@@ -595,6 +611,10 @@ Vote part
 		for (var i = 1; i<=5; i++) 
 			for (var j = 0; j<5; j++) 
 				$(star[i][j]).find('path').attr('fill', 'rgba(0,0,0,0)').attr('stroke', 'white');
+		var div = $('.vote-average');
+		for (var i = 0; i < 5; i++) {
+			$(div[i]).text(" ");
+		}
 	}
 	
 	this.postVote = function() {
@@ -716,6 +736,7 @@ function Data() {
 		poster.onload = function() {
 			img.src = url;
 			$(img).removeClass('img-loading');
+			$(img).removeClass('magnify-img-loading');
 			poster = null;
 		}
 	}
