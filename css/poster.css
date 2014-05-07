@@ -265,6 +265,11 @@ input:focus,textarea:focus {
   background-repeat: no-repeat;
   background-position: 50%;
 }
+.magnify-img-loading {
+  background: url("../img/magnify-loading.gif");
+  background-repeat: no-repeat;
+  background-position: 50%;
+}
 .poster-hover {
   background: #000;
   opacity: 0;

@@ -321,8 +321,12 @@ function View(data) {
 
 	this.magnify = function() {
 		$('#full-screen').fadeIn('400');
-		$('#full-screen-poster').attr('src', data.getImageUrl(1, $('#current-poster').data('data').id, undefined, 100));
-		$('#full-screen-origin').attr('src', data.getImageUrl(2, $('#current-poster').data('data').id, undefined, 100));
+		var poster = $('#full-screen-poster').addClass('magnify-img-loading')[0];
+		var origin = $('#full-screen-origin').addClass('magnify-img-loading')[0];
+		poster.src = "";
+		data.loadImg(poster, 1, $('#current-poster').data('data').id, undefined, 100);
+		origin.src = "";
+		data.loadImg(origin, 2, $('#current-poster').data('data').id, undefined, 100);
 	}
 
 	this.exitMagnify = function() {
@@ -728,6 +732,7 @@ function Data() {
 		poster.onload = function() {
 			img.src = url;
 			$(img).removeClass('img-loading');
+			$(img).removeClass('magnify-img-loading');
 			poster = null;
 		}
 	}
