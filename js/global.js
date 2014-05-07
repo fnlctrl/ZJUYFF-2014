@@ -27,16 +27,15 @@ $(document).ready(function() {
 			$img.replaceWith($svg);
 		}, 'xml');
 	});
-	$(document).click(function() {
-		if ($('.message-bar'))
-			$('.message-bar').remove();
-	});
 })
 var showNotice = function(string) {
     var $this_notice = $("<div id='message-bar" + Math.random() + "' class='message-bar'></div>").append($("<div class='message-content'></div>").text(string));
 	$('body').append($this_notice);
 	$this_notice.animate({opacity:1},{duration:500});
-	setTimeout(clearNotice($this_notice), 4000);
+	$this_notice.bind('click', function() {
+		$this_notice.remove();
+	});
+	setTimeout(clearNotice($this_notice), 3000);
 }
 var clearNotice = function($obj) {
     return function() {

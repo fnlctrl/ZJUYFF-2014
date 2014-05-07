@@ -47,9 +47,9 @@
 		<div id='nav-name'><img class='svg' src='img/ZJU YOUTH FILM FESTIVAL.svg'/></div>
 	</div>
 	<div id='nav-menu'>
-		<div class='menu-item comingsoon' id='menu-timeline'>
+		<div class='menu-item' id='menu-timeline'>
 			<img id='menu-timeline-icon' class='svg left' src='./img/menu-timeline.svg'/>
-			<a class='left' href='' onclick='return false'><span>时间轴</span><div class='comingsoon-text'>COMING<br>SOON</div></a>
+			<a class='left' href='timeline'><span>时间轴</span></a>
 		</div>
 		<div class='menu-item' id='menu-map'>
 			<img id='menu-map-icon' class='svg left' src='./img/menu-map.svg'/>
@@ -60,7 +60,6 @@
 			<a class='left' href='' onclick='return false'><span>观影指南</span><div class='comingsoon-text'>COMING<br>SOON</div></a>
 		</div>
 	</div>
-  </div>
 	<div id='main-container'>
 		<div id='main-intro-container'>
 			<div id='main-intro'>

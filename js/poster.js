@@ -1,5 +1,4 @@
-﻿var pid = 0;
-var baseUrl = '';
+﻿var baseUrl = '';
 
 $(document).ready(function() {
 	var data = new Data(),
@@ -28,6 +27,8 @@ function View(data) {
 	var lock = 0;
 	var star = new Array;
 	var submitPartFlag = false;
+    $(document.body).append('<img class=preloader style="display:none"><img class=preloader style="display:none">');
+    var $preloader = $('.preloader');
 	this.setElement = function() {
 		this.w = $(window).width(),
 		this.h = $(window).height();
@@ -136,7 +137,10 @@ function View(data) {
 		});
 		$('#poster-container').prepend(currentPoster);
 
-		$(currentImg).attr('src', data.getImageUrl(1, data.posterData[pid].id, that.containerHeight, 60)).width('100%').height('100%');
+        $(currentImg).attr('data-id', data.posterData[pid].id).attr('data-pid', pid);
+        $preloader.eq(0).attr('src', data.getImageUrl(1, data.posterData[pid].id, undefined, 100)).end().eq(1).attr('src', data.getImageUrl(2, data.posterData[pid].id, undefined, 100));
+		$(currentImg).width('100%').height('100%').addClass('img-loading');
+		data.loadImg(currentImg, 1, data.posterData[pid].id, that.containerHeight, 60);
 		$(currentPoster).append(currentImg);
 
 		$(currentHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover');
@@ -174,7 +178,9 @@ function View(data) {
 		else 
 			$('#poster-container').prepend(posterTop);
 	// img div
-		$(posterTopImg).attr('src', data.getImageUrl(1, data.posterData[pid].id, that.posterH, 60)).width('100%').height('100%');
+        $(posterTopImg).attr('data-id', data.posterData[pid].id).attr('data-pid', pid);
+		$(posterTopImg).width('100%').height('100%').addClass('img-loading');
+		data.loadImg(posterTopImg, 1, data.posterData[pid].id, that.posterH, 60);
 		poster.append(posterTopImg);
 	// hover div
 		$(posterTopHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover');
@@ -213,7 +219,9 @@ function View(data) {
 		else 
 			$('#poster-container').prepend(posterBottom);
 	// img div
-		$(posterBottomImg).attr('src', data.getImageUrl(1, data.posterData[pid].id, that.posterH, 60)).width('100%').height('100%');
+        $(posterBottomImg).attr('data-id', data.posterData[pid].id).attr('data-pid', pid);
+		$(posterBottomImg).width('100%').height('100%').addClass('img-loading');
+		data.loadImg(posterBottomImg, 1, data.posterData[pid].id, that.posterH, 60);
 		poster.append(posterBottomImg);
 	// hover div
 		$(posterBottomHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover');
@@ -226,6 +234,43 @@ function View(data) {
 		poster.bind('mouseleave', posterBottomHover, that.posterOut);
 		poster.bind('click', that.posterClick);
 		pid++;
+	}
+
+	this.createPosters = function(posters, delta, min, max) {
+		if (delta > 0) {
+			if (min + that.posterW > 0) {
+				if (data.posterData.length <= pid) {
+					showNotice("已经没有海报啦T T");
+					return 0;
+				}
+				else {
+					var count = parseInt((min + that.posterW) / that.posterW) + 1;
+					for (var i = 0; i < count; i++) {
+						min -= that.posterW;
+						that.createBottomPosters(min, 'left');
+						that.createTopPosters(min, 'left');
+					}
+				}
+			}
+		}
+		else {
+			if (max < that.w) {
+				if (data.posterData.length <= pid) {
+					showNotice("已经没有海报啦T T");
+					return 0;
+				}
+				else {
+					max += that.posterW;
+					var count = parseInt((that.w - max) / that.posterW) + 2;
+					for (var i = 0; i < count; i++) {
+						that.createTopPosters(max, 'right');
+						that.createBottomPosters(max, 'right');
+						max += that.posterW;
+					}
+				}
+			}
+		}
+		return 1;
 	}
 
 	this.showMainInfo = function() {
@@ -271,8 +316,8 @@ function View(data) {
 
 	this.magnify = function() {
 		$('#full-screen').fadeIn('400');
-		$('#full-screen-poster').attr('src', data.getImageUrl(1, $('#current-poster').data('data').id, that.containerHeight, 100));
-		$('#full-screen-origin').attr('src', data.getImageUrl(2, $('#current-poster').data('data').id, that.containerHeight, 100));
+		$('#full-screen-poster').attr('src', data.getImageUrl(1, $('#current-poster').data('data').id, undefined, 100));
+		$('#full-screen-origin').attr('src', data.getImageUrl(2, $('#current-poster').data('data').id, undefined, 100));
 	}
 
 	this.exitMagnify = function() {
@@ -289,53 +334,35 @@ function View(data) {
 			var delta = that.posterW;
 		else
 			var delta = -that.posterW;
+		var posters = $('.posters');
 
-		if (delta < 0) {
-			var left = $('.posters:last').position().left;
-			if (left + that.posterW <= that.w) {
-				showNotice("已经没有海报啦T T");
-				return;
-			}
-			if (left < that.w) {
-				if (data.posterData.length <= pid) {
-					showNotice("已经没有海报啦T T");
-				}
-				else {
-					left += that.posterW;
-					that.createTopPosters(left, "right");
-					that.createBottomPosters(left, "right");
-					that.createTopPosters(left, "right");
-					that.createBottomPosters(left, "right");
-				}
-			}
-		} 
-		else {
-			var left = $('.posters:first').position().left;
-			if (left >= 0) {
-				showNotice("已经没有海报啦T T");
-				return;
-			}
-			if (left + that.posterW > 0) {
-				if (data.posterData.length <= pid) {
-					showNotice("已经没有海报啦T T");
-				}
-				else {
-					left -= that.posterW;
-					that.createTopPosters(left, "left");
-					that.createBottomPosters(left, "left");
-					that.createTopPosters(left, "left");
-					that.createBottomPosters(left, "left");
-				}
+		if (delta > 0) {
+			var min = that.w;
+			for (var i = 0; i < posters.length; i++) {
+				var left = $(posters[i]).position().left;
+				if (min > left)
+					min = left;
 			}
 		}
+		else {
+			var max = 0;
+			for (var i = 0; i < posters.length; i++) {
+				var left = $(posters[i]).position().left;
+				if (max < left)
+					max = left;
+			}
+		}
+		var hasPoster = that.createPosters(posters, delta, min, max);
 		if ($('#main-info-container').css('display') != 'none') {
 			that.hideMainInfo(delta);
 		}
 		else {
-			$('.posters').each(function(index, el) {
-				var left = $(this).position().left + delta;
-				$(this).css('left', left + 'px');
-			});
+			max += that.posterW;
+			if (min < 0 || max > that.w || hasPoster != 0)
+				$('.posters').each(function(index, el) {
+					var left = $(this).position().left + delta;
+					$(this).css('left', left + 'px');
+				});
 		}
 	}
 
@@ -378,10 +405,12 @@ function View(data) {
 		if (this === $('#current-poster')[0] || that.lock == 1) return;
 		var target = this;
 		that.lock = 1;
+        $preloader.eq(0).attr('src', data.getImageUrl(1, $(this).children('img').attr('data-id'), undefined, 100)).end().eq(1).attr('src', data.getImageUrl(2, $(this).children('img').attr('data-id'), undefined, 100));
 		$('#scale-button').css('display', 'none');
 		that.slideProperPosition(target);
 		setTimeout(function() {
 			that.clickSlide(target);
+            $(target).children('img').attr('src', data.getImageUrl(1, $(target).children('img').attr('data-id'), undefined, 100));
 		}, 400);
 		that.insertCurrentInfo($(target).data('data'));
 		that.refreshVote($(target).data('data').id);
@@ -512,10 +541,10 @@ function View(data) {
 		for (var i = 0; i < data.members; i++) {
 			text.push($('<span></span>').text(" <" + data.m[i].name + "> "));
 		}
-        for (var i in text) {
-            $('#current-poster-hover-content').append(text[i]);
-            if (i == 3) $('#current-poster-hover-content').append("<br>");
-        }
+		for (var i in text) {
+			$('#current-poster-hover-content').append(text[i]);
+			if (i == 3) $('#current-poster-hover-content').append("<br>");
+		}
 	}
 /*
 Vote part
@@ -672,9 +701,22 @@ function Data() {
 	this.getImageUrl = function(type, id, height, quality) {
 		var ratio = 2 / 3;
 		// parse special height
+        if (typeof height == 'undefined') height = $(document).height();
+        if (typeof quality == 'undefined') quality = 60;
 		height = parseInt(height / 100) * 100 + 100;
-		var width = height * ratio;
+		var width = parseInt(height * ratio);
 		var url = 'getposter?id=' + id + '&type=' + type + '&width=' + width + '&height=' + height + "&quality=" + quality;
 		return url;
 	};
+
+	this.loadImg = function(img, type, id, height, quality) {
+		var poster = new Image();
+		var url = this.getImageUrl(type, id, height, quality);
+		poster.src = url;
+		poster.onload = function() {
+			img.src = url;
+			$(img).removeClass('img-loading');
+			poster = null;
+		}
+	}
 }
