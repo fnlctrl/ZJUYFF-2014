@@ -136,7 +136,7 @@ function View(data) {
 		$('#poster-container').prepend(currentPoster);
 
 		$(currentImg).width('100%').height('100%').addClass('img-loading');
-		data.loadImg(currentImg ,1, data.posterData[pid].id, that.containerHeight, 60);
+		data.loadImg(currentImg, 1, data.posterData[pid].id, that.containerHeight, 60);
 		$(currentPoster).append(currentImg);
 
 		$(currentHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover');
@@ -174,7 +174,8 @@ function View(data) {
 		else 
 			$('#poster-container').prepend(posterTop);
 	// img div
-		$(posterTopImg).attr('src', data.getImageUrl(1, data.posterData[pid].id, that.posterH, 60)).width('100%').height('100%');
+		$(posterTopImg).width('100%').height('100%').addClass('img-loading');
+		data.loadImg(posterTopImg, 1, data.posterData[pid].id, that.posterH, 60);
 		poster.append(posterTopImg);
 	// hover div
 		$(posterTopHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover');
@@ -213,7 +214,8 @@ function View(data) {
 		else 
 			$('#poster-container').prepend(posterBottom);
 	// img div
-		$(posterBottomImg).attr('src', data.getImageUrl(1, data.posterData[pid].id, that.posterH, 60)).width('100%').height('100%');
+		$(posterBottomImg).width('100%').height('100%').addClass('img-loading');
+		data.loadImg(posterBottomImg, 1, data.posterData[pid].id, that.posterH, 60);
 		poster.append(posterBottomImg);
 	// hover div
 		$(posterBottomHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover');
