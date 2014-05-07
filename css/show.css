@@ -107,7 +107,7 @@ body {
 }
 .main-text {
   position: absolute;
-  bottom: 70px;
+  bottom: 40px;
   font-size: 14px;
   left: 100px;
   transition: all 0.1s ease;
