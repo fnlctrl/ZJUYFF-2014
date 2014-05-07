@@ -611,6 +611,10 @@ Vote part
 		for (var i = 1; i<=5; i++) 
 			for (var j = 0; j<5; j++) 
 				$(star[i][j]).find('path').attr('fill', 'rgba(0,0,0,0)').attr('stroke', 'white');
+		var div = $('.vote-average');
+		for (var i = 0; i < 5; i++) {
+			$(div[i]).text(" ");
+		}
 	}
 	
 	this.postVote = function() {
