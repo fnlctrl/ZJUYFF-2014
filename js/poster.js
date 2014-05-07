@@ -267,7 +267,7 @@ function View(data) {
 		return 1;
 	}
 
-	this.showMainInfo = function() {
+	this.showMainInfo = function(delta) {
 		$('.posters').each(function(index, el) {
 			var left = $(this).position().left;
 			if (left + 1 >= that.mainInfoPosition) {
@@ -277,8 +277,11 @@ function View(data) {
 			$('#main-info-container').css('display', 'block');
 		});
 		setTimeout(function() {
+			var posters = $('.posters');
+			var last = that.findLastPoster(posters, delta);
+			that.createPosters(posters, delta, last.min, last.max);
 			that.lock = 0;
-		}, 500);
+		}, 420);
 	}
 
 	this.hideMainInfo = function(delta) {
@@ -290,9 +293,6 @@ function View(data) {
 					left += delta;
 					$(this).css('left', left + 'px');
 				}
-				setTimeout(function() {
-					$('#main-info-container').css('display', 'none');
-				}, 400);
 			});
 		}
 		else {
@@ -303,9 +303,14 @@ function View(data) {
 					left += delta;
 					$(this).css('left', left + 'px');
 				}
-				$('#main-info-container').css('display', 'none');
 			});
 		}
+		$('#main-info-container').css('display', 'none');
+		setTimeout(function() {
+			var posters = $('.posters');
+			var last = that.findLastPoster(posters, delta);
+			that.createPosters(posters, delta, last.min, last.max);
+		}, 420);
 	}
 
 	this.magnify = function() {
@@ -318,18 +323,7 @@ function View(data) {
 		$('#full-screen').fadeOut('400');
 	}
 
-	this.slide = function() {
-		if (that.lock == 1) return;
-		that.lock = 1;
-		setTimeout(function() {
-			that.lock = 0;
-		}, 400);
-		if (this.id == 'left-button')
-			var delta = that.posterW;
-		else
-			var delta = -that.posterW;
-		var posters = $('.posters');
-
+	this.findLastPoster = function(posters, delta) {
 		if (delta > 0) {
 			var min = that.w;
 			for (var i = 0; i < posters.length; i++) {
@@ -346,13 +340,31 @@ function View(data) {
 					max = left;
 			}
 		}
-		var hasPoster = that.createPosters(posters, delta, min, max);
+		return {
+			min: min,
+			max: max
+		};
+	}
+
+	this.slide = function() {
+		if (that.lock == 1) return;
+		that.lock = 1;
+		setTimeout(function() {
+			that.lock = 0;
+		}, 400);
+		if (this.id == 'left-button')
+			var delta = that.posterW;
+		else
+			var delta = -that.posterW;
+		var posters = $('.posters');
+		var last = that.findLastPoster(posters, delta);
+		var hasPoster = that.createPosters(posters, delta, last.min, last.max);
 		if ($('#main-info-container').css('display') != 'none') {
 			that.hideMainInfo(delta);
 		}
 		else {
-			max += that.posterW;
-			if (min < 0 || max > that.w || hasPoster != 0)
+			last.max += that.posterW;
+			if (last.min < 0 || last.max > that.w || hasPoster != 0)
 				$('.posters').each(function(index, el) {
 					var left = $(this).position().left + delta;
 					$(this).css('left', left + 'px');
@@ -510,7 +522,7 @@ function View(data) {
 		$(target).attr('id', 'current-poster');
 		$('#scale-button').css('display', 'block');
 		setTimeout(function() {
-			that.showMainInfo();
+			that.showMainInfo(delta);
 		}, 400);
 	}
 
@@ -535,7 +547,7 @@ function View(data) {
 		}
 		for (var i in text) {
 			$('#current-poster-hover-content').append(text[i]);
-			if (i == 3) $('#current-poster-hover-content').append("<br>");
+			if (i == 2) $('#current-poster-hover-content').append("<br>");
 		}
 	}
 /*
