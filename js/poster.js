@@ -27,6 +27,8 @@ function View(data) {
 	var lock = 0;
 	var star = new Array;
 	var submitPartFlag = false;
+    $(document.body).append('<img class=preloader style="display:none"><img class=preloader style="display:none">');
+    var $preloader = $('.preloader');
 	this.setElement = function() {
 		this.w = $(window).width(),
 		this.h = $(window).height();
@@ -135,7 +137,9 @@ function View(data) {
 		});
 		$('#poster-container').prepend(currentPoster);
 
-		$(currentImg).attr('src', data.getImageUrl(1, data.posterData[pid].id, that.containerHeight, 60)).width('100%').height('100%');
+		$(currentImg).attr('src', data.getImageUrl(1, data.posterData[pid].id, undefined, 60)).width('100%').height('100%');
+        $(currentImg).attr('data-id', data.posterData[pid].id).attr('data-pid', pid);
+        $preloader.eq(0).attr('src', data.getImageUrl(1, data.posterData[pid].id, undefined, 100)).end().eq(1).attr('src', data.getImageUrl(2, data.posterData[pid].id, undefined, 100));
 		$(currentPoster).append(currentImg);
 
 		$(currentHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover');
@@ -173,7 +177,8 @@ function View(data) {
 		else 
 			$('#poster-container').prepend(posterTop);
 	// img div
-		$(posterTopImg).attr('src', data.getImageUrl(1, data.posterData[pid].id, that.posterH, 60)).width('100%').height('100%');
+		$(posterTopImg).attr('src', data.getImageUrl(1, data.posterData[pid].id, undefined, 60)).width('100%').height('100%');
+        $(posterTopImg).attr('data-id', data.posterData[pid].id).attr('data-pid', pid);
 		poster.append(posterTopImg);
 	// hover div
 		$(posterTopHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover');
@@ -213,6 +218,8 @@ function View(data) {
 			$('#poster-container').prepend(posterBottom);
 	// img div
 		$(posterBottomImg).attr('src', data.getImageUrl(1, data.posterData[pid].id, that.posterH, 60)).width('100%').height('100%');
+        $(posterBottomImg).attr('data-id', data.posterData[pid].id).attr('data-pid', pid);
+        
 		poster.append(posterBottomImg);
 	// hover div
 		$(posterBottomHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover');
@@ -307,8 +314,8 @@ function View(data) {
 
 	this.magnify = function() {
 		$('#full-screen').fadeIn('400');
-		$('#full-screen-poster').attr('src', data.getImageUrl(1, $('#current-poster').data('data').id, that.containerHeight, 100));
-		$('#full-screen-origin').attr('src', data.getImageUrl(2, $('#current-poster').data('data').id, that.containerHeight, 100));
+		$('#full-screen-poster').attr('src', data.getImageUrl(1, $('#current-poster').data('data').id, undefined, 100));
+		$('#full-screen-origin').attr('src', data.getImageUrl(2, $('#current-poster').data('data').id, undefined, 100));
 	}
 
 	this.exitMagnify = function() {
@@ -396,10 +403,12 @@ function View(data) {
 		if (this === $('#current-poster')[0] || that.lock == 1) return;
 		var target = this;
 		that.lock = 1;
+        $preloader.eq(0).attr('src', data.getImageUrl(1, $(this).children('img').attr('data-id'), undefined, 100)).end().eq(1).attr('src', data.getImageUrl(2, $(this).children('img').attr('data-id'), undefined, 100));
 		$('#scale-button').css('display', 'none');
 		that.slideProperPosition(target);
 		setTimeout(function() {
 			that.clickSlide(target);
+            $(target).children('img').attr('src', data.getImageUrl(1, $(target).children('img').attr('data-id'), undefined, 100));
 		}, 400);
 		that.insertCurrentInfo($(target).data('data'));
 		that.refreshVote($(target).data('data').id);
@@ -690,8 +699,10 @@ function Data() {
 	this.getImageUrl = function(type, id, height, quality) {
 		var ratio = 2 / 3;
 		// parse special height
+        if (typeof height == 'undefined') height = $(document).height();
+        if (typeof quality == 'undefined') quality = 60;
 		height = parseInt(height / 100) * 100 + 100;
-		var width = height * ratio;
+		var width = parseInt(height * ratio);
 		var url = 'getposter?id=' + id + '&type=' + type + '&width=' + width + '&height=' + height + "&quality=" + quality;
 		return url;
 	};
