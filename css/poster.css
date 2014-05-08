@@ -291,22 +291,23 @@ input:focus,textarea:focus {
   display: none;
   height: 30%;
   opacity: 0;
+  padding-left: 40px;
+  padding-top: 15px;
   position: absolute;
-  width: 100%;
+  width: clac(100% - 50px);
   z-index: 5;
 }
 #current-poster-hover-title {
   font-size: 24px;
   font-weight: bold;
   left: 15%;
-  position: absolute;
   top: 10%;
   width: 100%;
 }
 #current-poster-hover-content {
-  font-size: 20px;
+  font-size: 16px;
   left: 15%;
-  position: absolute;
+  margin-top: 6px;
   top: 25%;
   width: 100%;
 }

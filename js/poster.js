@@ -42,6 +42,7 @@ function View(data) {
 		$('#full-screen-container').width(2 * that.sw + 60);
 		$('#full-screen-poster').height(that.containerHeight).width(that.sw);
 		$('#full-screen-origin').height(that.containerHeight).width(that.sw);
+		$('#current-poster-info').width(that.sw - 40);
 		$('#scale-button').css('left', that.mainInfoPosition - 90);
 		$('#submit-container').width(this.mainInfoPosition);
 		$('#submit-poster').width(this.posterW).height(this.posterH).css('left', (this.mainInfoPosition - this.posterW).toString() + 'px');
@@ -236,11 +237,12 @@ function View(data) {
 		pid++;
 	}
 
-	this.createPosters = function(posters, delta, min, max) {
+	this.createPosters = function(posters, delta, min, max, noticeFlag) {
 		if (delta > 0) {
 			if (min + that.posterW > 0) {
 				if (data.posterData.length <= pid) {
-					showNotice("已经没有海报啦T T");
+					if (noticeFlag !== false)
+						showNotice("已经没有海报啦T T");
 					return 0;
 				}
 				else {
@@ -256,7 +258,8 @@ function View(data) {
 		else {
 			if (max < that.w) {
 				if (data.posterData.length <= pid) {
-					showNotice("已经没有海报啦T T");
+					if (noticeFlag !== false)
+						showNotice("已经没有海报啦T T");
 					return 0;
 				}
 				else {
@@ -285,7 +288,9 @@ function View(data) {
 		setTimeout(function() {
 			var posters = $('.posters');
 			var last = that.findLastPoster(posters, delta);
-			that.createPosters(posters, delta, last.min, last.max);
+			if (last.max < that.mainInfoPosition)
+				last.max += that.posterW + 400;
+			that.createPosters(posters, delta, last.min, last.max, false);
 			that.lock = 0;
 		}, 420);
 	}
@@ -559,7 +564,7 @@ function View(data) {
 		}
 		for (var i in text) {
 			$('#current-poster-hover-content').append(text[i]);
-			if (i == 2) $('#current-poster-hover-content').append("<br>");
+			if (i == 3) $('#current-poster-hover-content').append("<br>");
 		}
 	}
 /*
