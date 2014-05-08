@@ -570,8 +570,8 @@ Vote part
 		$('.poster-button').fadeIn(400);
 		$('#main-info').fadeOut(400);
 		$('#vote-container').animate({left: 0}, 400);
-		that.refreshVote($('#current-poster').data('data').id);
 		that.voteStar();
+		that.refreshVote($('#current-poster').data('data').id);
 	}
 
 	this.voteBack = function() {
