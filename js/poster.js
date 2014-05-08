@@ -566,6 +566,7 @@ function View(data) {
 			$('#current-poster-hover-content').append(text[i]);
 			if (i == 3) $('#current-poster-hover-content').append("<br>");
 		}
+		$('#current-poster-hover-introduction').text(data.introduction);
 	}
 /*
 Vote part

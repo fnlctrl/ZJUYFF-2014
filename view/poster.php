@@ -205,6 +205,7 @@
 		<div id="current-poster-info">
 			<div id="current-poster-hover-title">小组成员</div>
 			<div id="current-poster-hover-content"></div>
+			<div id="current-poster-hover-introduction"></div>
 		</div>
 	</div>
 </body>

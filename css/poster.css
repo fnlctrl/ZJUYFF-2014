@@ -291,6 +291,7 @@ input:focus,textarea:focus {
   display: none;
   height: 30%;
   opacity: 0;
+  overflow: hidden;
   padding-left: 40px;
   padding-top: 15px;
   position: absolute;
@@ -310,6 +311,11 @@ input:focus,textarea:focus {
   margin-top: 6px;
   top: 25%;
   width: 100%;
+}
+#current-poster-hover-introduction {
+  height: 16px;
+  font-size: 16px;
+  margin-top: 6px;
 }
 #full-screen {
   background-color: #000;
