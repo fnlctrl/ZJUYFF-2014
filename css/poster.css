@@ -295,7 +295,6 @@ input:focus,textarea:focus {
   padding-left: 40px;
   padding-top: 15px;
   position: absolute;
-  width: clac(100% - 50px);
   z-index: 5;
 }
 #current-poster-hover-title {
