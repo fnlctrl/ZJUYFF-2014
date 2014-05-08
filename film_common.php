@@ -24,6 +24,7 @@ if (! @$db->set_charset("utf8")) {
 if ($con_err != 0) {
     errorPage('发生了一个错误：「数据库无法访问，' . $con_ok . '」，<br>望能将错误反馈至 <a href="mailto:sen@senorsen.com?subject=[film_db_bug]bug%20report_' . $con_ok .'&body=bug_id_' . $con_ok . '" target="_blank">sen@senorsen.com</a>，谢谢啦～～<br></body></html>');
 }
+$user_obj = null;
 db_init();
 function db_init() {
     global $db;
@@ -74,6 +75,10 @@ function buildGlobalConfig() {
     return $global_cfg;
 }
 function checkQSCToken($token = null) {
+    global $user_obj;
+    if (!is_null($user_obj)) {
+        return $user_obj;
+    }
     $check_url = 'http://passport.myqsc.com/api/get_member_by_token?token=';
     if (is_null($token)) {
         if (isset($_COOKIE['qsctoken'])) {
@@ -86,11 +91,12 @@ function checkQSCToken($token = null) {
     $retstr = curlFetch($check_url);
     $retobj = json_decode($retstr);
     if (is_null($retobj)) {
-        return FALSE;
+        return $user_obj = FALSE;
     } else {
         if (isset($retobj->code) && $retobj->code == 0) {
-            return FALSE;
+            return $user_obj = FALSE;
         } else {
+            $user_obj = $retobj;
             return $retobj;
         }
     }
