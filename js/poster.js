@@ -421,8 +421,8 @@ function View(data) {
 		if (this === $('#current-poster')[0] || that.lock == 1) return;
 		var target = this;
 		that.lock = 1;
-    data.loadImg($(target).children('img'), 1, $(target).data('data').id, that.containerHeight, 100);
-    data.loadImg(undefined, 2, $(target).data('data').id, that.containerHeight, 100);
+		data.loadImg($(target).children('img')[0], 1, $(target).data('data').id, that.containerHeight, 100);
+		data.loadImg(undefined, 2, $(target).data('data').id, that.containerHeight, 100);
 		$('#scale-button').css('display', 'none');
 		that.slideProperPosition(target);
 		setTimeout(function() {
