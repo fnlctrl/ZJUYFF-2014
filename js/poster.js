@@ -369,6 +369,7 @@ function View(data) {
 		var posters = $('.posters');
 		var last = that.findLastPoster(posters, delta);
 		var hasPoster = that.createPosters(posters, delta, last.min, last.max);
+		$('#scale-button').fadeOut(200);
 		if ($('#main-info-container').css('display') != 'none') {
 			that.hideMainInfo(delta);
 		}
@@ -532,7 +533,7 @@ function View(data) {
 		currentPoster.width(that.posterW).height(that.posterH);
 		currentPoster.removeAttr('id');
 		$(target).attr('id', 'current-poster');
-		$('#scale-button').css('display', 'block');
+		$('#scale-button').fadeIn(200);
 		setTimeout(function() {
 			that.showMainInfo(delta);
 		}, 400);
