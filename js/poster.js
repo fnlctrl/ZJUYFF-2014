@@ -735,7 +735,7 @@ function Data() {
 		var url = this.getImageUrl(type, id, height, quality);
 		poster.src = url;
 		poster.onload = function() {
-			if (img !== 'undefined') {
+			if (img !== undefined) {
 				img.src = url;
 				$(img).removeClass('img-loading');
 				$(img).removeClass('magnify-img-loading');
