@@ -138,7 +138,7 @@ function View(data) {
 
 		$(currentImg).width('100%').height('100%').addClass('img-loading');
 		data.loadImg(currentImg, 1, data.posterData[pid].id, that.containerHeight, 100);
-		data.loadImg(currentImg, 2, data.posterData[pid].id, that.containerHeight, 100)
+		data.loadImg(undefined, 2, data.posterData[pid].id, that.containerHeight, 100)
 		$(currentPoster).append(currentImg);
 
 		$(currentHover).width('100%').height(that.posterH / 5 * 2).addClass('poster-hover');
