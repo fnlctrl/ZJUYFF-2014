@@ -95,6 +95,7 @@ function View(data) {
 	this.fillPosters = function() {
 		// create posters on the left
 		pid = 0;
+		$('#container').append($('#current-poster-info'));
 		$('.posters').remove();
 		that.createCurrentPoster();
 		var leftPosition = that.mainInfoPosition - that.sw,
