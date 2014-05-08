@@ -8,6 +8,7 @@ $(document).ready(function() {
 		view.setElement();
 		view.fillPosters();
 	});
+	view.voteStar();
 	$('#submit-container').submit(data.postPoster);
 	$('#main-info-submit').bind('click', view.clickSubmit);
 	$('#main-info-vote').bind('click',view.vote);
@@ -53,7 +54,6 @@ function View(data) {
 			$('#vote-id-container').text('请先登录求是潮通行证');
 			$('#vote-submit').text('登录');
 		}
-		that.voteStar();
 	}
 
 	this.clickSubmit = function() {
