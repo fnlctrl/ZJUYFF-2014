@@ -55,7 +55,8 @@ class Dispatch {
     }
     public function myadmin($args) {
         if (!isset($args['view'])) {
-            $args['view'] = 'dub';
+            // Default page
+            $args['view'] = 'poster';
         }
         if (isset($args['view']) && is_string($args['view'])) {
            $view = $args['view'];
