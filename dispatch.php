@@ -386,8 +386,9 @@ class Dispatch {
         $hash = md5(implode('|', array($name, $introduction, $members[0]['name'])));
         $sql = "SELECT * FROM poster_signup WHERE hash='$hash' ";
         $result = $this->db->query($sql);
+        $q_user_obj = $this->db->escape_string(json_encode(checkQSCToken()));
         if ($result->num_rows == 0) {
-            $sql = "INSERT INTO poster_signup (valid, name, members, pictype1, pictype2, suffix1, suffix2, introduction, time, ip, hash) VALUES (1, '$name', $cnt_members, $pictype1, $pictype2, '$suffix1', '$suffix2', '$introduction', NOW(), '$ip', '$hash') ";
+            $sql = "INSERT INTO poster_signup (valid, name, members, pictype1, pictype2, suffix1, suffix2, introduction, time, ip, hash, user_obj) VALUES (1, '$name', $cnt_members, $pictype1, $pictype2, '$suffix1', '$suffix2', '$introduction', NOW(), '$ip', '$hash', '$q_user_obj') ";
             $this->db->query($sql);
             if ($this->db->errno) {
                 return array('code' => 100, 'msg' => '处理poster_signup时遇到数据库插入错误，非常抱歉！请联系 sen@senorsen.com，谢谢啦～');
