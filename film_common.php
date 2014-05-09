@@ -45,9 +45,7 @@ function view_handler($type, $file = null, $page_cfg = null, $callback = 'cb') {
     $q_ajax = $db->escape_string($type);
     $q_page = $db->escape_string($file);
     $sql = "INSERT INTO page_log (page,ajax,success,user_obj,time,ip,obj) VALUES ('$q_page', '$q_ajax', 1, '$q_user_obj', NOW(), '$q_ip', '$q_obj') ";
-    echo $sql;
     $db->query($sql);
-    echo $db->error;
     $view_obj = array();
     if ($type == 'json') {
         header("Content-Type: application/json; charset=utf-8");
