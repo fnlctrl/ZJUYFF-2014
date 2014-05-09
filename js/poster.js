@@ -7,6 +7,7 @@ $(document).ready(function() {
 	$(window).bind('load resize', function() {
 		view.setElement();
 		view.fillPosters();
+		view.voteStar();
 	});
 	$('#submit-container').submit(data.postPoster);
 	$('#main-info-submit').bind('click', view.clickSubmit);
@@ -571,7 +572,6 @@ Vote part
 		$('.poster-button').fadeIn(400);
 		$('#main-info').fadeOut(400);
 		$('#vote-container').animate({left: 0}, 400);
-		that.voteStar();
 		that.refreshVote($('#current-poster').data('data').id);
 	}
 
