@@ -573,6 +573,7 @@ Vote part
 		$('#main-info').fadeOut(400);
 		$('#vote-container').animate({left: 0}, 400);
 		that.refreshVote($('#current-poster').data('data').id);
+		$(document).keydown(that.keydown);
 	}
 
 	this.voteBack = function() {
@@ -642,6 +643,13 @@ Vote part
 		for (var i = 0; i < 5; i++) {
 			$(div[i]).text(" " + voteData.vote_result[i].average_score);
 		}
+	}
+
+	this.keydown = function(e) {
+		if (e.keyCode == 37) 
+			$('#left-button').trigger('click');
+		else if (e.keyCode == 39)
+			$('#right-button').trigger('click');
 	}
 }
 
