@@ -155,7 +155,7 @@ function errorPage($content, $e = null, $title = '=_= 出错了') {
     $q_obj = $db->escape_string(json_encode($args));
     $q_page = $db->escape_string($action);
     $q_ajax = $db->escape_string($ajax);
-    $q_user_obj = $db->escape_string(json_encode(checkQSCToken));
+    $q_user_obj = $db->escape_string(json_encode(checkQSCToken()));
     $q_ip = $db->escape_string(getip());
     $sql = "INSERT INTO page_log (page,success,user_obj,time,ip,obj,ajax) VALUES ('$q_page', 0, '$q_user_obj', NOW(), '$q_ip', '$q_obj', '$q_ajax') ";
     $db->query($sql);
