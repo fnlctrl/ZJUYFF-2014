@@ -313,6 +313,9 @@ class Dispatch {
     }
     public function submit_poster($args) {
         $length_limit = 3 * 1024 * 1024; 
+        if (!isset($args['water']) {
+            return array('code' => 1, 'msg' => '已经过了提交海报的时间噜……');
+        }
         if (!isset($_FILES['img1']) || !isset($_FILES['img2'])) {
             return array('code' => 1, 'msg' => '噗，参赛作品和原版海报都要上传的哦～');
         }
