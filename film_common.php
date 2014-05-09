@@ -24,13 +24,28 @@ if (! @$db->set_charset("utf8")) {
 if ($con_err != 0) {
     errorPage('发生了一个错误：「数据库无法访问，' . $con_ok . '」，<br>望能将错误反馈至 <a href="mailto:sen@senorsen.com?subject=[film_db_bug]bug%20report_' . $con_ok .'&body=bug_id_' . $con_ok . '" target="_blank">sen@senorsen.com</a>，谢谢啦～～<br></body></html>');
 }
+$user_obj = null;
 db_init();
 function db_init() {
     global $db;
-    $sql = "ALTER TABLE `poster_signup` ADD `processed` BOOLEAN NOT NULL DEFAULT FALSE AFTER `suffix2`, ADD INDEX (`processed`) ";
-    @$db->query($sql);
+    $sql = array(
+        "ALTER TABLE `poster_signup` ADD `processed` BOOLEAN NOT NULL DEFAULT FALSE AFTER `suffix2`, ADD INDEX (`processed`) ",
+        "ALTER TABLE `poster_signup` ADD `user_obj` VARCHAR(255) NOT NULL ",
+    );
+    array_push($sql, file_get_contents('page_log.sql'));
+    foreach ($sql as $value) {
+        @$db->query($value);
+    }
 }
 function view_handler($type, $file = null, $page_cfg = null, $callback = 'cb') {
+    global $args, $db;
+    $q_user_obj = $db->escape_string(json_encode(checkQSCToken()));
+    $q_obj = $db->escape_string(json_encode($args));
+    $q_ip = $db->escape_string(getip());
+    $q_ajax = $db->escape_string($type);
+    $q_page = $db->escape_string($file);
+    $sql = "INSERT INTO page_log (page,ajax,success,user_obj,time,ip,obj) VALUES ('$q_page', '$q_ajax', 1, '$q_user_obj', NOW(), '$q_ip', '$q_obj') ";
+    $db->query($sql);
     $view_obj = array();
     if ($type == 'json') {
         header("Content-Type: application/json; charset=utf-8");
@@ -74,6 +89,10 @@ function buildGlobalConfig() {
     return $global_cfg;
 }
 function checkQSCToken($token = null) {
+    global $user_obj;
+    if (!is_null($user_obj)) {
+        return $user_obj;
+    }
     $check_url = 'http://passport.myqsc.com/api/get_member_by_token?token=';
     if (is_null($token)) {
         if (isset($_COOKIE['qsctoken'])) {
@@ -86,11 +105,12 @@ function checkQSCToken($token = null) {
     $retstr = curlFetch($check_url);
     $retobj = json_decode($retstr);
     if (is_null($retobj)) {
-        return FALSE;
+        return $user_obj = FALSE;
     } else {
         if (isset($retobj->code) && $retobj->code == 0) {
-            return FALSE;
+            return $user_obj = FALSE;
         } else {
+            $user_obj = $retobj;
             return $retobj;
         }
     }
@@ -121,6 +141,7 @@ function customError($errno, $errstr, $errfile, $errline) {
     errorPage($str);
 }
 function errorPage($content, $e = null, $title = '=_= 出错了') {
+    global $args, $action, $db, $ajax;
     if (is_null($e)) {
         $e = new Exception;
     }
@@ -131,6 +152,13 @@ function errorPage($content, $e = null, $title = '=_= 出错了') {
     } else {
         $e0 = 'unknown_bug';
     }
+    $q_obj = $db->escape_string(json_encode($args));
+    $q_page = $db->escape_string($action);
+    $q_ajax = $db->escape_string($ajax);
+    $q_user_obj = $db->escape_string(json_encode(checkQSCToken()));
+    $q_ip = $db->escape_string(getip());
+    $sql = "INSERT INTO page_log (page,success,user_obj,time,ip,obj,ajax) VALUES ('$q_page', 0, '$q_user_obj', NOW(), '$q_ip', '$q_obj', '$q_ajax') ";
+    $db->query($sql);
     echo '<!doctype html>
         <html><head><meta charset="utf-8"><title>' . htmlspecialchars($title) . '</title></head><body>
         ' . $content . '<br>欢迎报告错误：E-mail: <a href="mailto:sen@senorsen.com?subject=[film_dub_bug_report]bug_report&body=' . htmlspecialchars($e0) . '" target="_blank">sen@senorsen.com</a><br><br><a href="./">点击此处返回首页</a><br>';

@@ -55,7 +55,8 @@ class Dispatch {
     }
     public function myadmin($args) {
         if (!isset($args['view'])) {
-            $args['view'] = 'dub';
+            // Default page
+            $args['view'] = 'poster';
         }
         if (isset($args['view']) && is_string($args['view'])) {
            $view = $args['view'];
@@ -160,6 +161,23 @@ class Dispatch {
             $m_res = $this->db->query($sql);
             while ($m_row = $m_res->fetch_object()) {
                 array_push($s_row->m, $m_row);
+            }
+            $sql = "SELECT * FROM poster_vote WHERE pid=$s_row->id ORDER BY id ";
+            $vote_result = $this->db->query($sql);
+            $vote_rows = array();
+            while ($vote_row = $vote_result->fetch_object()) {
+                $vote_row->average_score = sprintf("%.2f", intval($vote_row->score) / (intval($vote_row->votes) == 0 ? 1 : intval($vote_row->votes)));
+                array_push($vote_rows, $vote_row);
+            }
+            $s_row->vote_result = $vote_rows;
+            if ($user_obj = checkQSCToken()) {
+                $sql = "SELECT * FROM poster_vote_log WHERE pid=$s_row->id AND uid=$user_obj->uid ";
+                $vote_log_res = $this->db->query($sql);
+                if ($vote_log_res->num_rows > 0) {
+                    $s_row->is_voted = 1;
+                } else {
+                    $s_row->is_voted = 0;
+                }
             }
             array_push($s_rows, $s_row);
         }
@@ -368,8 +386,9 @@ class Dispatch {
         $hash = md5(implode('|', array($name, $introduction, $members[0]['name'])));
         $sql = "SELECT * FROM poster_signup WHERE hash='$hash' ";
         $result = $this->db->query($sql);
+        $q_user_obj = $this->db->escape_string(json_encode(checkQSCToken()));
         if ($result->num_rows == 0) {
-            $sql = "INSERT INTO poster_signup (valid, name, members, pictype1, pictype2, suffix1, suffix2, introduction, time, ip, hash) VALUES (1, '$name', $cnt_members, $pictype1, $pictype2, '$suffix1', '$suffix2', '$introduction', NOW(), '$ip', '$hash') ";
+            $sql = "INSERT INTO poster_signup (valid, name, members, pictype1, pictype2, suffix1, suffix2, introduction, time, ip, hash, user_obj) VALUES (1, '$name', $cnt_members, $pictype1, $pictype2, '$suffix1', '$suffix2', '$introduction', NOW(), '$ip', '$hash', '$q_user_obj') ";
             $this->db->query($sql);
             if ($this->db->errno) {
                 return array('code' => 100, 'msg' => '处理poster_signup时遇到数据库插入错误，非常抱歉！请联系 sen@senorsen.com，谢谢啦～');
