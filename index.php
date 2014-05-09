@@ -32,7 +32,7 @@ try {
             'show',
             'poster',
             'map',
-            'guide',
+            'truffaut',
             'timeline',
             'myadmin',
             'posterParse',
