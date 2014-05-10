@@ -5,7 +5,6 @@ $(document).ready(function() {
 	    view = new View(data);
 
 	$(window).bind('load resize', function() {
-		view.voteStar();
 		view.setElement();
 		view.fillPosters();
 	});
@@ -573,6 +572,7 @@ Vote part
 		$('.poster-button').fadeIn(400);
 		$('#main-info').fadeOut(400);
 		$('#vote-container').animate({left: 0}, 400);
+		that.voteStar();
 		$(document).keydown(that.keydown);
 	}
 
