@@ -150,6 +150,7 @@ function View(data) {
 		$(currentPoster).bind('mouseenter', currentHover, that.posterOver);
 		$(currentPoster).bind('mouseleave', currentHover, that.posterOut);
 		$(currentPoster).bind('click', that.posterClick);
+		that.refreshVote(data.posterData[pid].id);
 		pid++;
 	}
 
@@ -572,7 +573,6 @@ Vote part
 		$('.poster-button').fadeIn(400);
 		$('#main-info').fadeOut(400);
 		$('#vote-container').animate({left: 0}, 400);
-		that.refreshVote($('#current-poster').data('data').id);
 		$(document).keydown(that.keydown);
 	}
 
