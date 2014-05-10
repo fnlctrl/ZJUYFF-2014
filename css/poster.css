@@ -138,8 +138,9 @@ input:focus,textarea:focus {
 .star-box {
   float: left;
 }
-.star-box img {
+.star-box .svg {
   display: inline-block;
+  padding-right: 7px;
 }
 #vote-id {
   font-family: "Microsoft YaHei";

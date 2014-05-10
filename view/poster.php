@@ -139,55 +139,35 @@
 					<div class="vote-box" id="vote-s1">
 						<p>创新维度</p>
 						<div class="star-box">
-							<img class="svg star" src="./img/star.svg">
-							<img class="svg star" src="./img/star.svg">
-							<img class="svg star" src="./img/star.svg">
-							<img class="svg star" src="./img/star.svg">
-							<img class="svg star" src="./img/star.svg">
+							<img class="svg star" src="./img/star.svg"><img class="svg star" src="./img/star.svg"><img class="svg star" src="./img/star.svg"><img class="svg star" src="./img/star.svg"><img class="svg star" src="./img/star.svg">
 						</div>
 						<span class="vote-average"></span>
 					</div>
 					<div class="vote-box" id="vote-s2">
 						<p>逼真维度</p>
 						<div class="star-box">
-							<img class="svg star" src="./img/star.svg">
-							<img class="svg star" src="./img/star.svg">
-							<img class="svg star" src="./img/star.svg">
-							<img class="svg star" src="./img/star.svg">
-							<img class="svg star" src="./img/star.svg">
+							<img class="svg star" src="./img/star.svg"><img class="svg star" src="./img/star.svg"><img class="svg star" src="./img/star.svg"><img class="svg star" src="./img/star.svg"><img class="svg star" src="./img/star.svg">
 						</div>
 						<span class="vote-average"></span>
 					</div>
 					<div class="vote-box" id="vote-s3">
 						<p>技术维度</p>
 						<div class="star-box">
-							<img class="svg star" src="./img/star.svg">
-							<img class="svg star" src="./img/star.svg">
-							<img class="svg star" src="./img/star.svg">
-							<img class="svg star" src="./img/star.svg">
-							<img class="svg star" src="./img/star.svg">
+							<img class="svg star" src="./img/star.svg"><img class="svg star" src="./img/star.svg"><img class="svg star" src="./img/star.svg"><img class="svg star" src="./img/star.svg"><img class="svg star" src="./img/star.svg">
 						</div>
 						<span class="vote-average"></span>
 					</div>
 					<div class="vote-box" id="vote-s4">
 						<p>艺术维度</p>
 						<div class="star-box">
-							<img class="svg star" src="./img/star.svg">
-							<img class="svg star" src="./img/star.svg">
-							<img class="svg star" src="./img/star.svg">
-							<img class="svg star" src="./img/star.svg">
-							<img class="svg star" src="./img/star.svg">
+							<img class="svg star" src="./img/star.svg"><img class="svg star" src="./img/star.svg"><img class="svg star" src="./img/star.svg"><img class="svg star" src="./img/star.svg"><img class="svg star" src="./img/star.svg">
 						</div>
 						<span class="vote-average"></span>
 					</div>
 					<div class="vote-box" id="vote-s5">
 						<p>出位维度</p>
 						<div class="star-box">
-							<img class="svg star" src="./img/star.svg">
-							<img class="svg star" src="./img/star.svg">
-							<img class="svg star" src="./img/star.svg">
-							<img class="svg star" src="./img/star.svg">
-							<img class="svg star" src="./img/star.svg">
+							<img class="svg star" src="./img/star.svg"><img class="svg star" src="./img/star.svg"><img class="svg star" src="./img/star.svg"><img class="svg star" src="./img/star.svg"><img class="svg star" src="./img/star.svg">
 						</div>
 						<span class="vote-average"></span>
 					</div>
