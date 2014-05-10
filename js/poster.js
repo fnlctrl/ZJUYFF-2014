@@ -574,6 +574,7 @@ Vote part
 		$('#main-info').fadeOut(400);
 		$('#vote-container').animate({left: 0}, 400);
 		that.voteStar();
+		that.voteStatus = true;
 		$(document).keydown(that.keydown);
 	}
 
