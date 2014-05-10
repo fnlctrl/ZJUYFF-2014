@@ -150,7 +150,7 @@ function View(data) {
 		$(currentPoster).bind('mouseenter', currentHover, that.posterOver);
 		$(currentPoster).bind('mouseleave', currentHover, that.posterOut);
 		$(currentPoster).bind('click', that.posterClick);
-		data.vote.id = data.posterData[pid].id;
+		data.vote['id'] = data.posterData[pid].id;
 		pid++;
 	}
 
