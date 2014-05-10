@@ -27,6 +27,7 @@ function View(data) {
 	var lock = 0;
 	var star = new Array;
 	var submitPartFlag = false;
+	var voteStatus = false;
 	this.setElement = function() {
 		this.w = $(window).width(),
 		this.h = $(window).height();
@@ -431,8 +432,8 @@ function View(data) {
 			that.clickSlide(target);
 		}, 400);
 		that.insertCurrentInfo($(target).data('data'));
-		that.refreshVote($(target).data('data').id);
 		$(target).append($('#current-poster-info'));
+		that.refreshVote($(target).data('data').id);
 	}
 
 	this.clickSlide = function(target) {
@@ -544,7 +545,7 @@ function View(data) {
 		if ($(this).height() <= that.posterH + 1)
 			$(e.data).stop(true).delay(80).animate({opacity: '0.6'}, 200);
 		else 
-			$('#current-poster-info').css('display', 'block').stop(true).animate({opacity: '0.6'}, 200);
+			$('#current-poster-info').css('display', 'block').stop(true).animate({opacity: '0.9'}, 200);
 	}
 
 	this.posterOut = function(e) {
@@ -612,9 +613,10 @@ Vote part
 		$('#vote-id').val('');
 		for (var i = 0; i<5; i++)
 			data.vote[i] = 0;
-		for (var i = 1; i<=5; i++) 
-			for (var j = 0; j<5; j++) 
-				$(star[i][j]).find('path').attr('fill', 'rgba(0,0,0,0)').attr('stroke', 'white');
+		if (that.voteStatus)
+			for (var i = 1; i<=5; i++) 
+				for (var j = 0; j<5; j++) 
+					$(star[i][j]).find('path').attr('fill', 'rgba(0,0,0,0)').attr('stroke', 'white');
 		var div = $('.vote-average');
 		for (var i = 0; i < 5; i++) {
 			$(div[i]).text(" ");

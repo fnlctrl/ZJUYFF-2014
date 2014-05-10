@@ -287,7 +287,7 @@ input:focus,textarea:focus {
   width: 100%;
 }
 #current-poster-info {
-  background-color: #000;
+  background: rgba(0, 0, 0, 0.6);
   bottom: 0;
   display: none;
   height: 30%;
