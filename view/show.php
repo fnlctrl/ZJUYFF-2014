@@ -53,7 +53,7 @@
 	<div id='main-container'>
 		<div class='main-green slide slide-selected shadow'>
 			<div id='main-show-icon' class='main-icon main-icon-selected'><img class='svg' src='./img/main-show.svg'/></div>
-			<div class='shade'></div>
+			<div class='shade' style='opacity:0'></div>
 			<div class='main-title main-title-selected'>算命</div>
 			<img class='main-poster' src='./img/filmposters/算命.jpg'/>
 			<div class='main-text'>
@@ -266,11 +266,12 @@
 				<p>徐刚 / 张志勇 / 薛宝鹤 / 小二</p>
 			</div>
 		</div>
-		<div class='main-black slide shadow'>
+		<div id='main-truffaut' class='main-white slide shadow'>
 			<div id='main-show-icon' class='main-icon'><img class='svg' src='./img/main-show.svg'/></div>
 			<div class='main-title'>致敬特吕弗</div>
-			<div class='main-text'>
-			</div>
+			<h2 id='main-truffaut-text'> 一个顽童，<br>吃下一个甜甜圈，<br>炸翻这个电影圈。<br>他还在安静而桀骜地砸吧着嘴。</h2>
+			<img id='main-truffaut-bg' src='./img/show_bg_truffaut.jpg'>
+			<a href='truffaut'><img id='main-truffaut-enter' src='./img/show_truffaut_enter.svg' class='svg'/></a>
 		</div>
 	</div>
 </body>

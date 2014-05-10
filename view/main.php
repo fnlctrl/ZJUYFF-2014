@@ -68,6 +68,16 @@
 		<div id='main-show' class='slide shadow'>
 			<div id='main-show-icon' class='main-icon'><img class='svg' src='./img/main-show.svg'/></div>
 			<div class='main-title'>放映单元</div>
+			<div class='main-word'>
+				<p>手执导筒，自静默向纷华。</p>
+				<p>独立风格，小银幕折射悲欢离合。</p>
+				<p>电影，电影人，电影人生。</p>
+				<p>真切流淌的时间在虚假处入画。</p>
+				<p>在幕布拉下的距离内，我们会碰到那些他们。</p>
+				<br>
+				<a href='./show'>More...</a>
+			</div>
+			<img id='main-show-bg' class='main-bg' src='./img/main-show-bg.jpg'/>
 		</div>
 		<div id='main-forum' class='slide shadow'>
 			<div id='main-forum-icon' class='main-icon'><img class='svg' src='./img/main-forum.svg'/></div>
