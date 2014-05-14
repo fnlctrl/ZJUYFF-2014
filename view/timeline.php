@@ -134,7 +134,7 @@
 				<img src='./img/filmposters/归途列车.jpg'/>
 				<div class='main-text'>
 					<h1 class='main-event-show'>归途列车</h1><br>
-					<p>图书馆三楼文化空间<br>15:00-17:00</p>
+					<p>(改至)建工之家<br>15:00-17:00</p>
 				</div>
 			</div>
 			<div class='main-event'>
@@ -151,7 +151,7 @@
 				<img src='./img/filmposters/千锤百炼.jpg'/>
 				<div class='main-text'>
 					<h1 class='main-event-show'>千锤百炼</h1><br>
-					<p>图书馆三楼文化空间<br>14:00-16:00</p>
+					<p>(改至)建工之家<br>14:00-16:00</p>
 				</div>
 			</div>
 			<div class='main-event'>

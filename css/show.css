@@ -30,7 +30,6 @@ body {
   position: relative; 
   overflow: hidden;
   min-height: 560px;
-  cursor: pointer;
 }
 .slide a {
   color: inherit;

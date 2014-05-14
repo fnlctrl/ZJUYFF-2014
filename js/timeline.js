@@ -1,3 +1,23 @@
+var clicked = false, clickX;
+$(document).on({
+    'mousemove': function(e) {
+        clicked && updateScrollPos(e);
+    },
+    'mousedown': function(e) {
+        clicked = true;
+        clickX = e.pageX;
+        $('html').css('cursor', 'move');
+    },
+    'mouseup': function() {
+        clicked = false;
+        $('html').css('cursor', 'auto');
+    }
+});
+var updateScrollPos = function(e) {
+    $('html').css('cursor', 'move');
+    $(window).scrollLeft($(window).scrollLeft() + (clickX - e.pageX));
+}
+//
 var resize = function() {
 	window.W = $(window).width();
 	window.H = $(window).height();
