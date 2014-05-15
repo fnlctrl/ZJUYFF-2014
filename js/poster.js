@@ -151,6 +151,10 @@ function View(data) {
 		$(currentPoster).bind('mouseleave', currentHover, that.posterOut);
 		$(currentPoster).bind('click', that.posterClick);
 		data.vote['id'] = data.posterData[pid].id;
+		var div = $('.vote-average');
+		for (var i = 0; i < 5; i++) {
+			$(div[i]).text(data.posterData[pid].vote_result[i].average_score);
+		}
 		pid++;
 	}
 
@@ -433,7 +437,7 @@ function View(data) {
 		}, 400);
 		that.insertCurrentInfo($(target).data('data'));
 		$(target).append($('#current-poster-info'));
-		that.refreshVote($(target).data('data').id);
+		that.refreshVote($(target).data('data'));
 	}
 
 	this.clickSlide = function(target) {
@@ -609,8 +613,8 @@ Vote part
 		}
 	}
 
-	this.refreshVote = function(id) {
-		data.vote['id'] = id;
+	this.refreshVote = function(poster) {
+		data.vote['id'] = poster.id;
 		$('#vote-id').val('');
 		for (var i = 0; i<5; i++)
 			data.vote[i] = 0;
@@ -620,7 +624,7 @@ Vote part
 					$(star[i][j]).find('path').attr('fill', 'rgba(0,0,0,0)').attr('stroke', 'white');
 		var div = $('.vote-average');
 		for (var i = 0; i < 5; i++) {
-			$(div[i]).text(" ");
+			$(div[i]).text(poster.vote_result[i].average_score);
 		}
 	}
 	
