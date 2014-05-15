@@ -77,7 +77,7 @@
 					<p>没有疑似抄袭内容，全部原创。</p>
 				</span>
 				<div id='main-intro-buttons'>
-					<div id='main-intro-join' class='button'>我要参加</div>
+					<div id='main-intro-join' class='button' disabled>我要参加</div>
 					<div id='main-intro-vote' class='button' disabled>我要投票</div>
 				</div>
 			</div>

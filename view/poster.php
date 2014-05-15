@@ -127,7 +127,7 @@
 					<p>截止时间:</p>
 					<p>5月8日晚23:59分</p>
 				</span>
-				<div id="main-info-submit" class="button">我要参加</div>
+				<div id="main-info-submit" class="button" disabled>我要参加</div>
 				<div id="main-info-vote" class="button">我要投票</div>
 			</div>
 			<div id="vote-container">

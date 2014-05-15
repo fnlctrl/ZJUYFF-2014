@@ -9,7 +9,7 @@ $(document).ready(function() {
 		view.fillPosters();
 	});
 	$('#submit-container').submit(data.postPoster);
-	$('#main-info-submit').bind('click', view.clickSubmit);
+	// $('#main-info-submit').bind('click', view.clickSubmit);
 	$('#main-info-vote').bind('click',view.vote);
 	$('#vote-submit-back').bind('click', view.voteBack);
 	$('#vote-submit').bind('click', view.postVote);
