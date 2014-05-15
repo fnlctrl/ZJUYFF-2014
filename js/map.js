@@ -41,10 +41,14 @@ $(window).bind('load',function() {
 		"<h2 style='margin:-0.1em 0 0 0'>建工之家</h2>"+
 		"<h3 style='color:#e25520;margin:15px 0 0 0'>杭州法语联盟<br>电影分析学者讲座</h3>"+
 		"<p style='font-size:14px;margin:0'>5月10日<br>18:30-21:00</p>"+
+		"<h3 style='color:#00803c;margin:15px 0 0 0'>《归途列车》</h3>"+
+		"<p style='font-size:14px'>5月16日<br>15:00-17:00</p>"+
+		"<h3 style='color:#00803c;margin:15px 0 0 0'>《千锤百炼》</h3>"+
+		"<p style='font-size:14px'>5月17日<br>14:00-16:00</p>"+
 		"<h3 style='color:#00803c;margin:15px 0 0 0'>《锤子镰刀都休息》</h3>"+
 		"<p style='font-size:14px'>5月23日<br>18:30-21:00</p>"+
 	"</div>"
-	var content3 = "<div style='font-family:'Microsoft Yahei';>"+
+	var content3 = "<div style='font-family:'Microsoft Yahei'>"+
 	"<h2 style='margin:-0.1em 0 0 0'>图书馆三楼文化空间</h2>"+
 		"<div style='width:200px;float:left;'>"+
 			"<h3 style='color:#00803c;margin:15px 0 0 0'>《郎在对门唱山歌》</h3>"+
@@ -53,14 +57,10 @@ $(window).bind('load',function() {
 			"<p style='font-size:14px'>5月11日<br>15:15-17:15</p>"+
 			"<h3 style='color:#e25520;margin:15px 0 0 0'>北京电影学院教授<br>章明讲座</h3>"+
 			"<p style='font-size:14px'>5月11日<br>19:00-20:30</p>"+
-			"<h3 style='color:#00803c;margin:15px 0 0 0'>《归途列车》</h3>"+
-			"<p style='font-size:14px'>5月16日<br>15:00-17:00</p>"+
 		"</div>"+
-		"<div style='font-family:'Microsoft Yahei';width:100px;float:left'>"+
+		"<div style='float:left'>"+
 			"<h3 style='color:#e25520;margin:15px 0 0 0'>独立纪录片制片人韩轶<br>及影评人卫西谛讲座</h3>"+
 			"<p style='font-size:14px'>5月16日<br>19:00-20:30</p>"+
-			"<h3 style='color:#00803c;margin:15px 0 0 0'>《千锤百炼》</h3>"+
-			"<p style='font-size:14px'>5月17日<br>14:00-16:00</p>"+
 			"<h3 style='color:#0085c7;margin:15px 0 0 0'>闭幕式暨<br>微电影展映和高校论坛</h3>"+
 			"<p style='font-size:14px'>5月24日<br>18:30-21:30</p>"+
 		"</div>"+
@@ -79,7 +79,7 @@ $(window).bind('load',function() {
 		"<p style='font-size:14px'>5月18日<br>18:30-20:30</p>"+
 	"</div>"
 	//创建信息窗口对象并监听click事件
-	var infoWindow1 = new BMap.InfoWindow(content1,{width:250}); 
+	var infoWindow1 = new BMap.InfoWindow(content1); 
 	marker1.addEventListener("click", function(){
 		this.openInfoWindow(infoWindow1);
 		//图片加载完毕重绘infowindow
@@ -87,15 +87,15 @@ $(window).bind('load',function() {
 		// 	infoWindow1.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
 		// }
 	});
-	var infoWindow2 = new BMap.InfoWindow(content2,{width:250}); 
+	var infoWindow2 = new BMap.InfoWindow(content2); 
 	marker2.addEventListener("click", function(){
 		this.openInfoWindow(infoWindow2);
 	});
-	var infoWindow3 = new BMap.InfoWindow(content3,{width:420,height:400}); 
+	var infoWindow3 = new BMap.InfoWindow(content3,{width:400}); 
 	marker3.addEventListener("click", function(){
 		this.openInfoWindow(infoWindow3);
 	});
-	var infoWindow4 = new BMap.InfoWindow(content4,{width:250,height:600}); 
+	var infoWindow4 = new BMap.InfoWindow(content4,{width:250,height:500}); 
 	marker4.addEventListener("click", function(){
 		this.openInfoWindow(infoWindow4);
 	});

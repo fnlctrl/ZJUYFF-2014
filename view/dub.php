@@ -91,11 +91,11 @@
 				<img class='ring' id='main-ring-2' src='./img/dub-ring-2.svg'/>
 				<p class='main-info-caption'>文广现宣</p>
 			</div>
-			<div class='main-info-item'>
+			<div class='main-info-item' style='opacity:0'>
 				<img class='ring' id='main-ring-3' src='./img/dub-ring-3.svg'/>
 				<p class='main-info-caption'>作品上传截止<br>开始线上投票</p>
 			</div>
-			<div class='main-info-item'>
+			<div class='main-info-item' style='opacity:0'>
 				<img class='ring' id='main-ring-4' src='./img/dub-ring-4.svg'/>
 				<p class='main-info-caption'>投票截止<br>决赛通知</p>
 			</div>
