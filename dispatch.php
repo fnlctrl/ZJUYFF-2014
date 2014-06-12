@@ -181,7 +181,7 @@ class Dispatch {
             }
             array_push($s_rows, $s_row);
         }
-        if (count($s_rows) % 2 == 1) {
+        if (count($s_rows) % 2 == 0) {
             array_push($s_rows, $s_rows[0]);
         }
         $page_cfg = array(
